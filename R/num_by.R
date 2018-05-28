@@ -1,4 +1,4 @@
-#' Summarize data
+#' Summarize data by groups
 #'
 #' @description Provide common numeric summary information.
 #'
@@ -37,6 +37,7 @@
 #' @seealso describe_all
 #' @importFrom stats quantile
 #' @importFrom rlang is_quosures
+#' @importFrom tidyr gather spread separate
 #' @importFrom tidyselect vars_pull
 #' @examples
 #' library(tidyext)
@@ -80,7 +81,7 @@ num_by <- function(data,
 
   # Initial checks ------------------------------------------------------------
   if (nrow(data)==0 | is.null(data)) stop('No data to summarise.')
-  if (!'data.frame' %in% class(data)) stop('Need a data.frame type object.')
+  if (!inherits(data, 'data.frame')) stop('Need a data.frame type object.')
 
 
   # section to deal with single variable name -------------------------------

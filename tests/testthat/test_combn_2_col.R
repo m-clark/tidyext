@@ -13,6 +13,14 @@ test_that('combn_2_col returns expected number of columns', {
   expect_equal(ncol(init), ncol(d) + 6)  # 5 labels + combo column
 })
 
+test_that('combn_2_col will fail with no max_m', {
+  expect_error(combn_2_col(data=d, var='labs', max_m=0))
+})
+
+test_that('combn_2_col will fail with no data', {
+  expect_error(combn_2_col(data=NULL, var='labs', max_m=0))
+})
+
 test_that('combn_2_col handles factors, NAs, other separators', {
   init = data_frame(id = 1:5,
                     labs = factor(c('AB', 'B/C/D/E', 'A/E', 'D/E', NA)))
@@ -27,8 +35,8 @@ test_that('combn_2_col can do 01', {
   expect_is(combn_2_col(data=d, var='labs', toInteger=TRUE)[['A']], 'integer')
 })
 
-test_that('combn_2_col can do sparse', {
-  expect_is(combn_2_col(data=d, var='labs', sparse=TRUE), 'dgCMatrix')
+test_that('combn_2_col can do sparse and toInteger', {
+  expect_is(combn_2_col(data=d, var='labs', toInteger=FALSE, sparse=TRUE), 'dgCMatrix')
 })
 
 

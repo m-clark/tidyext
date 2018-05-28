@@ -5,7 +5,7 @@ df1 <- tibble(
   g2 = sample(1:4, 50, replace = TRUE),
   a = rnorm(50),
   b = rpois(50, 10),
-  c = sample(letters, 50, replace=TRUE),
+  c_ = sample(letters, 50, replace=TRUE),
   d = sample(c(T,F), 50, replace=TRUE),
   a_b = a*b,
   b_sq = b^2
@@ -13,6 +13,14 @@ df1 <- tibble(
 
 test_that('num_by returns a data frame', {
   expect_s3_class(num_by(df1, main_var = a), 'data.frame')
+})
+
+test_that('num_by errors without data', {
+  expect_error(num_by(data=NULL, main_var = a))
+})
+
+test_that('num_by errors without data', {
+  expect_error(num_by(data=filter(df1, g1=='c'), main_var = a))
 })
 
 test_that('num_by takes multple main_varn', {
@@ -28,7 +36,7 @@ test_that('num_by will take digits', {
 })
 
 test_that('fails on non-numeric', {
-  expect_error(num_by(df1, main_var = c))
+  expect_error(num_by(df1, main_var = c_))
 })
 
 test_that('fails with non-data.frame object', {

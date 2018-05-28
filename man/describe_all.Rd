@@ -4,7 +4,7 @@
 \alias{describe_all}
 \alias{describe_all_num}
 \alias{describe_all_cat}
-\title{describe_all Describe your data cleanly and effectively}
+\title{Describe your data cleanly and effectively}
 \usage{
 describe_all(data, digits = 2, include_NAcat = TRUE, max_levels = 10,
   include_numeric = FALSE, sort_by_freq = FALSE, NAcat_include = NULL,

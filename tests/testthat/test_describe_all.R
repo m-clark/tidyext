@@ -46,6 +46,10 @@ test_that('describe_all can drop NA', {
   expect_equal(nrow(describe_all(iris %>% rbind(NA), include_NAcat = T)[[2]]), 4)
 })
 
+test_that('describe_all can drop NA with old arg', {
+  expect_equal(nrow(describe_all(iris %>% rbind(NA), NAcat_include = T)[[2]]), 4)
+})
+
 
 
 

@@ -15,8 +15,8 @@ test_that('onehot will error if not supplied a data frame.', {
   expect_error(onehot(as.matrix(mtcars)))
 })
 
-test_that('onehot will error if not supplied a data frame.', {
-  expect_error(onehot(as.matrix(mtcars)))
+test_that('onehot will error if not given factors/characters', {
+  expect_error(onehot(mtcars))
 })
 
 test_that('onehot will message if keep original and sparse if both true.', {

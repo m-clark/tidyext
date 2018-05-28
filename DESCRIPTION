@@ -1,6 +1,6 @@
 Package: tidyext
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Tidy Extensions for Data Processing
 Version: 0.1.0
 Author: Michael Clark
 Maintainer: Michael Clark <micl@umich.edu>
@@ -13,18 +13,16 @@ Year: 2018
 Depends:
     R (>= 3.4.0)
 Imports:
-    dplyr,
     assertthat,
+    dplyr,
     purrr,
     rlang,
-    tidyselect,
-Suggests:
     scales,
-    broom,
+    tidyr,
+    tidyselect
+Suggests:
     Matrix,
-    shiny,
     stringi,
     stringr,
-    testthat,
-    tidyr
+    testthat
 RoxygenNote: 6.0.1

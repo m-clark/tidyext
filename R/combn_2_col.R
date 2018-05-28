@@ -137,7 +137,6 @@ combn_2_col <- function(data,
   if (toInteger) {
     data[, combo_cols] = sapply(data$combo, function(x) as.integer(combo_cols %in% x)) %>% t()
   } else {
-    if (sparse) return()
     data[, combo_cols] = sapply(data$combo, function(x) combo_cols %in% x) %>% t()
   }
   data

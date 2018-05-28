@@ -3,7 +3,7 @@
 \name{num_by}
 \alias{num_by}
 \alias{cat_by}
-\title{Summarize data}
+\title{Summarize data by groups}
 \usage{
 num_by(data, main_var, group_var, digits = FALSE)
 

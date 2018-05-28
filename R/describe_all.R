@@ -1,4 +1,4 @@
-#' @title describe_all Describe your data cleanly and effectively
+#' @title Describe your data cleanly and effectively
 #'
 #' @description Describe data sets with multiple variable types effectively.
 #'
