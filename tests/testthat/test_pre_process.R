@@ -13,15 +13,8 @@ df1 <- tibble(
   b_sq = b^2
 )
 
-
-# pre_process(df1)
-# pre_process(mtcars, log_vars=vars(mpg, wt))
-# pre_process(mtcars)
-# pre_process(mtcars, log_vars=vars(mpg))
-
-
 test_that('pre_process returns a dataframe', {
-  expect_is(pre_process(df1), 'data.frame')
+  expect_s3_class(pre_process(df1), 'data.frame')
 })
 
 test_that('pre_process can do nothing', {

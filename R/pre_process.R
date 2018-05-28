@@ -68,7 +68,8 @@ pre_process <- function(data,
     }
   }
   if (std) {
-    # this is not selecting with nse because select_at doesn't work with -
+    # this is 'not' selecting with nse because select_at doesn't work with -
+    # unless it's wrapped in vars()
     not_these = data %>%
       select(!!!log_vars, !!!zero_start, !!!zero_one) %>%
       colnames()
