@@ -2,8 +2,8 @@ tidyext
 =======
 
 <!-- <img src="man/img/lh_hex.png" align="right" width = 360/> -->
-<!-- [![Build Status](https://travis-ci.org/m-clark/lazerhawk.svg?branch=master)](https://travis-ci.org/m-clark/lazerhawk) -->
-<!-- [![codecov](https://codecov.io/gh/m-clark/lazerhawk/branch/master/graph/badge.svg)](https://codecov.io/gh/m-clark/lazerhawk) -->
+[![Build Status](https://travis-ci.org/m-clark/tidyext?branch=master)](https://travis-ci.org/m-clark/tidyext) <!-- [![codecov](https://codecov.io/gh/m-clark/tidyext/branch/master/graph/badge.svg)](https://codecov.io/gh/m-clark/tidyext) -->
+
 <a href="https://github.com/m-clark/tidyext" alt="Miscellaneous Shenanigans"> <img src="https://img.shields.io/badge/miscellaneous_shenanigans-constant-ff5500.svg?colorA=00aaff&longCache=true&style=for-the-badge"  width=27.5%/></a>
 
 This package takes some data processing functions originally found in [lazerhawk](https://github.com/m-clark/lazerhawk), extending the functionality of the tidyverse. For folks that do a lot of data processing in that world, these make some of those very common tasks a bit easier, and with an eye toward clean presentation and visualization.
