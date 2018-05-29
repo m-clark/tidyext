@@ -41,7 +41,7 @@ Functions
 
 A quick summarize for categorical variables, possibly with
 dplyr::group\_by, that provides frequencies and percentages of
-categories.
+categories, ready for publishing tables or plotting.
 
 ### combn\_2\_col
 
@@ -56,20 +56,25 @@ Straightforward way to quickly create data to make model predictions.
 ### describe\_all
 
 A summary function for mixed data types that provides the information I
-usually want.
+usually want. Saves one from doing a group\_by %&gt;% summarize
+operation to create multiple results for multiple types of variables.
+Has corresponding describe\_all\_num and describe\_all\_cat for
+numeric-only and categorical-only data respectively.
 
 ### num\_by
 
 A quick summarize, possibly with dplyr::group\_by, that provides things
-like mean, sd, etc.
+like mean, sd, etc. See num\_summary.
 
 ### num\_summary
 
-A little better than summary.
+A little better than the base R summary, gives the info one typically
+wants as well as options for rounding and other statistics.
 
 ### onehot
 
-A function for one-hot encoding with a few helpful options.
+A function for one-hot encoding with a few helpful options for dealing
+with missing data, using sparse matrices, and more.
 
 ### pre\_process
 
@@ -85,6 +90,9 @@ The tidyr spread without the duplicate row id problem.
 Understand your nothingness.
 
 <br>
+
+Version history
+---------------
 
 -   0.1.2 Added spread2
 -   0.1.1 Added pre\_process
