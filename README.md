@@ -1,7 +1,8 @@
 tidyext
 =======
 
-<!-- <img src="man/img/lh_hex.png" align="right" width = 360/> -->
+<img src="man/img/tidyext_hex.png" align="right" width = 360/>
+
 [![Build
 Status](https://travis-ci.org/m-clark/tidyext.svg?branch=master)](https://travis-ci.org/m-clark/tidyext)
 [![codecov](https://codecov.io/gh/m-clark/tidyext/branch/master/graph/badge.svg)](https://codecov.io/gh/m-clark/tidyext)
