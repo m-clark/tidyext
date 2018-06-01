@@ -28,6 +28,8 @@
 #'
 #' @return A data frame suitable for the newdata argument for predict functions.
 #'
+#' @importFrom utils type.convert
+#'
 #' @examples
 #' library(tidyext)
 #' create_prediction_data(iris)
