@@ -5,18 +5,18 @@
 \title{Perform common preprocessing of numeric data}
 \usage{
 pre_process(data, std = TRUE, scale_by = 1, log_vars = NULL,
-  log_base = 1, zero_start = NULL, zero_one = NULL)
+  log_base = exp(1), zero_start = NULL, zero_one = NULL)
 }
 \arguments{
 \item{data}{A data frame or tibble.}
 
 \item{std}{Standarize numeric/integer variables?}
 
-\item{scale_by}{Value to standardize by. See details. Default is 1.}
+\item{scale_by}{A single value to standardize by. See details. Default is 1.}
 
 \item{log_vars}{Which variables to log. Requires vars().}
 
-\item{log_base}{Log base.}
+\item{log_base}{Log base. Default is exp(1).}
 
 \item{zero_start}{Which variables to start by zero. Requires vars().}
 
@@ -36,7 +36,7 @@ At a minimum, by default, this function will standardize
   will only be performed on variables not provided for the other options.
 
   - It will log variables contained within vars(), with base equal to
-  exp(log_base), which is 1 by default (i.e. natural log).
+  log_base, which is exp(1) by default (i.e. natural log).
 
   - zero_start will make the minimum value zero, as often done for time index
   variables in longitudinal data.

@@ -21,6 +21,10 @@ test_that('pre_process can do nothing', {
   expect_identical(pre_process(df1, std=F), df1)
 })
 
+test_that('pre_process will fail if scale_by is not numeric', {
+  expect_error(pre_process(df1, scale_by = F))
+})
+
 test_that('pre_process can center', {
   init = pre_process(df1, scale_by = 0)
   expect_equal(round(mean(init$b), 2), 0)
