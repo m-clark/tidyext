@@ -12,8 +12,5 @@ repos:
 r_packages:
   - covr
 
-before_install:
-  - tlmgr install index
-
 after_success:
   - Rscript -e "library(covr); codecov()"
