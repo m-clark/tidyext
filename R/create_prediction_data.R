@@ -37,33 +37,37 @@
 #'                          Species = c('setosa', 'virginica')
 #'                          )
 #'                        )
+#' create_prediction_data(iris, num = function(x) quantile(x, p=.75))
+#'
 #' test_mod = lm(mpg  ~ wt + cyl, mtcars)
 #' nd = create_prediction_data(test_mod$model)
 #' predict(test_mod, newdata = nd)
+#'
 #' @export
-create_prediction_data <- function(model_data, conditional_data = NULL, num=mean, cat='most_common', ...) {
+create_prediction_data <- function(model_data,
+                                   conditional_data = NULL,
+                                   num = mean,
+                                   cat = 'most_common',
+                                   ...) {
   if (cat == 'most_common') {
     catfun = function(x) {
       cx = class(x)
-      x = suppressWarnings(names(table(x))[which.max(table(x))])
-
-      # return to original class; leave factors as char
+      x = suppressWarnings(names(sort(table(x), decreasing = T))[1])
       if (cx == 'Date') {
-          x = as.Date(x)    # dates require this approach
-      } else if (cx != 'factor') {
-        class(x) = cx
+        x =  as.Date(x)
+      } else {
+        x = type.convert(x, cx)
       }
-      x
     }
   } else {
     # use reference level
     catfun =  function(x) {
       cx = class(x)
       x = levels(factor(x))[1]
-
-      # return to original class; leave factors as char
-      if (!cx %in% c('factor', 'character')) {
-        class(x) = cx
+      if (cx == 'Date') {
+        x =  as.Date(x)
+      } else {
+        x = type.convert(x, cx)
       }
       x
     }
@@ -72,7 +76,7 @@ create_prediction_data <- function(model_data, conditional_data = NULL, num=mean
   pred_data = model_data %>%
     select_if(! colnames(.) %in% names(conditional_data)) %>%
     mutate_if(function(x) is.numeric(x), num, ...) %>%
-    mutate_if(function(x) inherits(x, c('factor', 'string', 'logical', 'Date')),
+    mutate_if(function(x) rlang::inherits_any(x, c('factor', 'string', 'logical', 'Date')),
               catfun) %>%
     slice(1)
 

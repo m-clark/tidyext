@@ -12,7 +12,7 @@ test_that('create_prediction_data takes an alternate num function and args', {
 
 test_that('create_prediction_data takes an alternate cat option', {
   iris2 = iris %>% mutate(Species = relevel(Species, 'virginica'))
-  expect_equal(create_prediction_data(iris2, cat = 'ref')[['Species']], 'virginica')
+  expect_equal(create_prediction_data(iris2, cat = 'ref')[['Species']], factor('virginica'))
 })
 
 test_that('create_prediction_data takes additional data', {
@@ -36,14 +36,8 @@ test_that('create_prediction_data takes an alternate cat option for non-factor',
 
 test_that('create_prediction_data handles date', {
   mtcars2 = mtcars %>% mutate(some_date = rep(as.Date(c('1977-07-11', '1962-11-29')), nrow(mtcars)/2))
-  expect_is(create_prediction_data(mtcars2), 'data.frame')
+  expect_is(create_prediction_data(mtcars2)$some_date, 'Date')
 })
-
-test_that('create_prediction_data handles date', {
-  mtcars2 = mtcars %>% mutate(some_date = rep(as.Date(c('1977-07-11', '1962-11-29')), nrow(mtcars)/2))
-  expect_is(create_prediction_data(mtcars2), 'data.frame')
-})
-
 
 test_that('create_prediction_data handles NA', {
   iris[3,2] = NA

@@ -11,6 +11,6 @@ to do with data. I work with data for myself and others everyday, and use
 these functions quite often.  The goal here is to not have any dependencies beyond the tidyverse.
 }
 \details{
-To learn more about tidyext, start with the vignettes whenever they actually
+To learn more about tidyext, you can browse the vignettes whenever they actually
 get created some day: \code{browseVignettes(package = "tidyext")}
 }

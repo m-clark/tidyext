@@ -53,7 +53,10 @@ create_prediction_data(iris, num = median,
                          Species = c('setosa', 'virginica')
                          )
                        )
+create_prediction_data(iris, num = function(x) quantile(x, p=.75))
+
 test_mod = lm(mpg  ~ wt + cyl, mtcars)
 nd = create_prediction_data(test_mod$model)
 predict(test_mod, newdata = nd)
+
 }
