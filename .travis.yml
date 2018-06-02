@@ -1,16 +1,25 @@
+
+# Header
 language: r
-r:
-  - release
+sudo: false
+dist: trusty
 cache: packages
 latex: false
-sudo: false
+
+
+matrix:
+  include:
+  - r: 3.4.0
+  - r: release
+
+  allow_failures:
 
 repos:
   CRAN: https://cloud.r-project.org
   ropensci: http://packages.ropensci.org
 
-#r_packages:
-#  - covr
+r_packages:
+  - covr
 
-#after_success:
-#  - Rscript -e "library(covr); codecov()"
+after_success:
+  - Rscript -e "library(covr); codecov()"
