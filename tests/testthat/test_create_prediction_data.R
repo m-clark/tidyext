@@ -39,6 +39,11 @@ test_that('create_prediction_data handles date', {
   expect_is(create_prediction_data(mtcars2)$some_date, 'Date')
 })
 
+test_that('create_prediction_data handles date and ref', {
+  mtcars2 = mtcars %>% mutate(some_date = rep(as.Date(c('1977-07-11', '1962-11-29')), nrow(mtcars)/2))
+  expect_is(create_prediction_data(mtcars2, cat = 'ref')$some_date, 'Date')
+})
+
 test_that('create_prediction_data handles NA', {
   iris[3,2] = NA
   expect_true(is.na(create_prediction_data(iris)[,2]))
