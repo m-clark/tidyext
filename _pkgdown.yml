@@ -1,0 +1,59 @@
+title: ignore this!
+
+template:
+  bootswatch: cyborg
+css: tidyext.css
+highlight: pygments
+
+home:
+  links:
+  - text: Docs on Stats, R, and more
+    href: http://m-clark.github.io
+
+
+
+
+reference:
+  - title: "Data summary"
+    desc: >
+      Functions for summarizing data.
+    contents:
+      - num_by
+      - cat_by
+      - describe_all
+      - describe_all_num
+      - describe_all_cat
+      - num_summary
+      - sum_NA
+  - title: "Creating data"
+    desc: >
+      Functions for creating data.
+    contents:
+      - combn_2_col
+      - create_prediction_data
+      - onehot
+      - pre_process
+      - spread2
+  - title: "Miscellaneous"
+    desc: >
+      Miscellaneous functions.
+    contents:
+      - select_not
+      - tidyext
+navbar:
+  title: "whatever bc pkgdown will ignore it"
+  type: inverse
+  left:
+    - text: "Reference"
+      href: "reference/index.html"
+    - text: "News"
+      href: "news/index.html"
+  authors:
+    Michael Clark:
+    href: <img src="man/figures/lh_hex.png" height="24" />
+  right:
+    - icon: fa-github-alt
+      href: https://github.com/m-clark
+    - icon: fa-empire
+      href: https://m-clark.github.io
+
