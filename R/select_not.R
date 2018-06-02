@@ -8,7 +8,42 @@
 #'   exploration of tidyeval I feel no better about myself for having gone
 #'   through. The problem is that something like following doesn't work:
 #'
-
+#'   \code{select(-!!var)} 😲
+#'
+#'   If you follow typical examples provided for tidy evaluation, you'll just
+#'   get `invalid argument` errors.  I needed this functionality because an
+#'   operation was to be performed on some columns, but not if some operations
+#'   had been performed on others, and those others were passed as unquoted
+#'   variables via \code{vars()}. See \link[tidyext]{pre_process}.
+#'
+#'   In the end, it was far easier to write a two line function than figure out
+#'   the tidy eval approach that would have worked with less code. It literally
+#'   just does:
+#'
+#'   \code{ not_these = names(select(data, ...)) }
+#'
+#'   \preformatted{data \%>\%
+#'   select(-one_of(not_these)) }
+#'
+#'
+#'   \href{https://stackoverflow.com/questions/45100518/remove-columns-the-tidyeval-way}{Lionel's
+#'   answer on SO} shows how one \emph{could} do it.  He is a
+#'   developer for RStudio, so one can assume it's a fairly spot on suggestion.
+#'   Yet even that would need a bit of modification to work with a
+#'   \code{vars()}, which I needed for multiple column entries to a single
+#'   argument.  Here is what ultimately would work with tidyeval using that
+#'   approach.
+#'
+#'   \preformatted{x = vars_input \%>\%
+#'       map(function(sym) call("-", sym)) }
+#'
+#'   \preformatted{data \%>\%
+#'   select(!!!x) }
+#'
+#'
+#'   You then would need an '\code{x}' for every argument's input.  And no one reading the
+#'   code would know what's going on, which goes against one of the goals for this
+#'   package.  😞
 #'
 #'   Here is
 #'   \href{https://stackoverflow.com/questions/50001012/excluding-multiple-columns-based-on-unquote-splicing}{another
