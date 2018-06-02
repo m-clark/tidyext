@@ -17,7 +17,7 @@
 #' num_summary(c(1:10, NA))
 #' num_summary(c('1','2','3'))
 #' @export
-num_summary <- function(x, digits=1, extra=F) {
+num_summary <- function(x, digits=1, extra=FALSE) {
   # initial check of variable type
   test_x = tryCatch(as.numeric(x), warning = function(c) {
     msg <- conditionMessage(c)
@@ -30,7 +30,7 @@ num_summary <- function(x, digits=1, extra=F) {
   d = data.frame(
     N = length(na.omit(x)),
     data.frame(t(c(summary(x)))),
-    SD = sd(x, na.rm=T),
+    SD = sd(x, na.rm=TRUE),
     Missing = sum_NA(x)
   ) %>%
     # currently there is a bug that keeps this from working
@@ -42,7 +42,7 @@ num_summary <- function(x, digits=1, extra=F) {
 
   if (extra) {
     d$Distinct = n_distinct(x)
-    d$Zeros = sum(x == 0, na.rm = T)
+    d$Zeros = sum(x == 0, na.rm = TRUE)
   }
 
   d %>% mutate_if(is.numeric, round, digits=digits)

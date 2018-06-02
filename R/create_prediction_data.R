@@ -10,7 +10,7 @@
 #' @param num A function like mean or median to be applied to numeric data.
 #'   Should return a single value. Default is mean.
 #' @param cat Set categorical variables to the reference level ('ref') or the
-#'   most frequently occuring category (most_common, the default).
+#'   most frequently occurring category (most_common, the default).
 #' @param ... Additional arguments to num, e.g. \code{na.rm=T}
 #' @details Given data that was used in a model, create data that can be used
 #'   for predictions at key values, especially as a prelude to visualization.
@@ -26,7 +26,7 @@
 #'   using \code{expand.grid} or \code{tidyr::crossing}. Variables not supplied
 #'   as columns in the \code{conditional_data} are treated as above.
 #'
-#' @return A data frame suitable for the newdata argument for predict functions.
+#' @return A data frame suitable for the \code{newdata} argument for predict functions.
 #'
 #' @importFrom utils type.convert
 #'
@@ -54,7 +54,7 @@ create_prediction_data <- function(model_data,
   if (cat == 'most_common') {
     catfun = function(x) {
       cx = class(x)
-      x = suppressWarnings(names(sort(table(x), decreasing = T))[1])
+      x = suppressWarnings(names(sort(table(x), decreasing = TRUE))[1])
       if (cx == 'Date') {
         x =  as.Date(x)
       } else {

@@ -18,12 +18,12 @@ object.}
 Should return a single value. Default is mean.}
 
 \item{cat}{Set categorical variables to the reference level ('ref') or the
-most frequently occuring category (most_common, the default).}
+most frequently occurring category (most_common, the default).}
 
 \item{...}{Additional arguments to num, e.g. \code{na.rm=T}}
 }
 \value{
-A data frame suitable for the newdata argument for predict functions.
+A data frame suitable for the \code{newdata} argument for predict functions.
 }
 \description{
 Straightforward way to quickly create data to make model

@@ -24,7 +24,7 @@ test_that('pre_process can handle NA', {
 
   stocks_long <- stocks_wide %>% gather(stock, price)
   stocksm <- stocks_long
-  stocksm$price[sample(1:nrow(stocksm), 5)] = NA
+  stocksm$price[sample(seq_along(stocksm$price), 5)] = NA
 
   expect_identical(nrow(spread2(stocksm, stock, price)), nrow(spread2(stocks_long, stock, price)))
 })

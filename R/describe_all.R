@@ -142,7 +142,7 @@ describe_all_cat <- function(data,
 
       data_cat = data.frame(Variable=rep(cat_names, nlevs),
                             suppressWarnings(bind_rows(data_cat)),
-                            stringsAsFactors=F) %>% # suppress coerce to char message
+                            stringsAsFactors=FALSE) %>% # suppress coerce to char message
         rename(`%` = perc)    # otherwise lose symbol on bind rows
       if (sort_by_freq) {
         data_cat = data_cat %>%

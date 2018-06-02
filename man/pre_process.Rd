@@ -10,7 +10,7 @@ pre_process(data, std = TRUE, scale_by = 1, log_vars = NULL,
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{std}{Standarize numeric/integer variables?}
+\item{std}{Standardize numeric/integer variables?}
 
 \item{scale_by}{A single value to standardize by. See details. Default is 1.}
 

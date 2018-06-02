@@ -9,9 +9,9 @@ df1 <- tibble(
   d = sample(c(T,F), 50, replace=TRUE)
 )
 
-df_miss = df1 %>% mutate_all(function(x) {x[sample(1:length(x), 5)] = NA; x})
-df_nan = df1 %>% mutate_at(dplyr::vars(a,b), function(x) {x[sample(1:length(x), 5)] = NaN; x})
-df_blank = df1 %>% mutate_at(dplyr::vars(c), function(x)  {x[sample(1:length(x), 5)] = ''; x})
+df_miss = df1 %>% mutate_all(function(x) {x[sample(seq_along(x), 5)] = NA; x})
+df_nan = df1 %>% mutate_at(dplyr::vars(a,b), function(x) {x[sample(seq_along(x), 5)] = NaN; x})
+df_blank = df1 %>% mutate_at(dplyr::vars(c), function(x)  {x[sample(seq_along(x), 5)] = ''; x})
 
 test_that('sum_NA correctly returns value', {
   expect_equal(df_miss %>% summarise_all(sum_NA) %>% sum(), 30)

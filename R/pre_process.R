@@ -2,7 +2,7 @@
 #' @description Perform common data transformations
 #'
 #' @param data A data frame or tibble.
-#' @param std Standarize numeric/integer variables?
+#' @param std Standardize numeric/integer variables?
 #' @param scale_by A single value to standardize by. See details. Default is 1.
 #' @param log_vars Which variables to log. Requires vars().
 #' @param log_base Log base. Default is exp(1).
@@ -61,7 +61,7 @@ pre_process <- function(data,
     }
     if (check_zero_start) {
       data = data %>%
-        mutate_at(zero_start, function(x) x - min(x, na.rm = T))
+        mutate_at(zero_start, function(x) x - min(x, na.rm = TRUE))
     }
     if (check_zero_one) {
       data = data %>%
@@ -76,7 +76,7 @@ pre_process <- function(data,
     data = data %>%
       mutate_at(num_cols,
                 function(x) scale(x, scale = ifelse(scale_by,
-                                                    scale_by*sd(x, na.rm = T),
+                                                    scale_by*sd(x, na.rm = TRUE),
                                                     FALSE))[,1])
   }
   data

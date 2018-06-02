@@ -4,7 +4,7 @@
 \alias{num_summary}
 \title{Get numerical summaries}
 \usage{
-num_summary(x, digits = 1, extra = F)
+num_summary(x, digits = 1, extra = FALSE)
 }
 \arguments{
 \item{x}{A numeric or logical variable}

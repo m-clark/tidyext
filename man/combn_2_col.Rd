@@ -25,7 +25,8 @@ combinations separated?}
 \item{sparse}{Return only the new indicators as a sparse matrix?}
 }
 \value{
-A data frame with the new indicator columns, or a sparse matrix of only the indicator columns.
+A data frame with the new indicator columns, or a sparse matrix of
+  only the indicator columns.
 }
 \description{
 Convert a character or factor of multiple labels.
@@ -88,7 +89,8 @@ tidy_dtm <- function(data, var, sep='-', max_m=3) {
       sapply(seq_along(x), function(m)
         utils::combn(x,  min(max_m, m), FUN=paste, collapse = '_')))
 
-  # now we have a standard text analysis problem in need of a document term matrix
+  # now we have a standard text analysis problem in need of a document term
+  matrix
   documents = observation_combos \%>\% lapply(unlist)
 
   # create a 'tidy' form of documents and terms; each term (i.e. combo) only

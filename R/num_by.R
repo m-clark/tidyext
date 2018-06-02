@@ -3,7 +3,7 @@
 #' @description Provide common numeric summary information.
 #'
 #' @param data data frame
-#' @param main_var the variable to be summarised. Multiple variables are
+#' @param main_var the variable to be summarized. Multiple variables are
 #'   supplied using the vars() function.
 #' @param group_var the (optional) grouping variable.
 #' @param perc_by_group when supplied a grouping variable for cat_by, do you

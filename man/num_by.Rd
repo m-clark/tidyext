@@ -13,7 +13,7 @@ cat_by(data, main_var, group_var, digits = FALSE, perc_by_group = TRUE,
 \arguments{
 \item{data}{data frame}
 
-\item{main_var}{the variable to be summarised. Multiple variables are
+\item{main_var}{the variable to be summarized. Multiple variables are
 supplied using the vars() function.}
 
 \item{group_var}{the (optional) grouping variable.}

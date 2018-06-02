@@ -43,7 +43,8 @@
 #'   parts, and requires nothing beyond what comes with a base R installation,
 #'   so it wins.
 #' @importFrom utils combn
-#' @return A data frame with the new indicator columns, or a sparse matrix of only the indicator columns.
+#' @return A data frame with the new indicator columns, or a sparse matrix of
+#'   only the indicator columns.
 #' @examples
 #' library(tidyext)
 #' d = data.frame(id = 1:4,
@@ -70,7 +71,8 @@
 #'       sapply(seq_along(x), function(m)
 #'         utils::combn(x,  min(max_m, m), FUN=paste, collapse = '_')))
 #'
-#'   # now we have a standard text analysis problem in need of a document term matrix
+#'   # now we have a standard text analysis problem in need of a document term
+#'   matrix
 #'   documents = observation_combos %>% lapply(unlist)
 #'
 #'   # create a 'tidy' form of documents and terms; each term (i.e. combo) only
@@ -132,7 +134,7 @@ combn_2_col <- function(data,
 
   if (sparse) return(sapply(data$combo, function(x) as.integer(combo_cols %in% x)) %>%
                        t() %>%
-                       Matrix::Matrix(sparse = T))
+                       Matrix::Matrix(sparse = TRUE))
 
   if (toInteger) {
     data[, combo_cols] = sapply(data$combo, function(x) as.integer(combo_cols %in% x)) %>% t()

@@ -62,7 +62,7 @@
 spread2 <- function(data,
                     key,
                     value,
-                    compact = T,
+                    compact = TRUE,
                     fill = NA,
                     convert = FALSE,
                     drop = TRUE,
