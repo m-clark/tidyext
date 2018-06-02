@@ -1,17 +1,22 @@
-title: ignore this!
+title: tidyext!
+title-img: logo.png
+
+authors:
+  Michael Clark:
+    href: https://m-clark.github.io
+    html: Michael Clark <img src="man/figures/lh_hex.png" height="24" />
 
 template:
-  bootswatch: cyborg
-css: tidyext.css
-highlight: pygments
+  params:
+    #bootswatch: sandstone
+  templates_path: inst/pkgdown
+highlight: zenburn
+
 
 home:
   links:
   - text: Docs on Stats, R, and more
     href: http://m-clark.github.io
-
-
-
 
 reference:
   - title: "Data summary"
@@ -40,6 +45,7 @@ reference:
     contents:
       - select_not
       - tidyext
+
 navbar:
   title: "whatever bc pkgdown will ignore it"
   type: inverse
@@ -48,9 +54,6 @@ navbar:
       href: "reference/index.html"
     - text: "News"
       href: "news/index.html"
-  authors:
-    Michael Clark:
-    href: <img src="man/figures/lh_hex.png" height="24" />
   right:
     - icon: fa-github-alt
       href: https://github.com/m-clark

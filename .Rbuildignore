@@ -4,3 +4,4 @@
 ^img$
 \.*\.yml
 ^.*\.Rmd
+^pkgdown$

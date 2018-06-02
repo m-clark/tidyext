@@ -1,11 +1,11 @@
-##  0.1.2 
+## tidyext 0.1.2 
 
 Added spread2
 
-## 0.1.1 
+## tidyext 0.1.1 
 
 Added pre_process
 
-## 0.1.0 
+## tidyext 0.1.0 
 
 Initial release
