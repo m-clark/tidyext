@@ -2,6 +2,7 @@
 output:
   md_document:
     variant: markdown_github
+highlight: pygments
 ---
 
 ```{r, include = FALSE}
@@ -22,7 +23,7 @@ knitr::opts_chunk$set(
 
 <br>
 
-This package takes some data processing functions originally found in [lazerhawk](https://github.com/m-clark/lazerhawk), extending the functionality of the tidyverse.  For folks that do a lot of data processing in that world, these make a handful of those very common tasks a bit easier, and with an eye toward eventual tidy/clean presentation and visualization with tools like [kableExtra](https://haozhu233.github.io/kableExtra/awesome_table_in_html.html) and [ggplot2](http://ggplot2.tidyverse.org/).
+This package takes some data processing functions originally found in [lazerhawk](https://github.com/m-clark/lazerhawk), extending the functionality of the tidyverse.  For folks that do a lot of data processing in that world, these make a handful of some very common tasks a bit easier, and with an eye toward eventual tidy/clean presentation and visualization with tools like [kableExtra](https://haozhu233.github.io/kableExtra/awesome_table_in_html.html) and [ggplot2](http://ggplot2.tidyverse.org/).
 
 As these functions are more universally useful, especially to my colleagues and friends who use R, putting them as their own package with few dependencies will perhaps make it easier to use for them.  The goal is more or less for this to depend on nothing one wouldn't have already with base R and the tidyverse package loaded. Also, as all the functions use the tidyverse functionality, they are easily customizable.
 

@@ -9,8 +9,8 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/m-clark/tidyext,  https://m-clark.github.io/tidyext
-Year: 2018
 BugReports: https://github.com/m-clark/tidyext/issues
+Year: 2018
 Depends:
     R (>= 3.4.0)
 Imports:

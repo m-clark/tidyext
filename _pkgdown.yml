@@ -8,9 +8,11 @@ authors:
 
 template:
   params:
+    highlight: pygments
     #bootswatch: sandstone
-  templates_path: inst/pkgdown
-highlight: zenburn
+    templates_path: inst/pkgdown
+
+highlight: pygments
 
 
 home:
@@ -45,15 +47,28 @@ reference:
     contents:
       - select_not
       - tidyext
+figures:
+  dev: svglite::svglite
+  dpi: 96
+  dev.args: []
+  fig.ext: svg
+  fig.width: 7.2916667
+  fig.height: ~
+  fig.retina: 2
+  fig.asp: 1.618
 
 navbar:
   title: "whatever bc pkgdown will ignore it"
-  type: inverse
+  type: ~
   left:
     - text: "Reference"
       href: "reference/index.html"
     - text: "News"
       href: "news/index.html"
+    - text: Articles
+      menu:
+      - text: Introduction to tidyext
+        href: articles/introduction.html
   right:
     - icon: fa-github-alt
       href: https://github.com/m-clark

@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto|Roboto:300|Roboto+Mono|Roboto+Condensed|Open+Sans|Stalemate");
+@import url("pygment_highlights.css");
+
+
 /* latin-ext */
 @font-face {
   font-family: 'Open Sans';
@@ -40,7 +44,15 @@
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'), url('https://fonts.googleapis.com/css?family=Questrial') format('woff2');
+  src: local('Roboto'), local('Roboto-Regular'), url('https://fonts.googleapis.com/css?family=Roboto') format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Roboto'), local('Roboto-Regular'), url('https://fonts.googleapis.com/css?family=Roboto:300') format('woff2');
   unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -49,7 +61,7 @@
   font-family: 'Questrial';
   font-style: normal;
   font-weight: 400;
-  src: local('Questrial'), local('Questrial-Regular'), url(https://fonts.gstatic.com/s/questrial/v7/QdVUSTchPBm7nuUeVf70viFluW44JQ.woff2) format('woff2');
+  src: local('Questrial'), local('Questrial-Regular'), url('https://fonts.googleapis.com/css?family=Questrial') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -70,7 +82,7 @@
  *
  */
 
-/* @import url("https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono|Roboto+Condensed|Open+Sans|Stalemate"); */
+
 
 body {
   font-family: Roboto, 'Libre Baskerville', sans-serif;
@@ -164,13 +176,7 @@ h4 {
   line-height: 1;
 }
 
-a {
-  color: #03b3ff;
-}
-a:hover,
-a:focus {
-  color: #0085a1;
-}
+
 
 blockquote {
   color: #808080;
@@ -220,6 +226,7 @@ pre, code {
   color: #ff5500;
 }
 
+
 .navbar-inverse .navbar-link:hover {
     color: #fff;
 }
@@ -230,14 +237,72 @@ pre, code {
   letter-spacing: 1px;
 }
 
+
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:focus,
+.navbar-inverse .navbar-nav > .active > a:hover {
+    color: #404040;
+    background-color: inherit;
+}
+
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:focus,
+.navbar-inverse .navbar-nav > .open > a:hover {
+    color: #404040;
+    background-color: inherit;
+}
+
+.navbar .navbar-nav > .active > a,
+.navbar .navbar-nav > .active > a:focus,
+.navbar .navbar-nav > .active > a:hover {
+    color: #404040;
+    background-color: inherit;
+}
+
+.navbar .navbar-nav > .open > a,
+.navbar .navbar-nav > .open > a:focus,
+.navbar .navbar-nav > .open > a:hover {
+    color: #404040;
+    background-color: inherit;
+}
+
+/* navbar-brand is the package name/home link */
 .navbar .navbar-brand,
 .navbar .nav li a {
-  font-weight: 600;
+  font-weight: 500;
   color: #404040;
 }
 
-.navbar .navbar-brand:hover,
-.navbar .navbar-brand:focus ,
+.navbar-brand .navbar-link {
+  color: #ff5500;
+  background-image: linear-gradient(180deg,transparent 90%, #FF4F03 0);
+  background-size: 0 100%;
+  background-repeat: no-repeat;
+  text-decoration: none;
+  -webkit-transition: background-size .4s ease;
+  -moz-transition: background-size .4s ease;
+  -ms-transition: background-size .4s ease;
+  -o-transition: background-size .4s ease;
+  transition: background-size .4s ease;
+  border-bottom: 0px solid;
+}
+
+.navbar-brand .navbar-link:hover {
+  text-decoration: none;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
+.navbar-brand .navbar-link:hover,
+.navbar-brand .navbar-link:focus {
+  color: #03b3ff;  /*keep para links with no change*/
+}
+
+
+
+.navbar:hover,
+.navbar:focus ,
 .navbar .nav li a:hover,
 .navbar .nav li a:focus {
   color: #0085a1;
@@ -354,6 +419,31 @@ pre, code {
   }
 }
 
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover{
+   width: 80%;
+   color: #404040;
+   font-size: 100%;
+   background-color: #d9edf7;
+}
+
+.nav-pills > li > a {
+    border-radius: 4px;
+    font-size: 100%;
+    width: 80%;
+}
+
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:focus,
+.dropdown-menu > .active > a:hover {
+  background-color: transparent;
+}
+
+
+
+
 /* --- Footer --- */
 
 footer {
@@ -399,4 +489,28 @@ footer .theme-by {
   footer .copyright {
     font-size: 12px;
   }
+}
+
+
+/* Misc */
+
+.emph {
+  color: #E32D00 ;  /*#ff5500 #D14300*/
+  font-weight: 500;
+}
+
+/* pack func and objclass colors initially come from hcl(seq(90,360, length.out=4), c=80, l=80); redone for contrast*/
+.pack {
+  color: #990071; /*#AC9CFF #e41a1c*/
+  font-weight: 500;
+}
+
+.func {
+  color: #007020;   /*#00CBB6; #984ea3; can just use `` instead*/
+  font-weight: 600;
+}
+
+.objclass {
+  color:  #947100;  /*#AAB400 #4daf4a; #FFC5D0*/
+  font-weight: 500;
 }

@@ -1,0 +1,228 @@
+---
+title: "Demonstration of tidyext"
+author: "Michel Clark"
+date: <span style="font-style:normal;font-family:'Open Sans'">`r Sys.Date()`</span>
+output:
+  html_vignette:
+    toc: true
+    toc_depth: 3
+    df_print: kable
+
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Demonstration of tidyext}
+  %\VignetteEncoding{UTF-8}
+# params:
+#   EVAL: !r identical(Sys.getenv("NOT_CRAN"), "true")
+---
+
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Demonstration of tidyext}
+%\VignetteEncoding{UTF-8}
+-->
+
+```{r setup, include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(echo = T, message=F, warning=F, error=F, collapse = TRUE,
+                      comment=NA, R.options=list(width=220),   # code 
+                      dev.args=list(bg = 'transparent'), dev='svglite',                                 # viz
+                      fig.align='center', out.width='75%', fig.asp=.75,                 
+                      cache.rebuild=F, cache=F)                                                         # cache
+```
+
+
+# Getting started with tidyext
+
+## Data Summaries
+
+To begin, we can load up the <span class="pack">tidyverse</span> and this package. I'll also create some data that will be useful for demonstration.
+
+```{r packages}
+library(tidyverse); library(tidyext)
+set.seed(8675309)
+df1 <- tibble(
+  g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')),
+  g2 = sample(1:4, 50, replace = TRUE),
+  a = rnorm(50),
+  b = rpois(50, 10),
+  c = sample(letters, 50, replace=TRUE),
+  d = sample(c(T,F), 50, replace=TRUE)
+)
+
+df_miss = df1
+df_miss[sample(1:nrow(df1), 10), sample(1:ncol(df1), 3)] = NA
+
+```
+
+We can start by getting a quick numerical summary for a single column.  As the name suggests, this will only work with numeric data.
+
+```{r num_summary}
+num_summary(mtcars$mpg)
+num_summary(df_miss$a, extra = T)
+```
+
+
+
+Note that the result's class is a <span class="objclass">data.frame</span>, which makes it easy to work with.
+
+```{r class_num_sum}
+x = num_summary(mtcars$mpg)
+glimpse(x)
+mtcars %>% 
+  map(num_summary) %>% 
+  bind_rows()
+```
+
+There are also functions for summarizing missingness.
+
+```{r missing}
+sum_NA(df_miss$a)
+sum_blank(c(letters, '', ''))
+sum_NaN(c(1, NaN, 2))
+```
+
+
+When dealing with a data frame of mixed types we can use the <span class="func">describe_*</span> functions.  
+
+```{r describe}
+describe_all(df1)
+describe_all_cat(df1)
+describe_all_num(df1, digits = 1)
+```
+
+
+Note how the categorical data result is just as ready for visualization as the numeric, as it can be filtered by the `Variable` column.  It also has an option to deal with <span class="objclass">NA</span> and some other stuff.
+
+```{r describe_cat}
+describe_all_cat(df_miss, include_NAcat = TRUE, sort_by_freq = TRUE) %>% 
+  filter(Variable == 'd') %>% 
+  ggplot(aes(x=Group, y=`%`)) +
+  geom_col(width = .25)
+```
+
+
+Typically during data processing, we are performing grouped operations.  As such there is a corresponding num_by and cat_by to provide the same information by some grouping variable.  This basically is saving you from doing `group_by %>% summarize()` and creating variables for all these values.  It can also take a set of variables using <span class="func">vars</span>
+
+```{r num_by}
+df_miss %>% 
+  num_by(a, group_var = g2)
+
+df_miss %>% 
+  num_by(vars(a, b), group_var = g2)
+```
+
+For categorical variables summarized by group, you can select whether the resulting percentage is irrespective of the grouping.
+
+```{r cat_by}
+df1 %>% 
+  cat_by(d, 
+         group_var = g1, 
+         perc_by_group = TRUE)
+
+df1 %>% 
+  cat_by(d, 
+         group_var = g1, 
+         perc_by_group = FALSE, 
+         sort_by_group = FALSE)
+```
+
+
+
+## Data Processing
+
+In addition there are some functions for data processing.  We can start with the simple one-hot encoding function.
+
+```{r onehot}
+onehot(iris) %>% 
+  slice(c(1:2, 51:52, 101:102))
+```
+
+
+We can quickly create data for use with <span class="func">predict</span>, and a function for pre-processing data for use with a model.  By default it will put numeric variables at their mean, and categorical variables at their most common category.
+
+```{r create_prediction_data}
+create_prediction_data(iris)
+create_prediction_data(iris, num = function(x) quantile(x, p=.25))
+```
+
+We can also supply specific values.
+
+
+```{r create_prediction_data2}
+cd = data.frame(cyl=4, hp=100)
+create_prediction_data(mtcars, conditional_data = cd)
+```
+
+For modeling purposes, we often want to center or scale the data, take logs etc.  The pre_process function will standardize numeric data by default.
+
+```{r preprocess}
+pre_process(df1)
+```
+
+Other options are to simply center the data (`scale_by = 0`), start some variables at zero, log some variables (with chosen base), and scale some to range from zero to one.  
+
+```{r preprocess2}
+pre_process(mtcars, 
+            scale_by = 0, 
+            log_vars = vars(mpg, wt), 
+            zero_start = vars(cyl), 
+            zero_one = vars(hp, starts_with('d'))) %>% 
+  describe_all_num()
+```
+
+Note that center/standardizing is done to any variables *not* chosen for log, zero_start, and zero_one.  
+
+Here's a specific function you probably will never need, but will be glad if you do.  Some data columns have multiple values.  While understandable, it's not very good practice.
+
+```{r combn}
+d = data.frame(id = 1:4,
+               labs = c('A/B', 'B/C/D/E', 'A/E', 'D/E'))
+combn_2_col(data=d, var='labs', max_m=3)
+```
+
+And finally, there is a function that makes <span class="pack">tidyr's</span> <span class="func">spread</span> work like it should when you don't have unique identifiers.  
+
+```{r spread2, error=TRUE}
+# initial example from spread
+stocks_init <- data.frame(
+  time = as.Date('2009-01-01') + 0:9,
+  X = rnorm(10, 0, 1),
+  Y = rnorm(10, 0, 2),
+  Z = rnorm(10, 0, 4)
+)
+
+# a very common situation
+stocks <- data.frame(
+  X = rnorm(10, 0, 1),
+  Y = rnorm(10, 0, 2),
+  Z = rnorm(10, 0, 4)
+)
+
+
+stocksm_init <- stocks_init %>% gather(stock, price, -time)
+
+stocksm_init %>% 
+  spread(stock, price)  %>% 
+  head()                                 # works fine
+
+
+stocksm <- stocks %>% gather(stock, price)
+stocksm %>% spread(stock, price)         # annoying
+stocksm %>% spread2(stock, price)        # works fine
+```
+
+However, with unbalanced data the result can be interpreted in different ways, so you'll have a choice to make.
+
+```{r spread2compact}
+stocksm$price[sample(1:nrow(stocksm), 5)] = NA
+stocksm %>% spread2(stock, price)
+stocksm %>% spread2(stock, price, compact = FALSE)
+```
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

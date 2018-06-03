@@ -14,9 +14,9 @@ tidyext
 This package takes some data processing functions originally found in
 [lazerhawk](https://github.com/m-clark/lazerhawk), extending the
 functionality of the tidyverse. For folks that do a lot of data
-processing in that world, these make a handful of those very common
-tasks a bit easier, and with an eye toward eventual tidy/clean
-presentation and visualization with tools like
+processing in that world, these make a handful of some very common tasks
+a bit easier, and with an eye toward eventual tidy/clean presentation
+and visualization with tools like
 [kableExtra](https://haozhu233.github.io/kableExtra/awesome_table_in_html.html)
 and [ggplot2](http://ggplot2.tidyverse.org/).
 
