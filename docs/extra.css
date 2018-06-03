@@ -514,3 +514,24 @@ footer .theme-by {
   color:  #947100;  /*#AAB400 #4daf4a; #FFC5D0*/
   font-weight: 500;
 }
+
+/* until they get syntax highlighting */
+/* function */
+.kw {
+ color: #007020;
+}
+
+/* logical NA */
+.ot {
+ color: #337ab7;
+}
+
+/* char/string */
+.ch, .st {
+ color: #aa5500;
+}
+
+/* float, other */
+.fl, .dv {
+ color: #23527c;
+}
