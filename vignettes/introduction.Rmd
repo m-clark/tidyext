@@ -12,15 +12,8 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Demonstration of tidyext}
   %\VignetteEncoding{UTF-8}
-# params:
-#   EVAL: !r identical(Sys.getenv("NOT_CRAN"), "true")
 ---
 
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Demonstration of tidyext}
-%\VignetteEncoding{UTF-8}
--->
 
 ```{r setup, include=FALSE, cache=FALSE}
 knitr::opts_chunk$set(echo = T, message=F, warning=F, error=F, collapse = TRUE,
@@ -172,12 +165,14 @@ pre_process(mtcars,
 
 Note that center/standardizing is done to any variables *not* chosen for log, zero_start, and zero_one.  
 
-Here's a specific function you probably will never need, but will be glad if you do.  Some data columns have multiple values.  While understandable, it's not very good practice.
+Here's a specific function you will probably never need, but will be glad to have if you do.  Some data columns have multiple values.  While understandable why someone would do this, it's not very good practice. This will split out the entries, or any particular combination of them, into their own indicator column.
 
 ```{r combn}
 d = data.frame(id = 1:4,
-               labs = c('A/B', 'B/C/D/E', 'A/E', 'D/E'))
-combn_2_col(data=d, var='labs', max_m=3)
+               labs = c('A-B', 'B-C-D-E', 'A-E', 'D-E'))
+combn_2_col(data=d, var='labs', max_m=2, sep = '-', collapse = ':', toInteger = T)
+
+combn_2_col(data=d, var='labs', max_m=2, sparse = T)
 ```
 
 And finally, there is a function that makes <span class="pack">tidyr's</span> <span class="func">spread</span> work like it should when you don't have unique identifiers.  
@@ -208,6 +203,7 @@ stocksm_init %>%
 
 stocksm <- stocks %>% gather(stock, price)
 stocksm %>% spread(stock, price)         # annoying
+
 stocksm %>% spread2(stock, price)        # works fine
 ```
 
