@@ -67,3 +67,4 @@ This function is not exported, as most should have no problems using
   solution} that I came across later that speaks directly to the problem, but
   is essentially the same solution.
 }
+\keyword{internal}

@@ -52,9 +52,9 @@
 #'
 #' @return Whatever select would have done with a minus sign, if that had worked
 #'   as it logically should.
-#'
+#' @keywords internal
 select_not <- function(data, ...) {
-  not_these = names(select(data, ...))
+  not_these <- names(select(data, ...))
 
   data %>%
     select(-one_of(not_these))
