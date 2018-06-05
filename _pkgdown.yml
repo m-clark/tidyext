@@ -38,6 +38,7 @@ reference:
     contents:
       - combn_2_col
       - create_prediction_data
+      - gather_multi
       - onehot
       - pre_process
       - spread2

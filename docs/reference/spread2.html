@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidyext</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2</span>
       </span>
     </div>
 
@@ -210,102 +210,102 @@ in fact be what is desired. The other is more 'compact'. See the examples.</p></
 
 
 <span class='no'>stocksm_init</span> <span class='kw'>&lt;-</span> <span class='no'>stocks_init</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/gather'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)
-<span class='no'>stocksm_init</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/spread'>spread</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>)    <span class='co'># works fine</span></div><div class='output co'>#&gt;          time          X          Y          Z
-#&gt; 1  2009-01-01  0.3224827  0.9614505  4.7263023
-#&gt; 2  2009-01-02  0.3666744  3.2088147  0.7935684
-#&gt; 3  2009-01-03  1.1298352 -3.0300491 -1.6016210
-#&gt; 4  2009-01-04 -0.9414981 -2.8320478  2.4646171
-#&gt; 5  2009-01-05  0.2178376  1.7535547  7.8966270
-#&gt; 6  2009-01-06  1.4154123  1.2482648  7.5386493
-#&gt; 7  2009-01-07 -0.3837330  4.2245546 -6.3544822
-#&gt; 8  2009-01-08 -0.1740864 -0.7122488 -2.1596927
-#&gt; 9  2009-01-09 -0.2217445 -2.1289284 -4.6778459
-#&gt; 10 2009-01-10 -1.0095287  2.1542331  2.2364240</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/gather'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>)
+<span class='no'>stocksm_init</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/spread'>spread</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>)    <span class='co'># works fine</span></div><div class='output co'>#&gt;          time          X          Y           Z
+#&gt; 1  2009-01-01  0.6884226  2.0017709  1.29954048
+#&gt; 2  2009-01-02  0.3243352  0.6263323 -4.23046207
+#&gt; 3  2009-01-03 -0.1388366 -1.9610601 -5.46222900
+#&gt; 4  2009-01-04 -1.1836451 -2.1315168  1.42190664
+#&gt; 5  2009-01-05  1.6123666 -2.0279735 -2.69137612
+#&gt; 6  2009-01-06 -0.6431638 -2.7332627  1.61258387
+#&gt; 7  2009-01-07 -1.1657161 -3.5350091  1.33316664
+#&gt; 8  2009-01-08  0.3135301 -1.1303017  5.91156447
+#&gt; 9  2009-01-09  0.5484061 -0.5170878 -0.04451998
+#&gt; 10 2009-01-10 -1.2573885  3.2624551 -2.71390525</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/gather'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>)
 <span class='co'># stocksm %&gt;% spread(stock, price)       # annoying</span>
 <span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread2</span>(<span class='no'>stock</span>, <span class='no'>price</span>)        <span class='co'># works fine</span></div><div class='output co'>#&gt;              X          Y          Z
-#&gt; 1  -1.81934725  0.1440514 -0.6771203
-#&gt; 2   0.39334397  4.2528891  1.1801190
-#&gt; 3   0.04213411 -2.9523938  5.0653623
-#&gt; 4   1.17966418  0.8157770 -4.5413730
-#&gt; 5  -0.25692118  2.7879556 -4.5242152
-#&gt; 6  -1.05633610  0.7205566  0.4399735
-#&gt; 7   0.19877721  1.3091005  3.4116216
-#&gt; 8   0.65053355  2.1043108 -0.9373514
-#&gt; 9   0.34391334 -3.9591103  8.3467543
-#&gt; 10  1.47753231  2.4167712 -0.4436775</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread2</span>(<span class='no'>stock</span>, <span class='no'>price</span>, <span class='kw'>compact</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;              X          Y          Z
-#&gt; 1  -1.81934725         NA         NA
-#&gt; 2   0.39334397         NA         NA
-#&gt; 3   0.04213411         NA         NA
-#&gt; 4   1.17966418         NA         NA
-#&gt; 5  -0.25692118         NA         NA
-#&gt; 6  -1.05633610         NA         NA
-#&gt; 7   0.19877721         NA         NA
-#&gt; 8   0.65053355         NA         NA
-#&gt; 9   0.34391334         NA         NA
-#&gt; 10  1.47753231         NA         NA
-#&gt; 11          NA  0.1440514         NA
-#&gt; 12          NA  4.2528891         NA
-#&gt; 13          NA -2.9523938         NA
-#&gt; 14          NA  0.8157770         NA
-#&gt; 15          NA  2.7879556         NA
-#&gt; 16          NA  0.7205566         NA
-#&gt; 17          NA  1.3091005         NA
-#&gt; 18          NA  2.1043108         NA
-#&gt; 19          NA -3.9591103         NA
-#&gt; 20          NA  2.4167712         NA
-#&gt; 21          NA         NA -0.6771203
-#&gt; 22          NA         NA  1.1801190
-#&gt; 23          NA         NA  5.0653623
-#&gt; 24          NA         NA -4.5413730
-#&gt; 25          NA         NA -4.5242152
-#&gt; 26          NA         NA  0.4399735
-#&gt; 27          NA         NA  3.4116216
-#&gt; 28          NA         NA -0.9373514
-#&gt; 29          NA         NA  8.3467543
-#&gt; 30          NA         NA -0.4436775</div><div class='input'>
+#&gt; 1  -0.35856540 -1.3883178  6.1018751
+#&gt; 2   0.60161662  0.2630438 -2.2582307
+#&gt; 3  -0.75048498  0.6555027  1.1851909
+#&gt; 4  -0.39653934  2.8723032 -0.9968521
+#&gt; 5  -1.92652463 -2.6574446 -0.8283984
+#&gt; 6  -2.20590368  0.3514273  3.2882265
+#&gt; 7   1.43222841  1.0532184  2.8145529
+#&gt; 8  -0.23972892 -0.3449991 -0.6308590
+#&gt; 9  -0.02936022  0.3353793 -0.7072142
+#&gt; 10 -2.81003183  2.3530661  5.6901434</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread2</span>(<span class='no'>stock</span>, <span class='no'>price</span>, <span class='kw'>compact</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;              X          Y          Z
+#&gt; 1  -0.35856540         NA         NA
+#&gt; 2   0.60161662         NA         NA
+#&gt; 3  -0.75048498         NA         NA
+#&gt; 4  -0.39653934         NA         NA
+#&gt; 5  -1.92652463         NA         NA
+#&gt; 6  -2.20590368         NA         NA
+#&gt; 7   1.43222841         NA         NA
+#&gt; 8  -0.23972892         NA         NA
+#&gt; 9  -0.02936022         NA         NA
+#&gt; 10 -2.81003183         NA         NA
+#&gt; 11          NA -1.3883178         NA
+#&gt; 12          NA  0.2630438         NA
+#&gt; 13          NA  0.6555027         NA
+#&gt; 14          NA  2.8723032         NA
+#&gt; 15          NA -2.6574446         NA
+#&gt; 16          NA  0.3514273         NA
+#&gt; 17          NA  1.0532184         NA
+#&gt; 18          NA -0.3449991         NA
+#&gt; 19          NA  0.3353793         NA
+#&gt; 20          NA  2.3530661         NA
+#&gt; 21          NA         NA  6.1018751
+#&gt; 22          NA         NA -2.2582307
+#&gt; 23          NA         NA  1.1851909
+#&gt; 24          NA         NA -0.9968521
+#&gt; 25          NA         NA -0.8283984
+#&gt; 26          NA         NA  3.2882265
+#&gt; 27          NA         NA  2.8145529
+#&gt; 28          NA         NA -0.6308590
+#&gt; 29          NA         NA -0.7072142
+#&gt; 30          NA         NA  5.6901434</div><div class='input'>
 <span class='co'># works with NA</span>
 <span class='no'>stocksm</span>$<span class='no'>price</span>[<span class='fu'>sample</span>(<span class='fl'>1</span>:<span class='fu'>nrow</span>(<span class='no'>stocksm</span>), <span class='fl'>5</span>)] <span class='kw'>=</span> <span class='fl'>NA</span>
-<span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread2</span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt;             X          Y          Z
-#&gt; 1  -1.8193472         NA -0.6771203
-#&gt; 2   0.3933440  4.2528891  1.1801190
-#&gt; 3          NA -2.9523938  5.0653623
-#&gt; 4          NA  0.8157770 -4.5413730
-#&gt; 5  -0.2569212  2.7879556         NA
-#&gt; 6  -1.0563361  0.7205566  0.4399735
-#&gt; 7   0.1987772  1.3091005  3.4116216
-#&gt; 8   0.6505336  2.1043108 -0.9373514
-#&gt; 9   0.3439133 -3.9591103  8.3467543
-#&gt; 10  1.4775323         NA -0.4436775</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread2</span>(<span class='no'>stock</span>, <span class='no'>price</span>, <span class='kw'>compact</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;             X          Y          Z
-#&gt; 1  -1.8193472         NA         NA
-#&gt; 2   0.3933440         NA         NA
-#&gt; 3          NA         NA         NA
-#&gt; 4          NA         NA         NA
-#&gt; 5  -0.2569212         NA         NA
-#&gt; 6  -1.0563361         NA         NA
-#&gt; 7   0.1987772         NA         NA
-#&gt; 8   0.6505336         NA         NA
-#&gt; 9   0.3439133         NA         NA
-#&gt; 10  1.4775323         NA         NA
-#&gt; 11         NA         NA         NA
-#&gt; 12         NA  4.2528891         NA
-#&gt; 13         NA -2.9523938         NA
-#&gt; 14         NA  0.8157770         NA
-#&gt; 15         NA  2.7879556         NA
-#&gt; 16         NA  0.7205566         NA
-#&gt; 17         NA  1.3091005         NA
-#&gt; 18         NA  2.1043108         NA
-#&gt; 19         NA -3.9591103         NA
-#&gt; 20         NA         NA         NA
-#&gt; 21         NA         NA -0.6771203
-#&gt; 22         NA         NA  1.1801190
-#&gt; 23         NA         NA  5.0653623
-#&gt; 24         NA         NA -4.5413730
-#&gt; 25         NA         NA         NA
-#&gt; 26         NA         NA  0.4399735
-#&gt; 27         NA         NA  3.4116216
-#&gt; 28         NA         NA -0.9373514
-#&gt; 29         NA         NA  8.3467543
-#&gt; 30         NA         NA -0.4436775</div><div class='input'>
+<span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread2</span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt;              X          Y          Z
+#&gt; 1  -0.35856540 -1.3883178  6.1018751
+#&gt; 2   0.60161662  0.2630438 -2.2582307
+#&gt; 3           NA  0.6555027  1.1851909
+#&gt; 4  -0.39653934         NA -0.9968521
+#&gt; 5  -1.92652463 -2.6574446 -0.8283984
+#&gt; 6           NA  0.3514273  3.2882265
+#&gt; 7   1.43222841  1.0532184  2.8145529
+#&gt; 8  -0.23972892 -0.3449991         NA
+#&gt; 9  -0.02936022  0.3353793 -0.7072142
+#&gt; 10 -2.81003183         NA  5.6901434</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread2</span>(<span class='no'>stock</span>, <span class='no'>price</span>, <span class='kw'>compact</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;              X          Y          Z
+#&gt; 1  -0.35856540         NA         NA
+#&gt; 2   0.60161662         NA         NA
+#&gt; 3           NA         NA         NA
+#&gt; 4  -0.39653934         NA         NA
+#&gt; 5  -1.92652463         NA         NA
+#&gt; 6           NA         NA         NA
+#&gt; 7   1.43222841         NA         NA
+#&gt; 8  -0.23972892         NA         NA
+#&gt; 9  -0.02936022         NA         NA
+#&gt; 10 -2.81003183         NA         NA
+#&gt; 11          NA -1.3883178         NA
+#&gt; 12          NA  0.2630438         NA
+#&gt; 13          NA  0.6555027         NA
+#&gt; 14          NA         NA         NA
+#&gt; 15          NA -2.6574446         NA
+#&gt; 16          NA  0.3514273         NA
+#&gt; 17          NA  1.0532184         NA
+#&gt; 18          NA -0.3449991         NA
+#&gt; 19          NA  0.3353793         NA
+#&gt; 20          NA         NA         NA
+#&gt; 21          NA         NA  6.1018751
+#&gt; 22          NA         NA -2.2582307
+#&gt; 23          NA         NA  1.1851909
+#&gt; 24          NA         NA -0.9968521
+#&gt; 25          NA         NA -0.8283984
+#&gt; 26          NA         NA  3.2882265
+#&gt; 27          NA         NA  2.8145529
+#&gt; 28          NA         NA         NA
+#&gt; 29          NA         NA -0.7072142
+#&gt; 30          NA         NA  5.6901434</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

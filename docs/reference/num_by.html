@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidyext</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2</span>
       </span>
     </div>
 
@@ -201,51 +201,53 @@ want result sorted on the grouping variable? Default is TRUE.</p></td>
                  )
 
 
-<span class='fu'>num_by</span>(<span class='no'>df1</span>, <span class='kw'>main_var</span> <span class='kw'>=</span> <span class='no'>a</span>)</div><div class='output co'>#&gt;    N      Mean        SD       Min         Q1    Median        Q3     Max
-#&gt; 1 50 0.1688575 0.9263573 -1.684282 -0.4204449 0.2207756 0.7787431 2.12685
+<span class='fu'>num_by</span>(<span class='no'>df1</span>, <span class='kw'>main_var</span> <span class='kw'>=</span> <span class='no'>a</span>)</div><div class='output co'>#&gt;    N        Mean       SD      Min         Q1     Median        Q3      Max
+#&gt; 1 50 -0.06755164 1.044981 -2.44668 -0.7773296 0.05284552 0.6594563 2.648932
 #&gt;   Missing
 #&gt; 1       0</div><div class='input'><span class='fu'>num_by</span>(<span class='no'>df1</span>, <span class='kw'>main_var</span> <span class='kw'>=</span> <span class='no'>a</span>, <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='no'>g2</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 10
 #&gt;      g2     N  Mean    SD   Min    Q1 Median    Q3   Max Missing
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-#&gt; 1     1    15  0.14  0.91 -1.51 -0.12   0.43  0.48  1.88       0
-#&gt; 2     2    10  0.13  0.9  -1.68 -0.1    0.41  0.79  1.05       0
-#&gt; 3     3     5  0.61  0.99 -0.53  0.04   0.42  1.07  2.04       0
-#&gt; 4     4    20  0.1   0.98 -1.31 -0.63  -0.07  0.79  2.13       0</div><div class='input'>
+#&gt; 1     1    12 -0.15  0.87 -1.31 -0.87  -0.2   0.45  1.23       0
+#&gt; 2     2     8  0.52  1.01 -0.64 -0.01   0.47  0.76  2.65       0
+#&gt; 3     3    15  0.18  1.05 -1.69 -0.46   0.07  1.04  1.76       0
+#&gt; 4     4    15 -0.56  1.05 -2.45 -1.3   -0.47  0.18  1.15       0</div><div class='input'>
 <span class='fu'>num_by</span>(<span class='no'>df1</span>, <span class='kw'>main_var</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='no'>a</span>,<span class='no'>b</span>), <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='no'>g1</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 11
 #&gt;   g1    Variable     N  Mean    SD   Min    Q1 Median    Q3   Max Missing
 #&gt;   &lt;fct&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-#&gt; 1 a     a           20   0.2   1    -1.5  -0.4    0.3   0.8   2.1       0
-#&gt; 2 a     b           20  10.7   3.1   5     8.8   10.5  13    16         0
-#&gt; 3 b     a           30   0.1   0.9  -1.7  -0.4    0.1   0.7   1.9       0
-#&gt; 4 b     b           30  10.4   3.7   3     8.2    9.5  13    18         0</div><div class='input'>
+#&gt; 1 a     a           25   0.1   0.9  -1.5  -0.6    0.1   0.6   2.6       0
+#&gt; 2 a     b           25   8.9   3.1   2     7      9    11    15         0
+#&gt; 3 b     a           25  -0.3   1.1  -2.4  -1.3   -0.1   0.7   1.8       0
+#&gt; 4 b     b           25  10.9   3.8   3     8     11    14    17         0</div><div class='input'>
 <span class='fu'>cat_by</span>(<span class='no'>df1</span>, <span class='kw'>main_var</span> <span class='kw'>=</span> <span class='no'>g1</span>, <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='no'>g2</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 8 x 5
 #&gt; # Groups:   g2 [4]
 #&gt;      g2 g1        N `% of Total` `% of g2`
 #&gt;   &lt;int&gt; &lt;fct&gt; &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;
-#&gt; 1     1 a         7           14      46.7
-#&gt; 2     1 b         8           16      53.3
-#&gt; 3     2 a         1            2      10  
-#&gt; 4     2 b         9           18      90  
-#&gt; 5     3 a         4            8      80  
-#&gt; 6     3 b         1            2      20  
-#&gt; 7     4 a         8           16      40  
-#&gt; 8     4 b        12           24      60  </div><div class='input'><span class='fu'>cat_by</span>(<span class='no'>df1</span>, <span class='kw'>main_var</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='no'>g1</span>,<span class='no'>d</span>), <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='no'>g2</span>, <span class='kw'>perc_by_group</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 14 x 5
+#&gt; 1     1 a         7           14      58.3
+#&gt; 2     1 b         5           10      41.7
+#&gt; 3     2 a         4            8      50  
+#&gt; 4     2 b         4            8      50  
+#&gt; 5     3 a         7           14      46.7
+#&gt; 6     3 b         8           16      53.3
+#&gt; 7     4 a         7           14      46.7
+#&gt; 8     4 b         8           16      53.3</div><div class='input'><span class='fu'>cat_by</span>(<span class='no'>df1</span>, <span class='kw'>main_var</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='no'>g1</span>,<span class='no'>d</span>), <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='no'>g2</span>, <span class='kw'>perc_by_group</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 16 x 5
 #&gt;       g2 g1    d         N `% of Total`
 #&gt;    &lt;int&gt; &lt;fct&gt; &lt;lgl&gt; &lt;int&gt;        &lt;dbl&gt;
-#&gt;  1     1 a     FALSE     2            4
-#&gt;  2     1 a     TRUE      5           10
-#&gt;  3     1 b     FALSE     2            4
-#&gt;  4     1 b     TRUE      6           12
-#&gt;  5     2 a     TRUE      1            2
-#&gt;  6     2 b     FALSE     5           10
-#&gt;  7     2 b     TRUE      4            8
-#&gt;  8     3 a     FALSE     1            2
-#&gt;  9     3 a     TRUE      3            6
-#&gt; 10     3 b     FALSE     1            2
-#&gt; 11     4 a     FALSE     4            8
-#&gt; 12     4 a     TRUE      4            8
-#&gt; 13     4 b     FALSE     7           14
-#&gt; 14     4 b     TRUE      5           10</div><div class='input'>
+#&gt;  1     1 a     FALSE     5           10
+#&gt;  2     1 a     TRUE      2            4
+#&gt;  3     1 b     FALSE     3            6
+#&gt;  4     1 b     TRUE      2            4
+#&gt;  5     2 a     FALSE     1            2
+#&gt;  6     2 a     TRUE      3            6
+#&gt;  7     2 b     FALSE     2            4
+#&gt;  8     2 b     TRUE      2            4
+#&gt;  9     3 a     FALSE     3            6
+#&gt; 10     3 a     TRUE      4            8
+#&gt; 11     3 b     FALSE     5           10
+#&gt; 12     3 b     TRUE      3            6
+#&gt; 13     4 a     FALSE     6           12
+#&gt; 14     4 a     TRUE      1            2
+#&gt; 15     4 b     FALSE     1            2
+#&gt; 16     4 b     TRUE      7           14</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
