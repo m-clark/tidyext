@@ -119,7 +119,7 @@ combn_2_col <- function(data,
   if (is.null(data) | is.null(var)) stop('Need data and variable name to continue.')
   if (max_m < 1) stop('Need positive value for max_m.')
 
-  data$combo =
+  data$combo <-
     sapply(stringr::str_split(data[[var]], pattern=sep),
            function(str_vec)
              sapply(seq_along(str_vec),
@@ -130,16 +130,20 @@ combn_2_col <- function(data,
                             collapse = collapse)
              ) %>% unlist()
     )
-  combo_cols = unique(unlist(data$combo))
+  combo_cols <- unique(unlist(data$combo))
 
-  if (sparse) return(sapply(data$combo, function(x) as.integer(combo_cols %in% x)) %>%
-                       t() %>%
-                       Matrix::Matrix(sparse = TRUE))
+  if (sparse) {
+    return(sapply(data$combo, function(x) as.integer(combo_cols %in% x)) %>%
+      t() %>%
+      Matrix::Matrix(sparse = TRUE, dimnames = list(rownames(data), combo_cols)))
+    # dimnames(result) = c(rownames(data), combo_cols)
+    # return(result)
+  }
 
   if (toInteger) {
-    data[, combo_cols] = sapply(data$combo, function(x) as.integer(combo_cols %in% x)) %>% t()
+    data[, combo_cols] <- sapply(data$combo, function(x) as.integer(combo_cols %in% x)) %>% t()
   } else {
-    data[, combo_cols] = sapply(data$combo, function(x) combo_cols %in% x) %>% t()
+    data[, combo_cols] <- sapply(data$combo, function(x) combo_cols %in% x) %>% t()
   }
   data
 }
