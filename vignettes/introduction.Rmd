@@ -44,13 +44,13 @@ df1 <- tibble(
 
 df_miss = df1
 df_miss[sample(1:nrow(df1), 10), sample(1:ncol(df1), 3)] = NA
-
 ```
 
 We can start by getting a quick numerical summary for a single column.  As the name suggests, this will only work with numeric data.
 
 ```{r num_summary}
 num_summary(mtcars$mpg)
+
 num_summary(df_miss$a, extra = T)
 ```
 
@@ -61,6 +61,7 @@ Note that the result's class is a <span class="objclass">data.frame</span>, whic
 ```{r class_num_sum}
 x = num_summary(mtcars$mpg)
 glimpse(x)
+
 mtcars %>% 
   map(num_summary) %>% 
   bind_rows()
@@ -70,7 +71,9 @@ There are also functions for summarizing missingness.
 
 ```{r missing}
 sum_NA(df_miss$a)
+
 sum_blank(c(letters, '', ''))
+
 sum_NaN(c(1, NaN, 2))
 ```
 
@@ -79,14 +82,16 @@ When dealing with a data frame of mixed types we can use the <span class="func">
 
 ```{r describe}
 describe_all(df1)
+
 describe_all_cat(df1)
+
 describe_all_num(df1, digits = 1)
 ```
 
 
 Note how the categorical data result is just as ready for visualization as the numeric, as it can be filtered by the `Variable` column.  It also has an option to deal with <span class="objclass">NA</span> and some other stuff.
 
-```{r describe_cat}
+```{r describe_cat, out.width='50%'}
 describe_all_cat(df_miss, include_NAcat = TRUE, sort_by_freq = TRUE) %>% 
   filter(Variable == 'd') %>% 
   ggplot(aes(x=Group, y=`%`)) +
@@ -94,7 +99,7 @@ describe_all_cat(df_miss, include_NAcat = TRUE, sort_by_freq = TRUE) %>%
 ```
 
 
-Typically during data processing, we are performing grouped operations.  As such there is a corresponding num_by and cat_by to provide the same information by some grouping variable.  This basically is saving you from doing `group_by %>% summarize()` and creating variables for all these values.  It can also take a set of variables using <span class="func">vars</span>
+Typically during data processing, we are performing grouped operations.  As such there is a corresponding num_by and cat_by to provide the same information by some grouping variable.  This basically is saving you from doing `group_by %>% summarize()` and creating variables for all these values.  It can also take a set of variables to summarize using <span class="func">vars</span>.
 
 ```{r num_by}
 df_miss %>% 
@@ -135,6 +140,7 @@ We can quickly create data for use with <span class="func">predict</span>, and a
 
 ```{r create_prediction_data}
 create_prediction_data(iris)
+
 create_prediction_data(iris, num = function(x) quantile(x, p=.25))
 ```
 
@@ -152,7 +158,7 @@ For modeling purposes, we often want to center or scale the data, take logs etc.
 pre_process(df1)
 ```
 
-Other options are to simply center the data (`scale_by = 0`), start some variables at zero, log some variables (with chosen base), and scale some to range from zero to one.  
+Other options are to simply center the data (`scale_by = 0`), start some variables at zero (e.g. time indicators), log some variables (with chosen base), and scale some to range from zero to one.  
 
 ```{r preprocess2}
 pre_process(mtcars, 
@@ -163,9 +169,9 @@ pre_process(mtcars,
   describe_all_num()
 ```
 
-Note that center/standardizing is done to any variables *not* chosen for log, zero_start, and zero_one.  
+Note that center/standardizing is done to any variables *not* chosen for `log`, `zero_start`, and `zero_one`.  
 
-Here's a specific function you will probably never need, but will be glad to have if you do.  Some data columns have multiple values.  While understandable why someone would do this, it's not very good practice. This will split out the entries, or any particular combination of them, into their own indicator column.
+Here's a specific function you will probably never need, but will be glad to have if you do.  Some data columns have multiple entries for each observation/cell.  While understandable why someone would do this, it's not very good practice. This will split out the entries, or any particular combination of them, into their own indicator column.
 
 ```{r combn}
 d = data.frame(id = 1:4,
@@ -194,25 +200,53 @@ stocks <- data.frame(
 )
 
 
-stocksm_init <- stocks_init %>% gather(stock, price, -time)
+stocksm_init <- stocks_init %>% 
+  gather(stock, price, -time)
+head(stocksm_init)
 
 stocksm_init %>% 
   spread(stock, price)  %>% 
   head()                                 # works fine
 
+# no time
+stocksm <- stocks %>% 
+  gather(stock, price)
+head(stocksm)
 
-stocksm <- stocks %>% gather(stock, price)
-stocksm %>% spread(stock, price)         # annoying
+stocksm %>% 
+  spread(stock, price)         # annoying
 
-stocksm %>% spread2(stock, price)        # works fine
+stocksm %>% 
+  spread2(stock, price)        # works fine
 ```
 
 However, with unbalanced data the result can be interpreted in different ways, so you'll have a choice to make.
 
 ```{r spread2compact}
 stocksm$price[sample(1:nrow(stocksm), 5)] = NA
-stocksm %>% spread2(stock, price)
-stocksm %>% spread2(stock, price, compact = FALSE)
+stocksm %>% 
+  spread2(stock, price)
+
+stocksm %>% 
+  spread2(stock, price, compact = FALSE)
+```
+
+Use <span class="func">gather_multi</span> to extend gather to deal with multiple sets of variables.
+
+```{r gather_multi}
+demo_data_wide = data.frame(id = 1:10,
+                            X = matrix(rnorm(40), ncol = 4),
+                            Y = matrix(sample(0:1, 40, replace = T), ncol = 4),
+                            Z = matrix(rpois(40, 5), ncol = 4))
+head(demo_data_wide)
+
+gather_multi(demo_data_wide,
+             key = wave,
+             values = vars(X, Y, Z),
+             varlist = c(vars(starts_with('X')),
+                         vars(starts_with('Y')),
+                         vars(starts_with('Z'))),
+             -id)
 ```
 
 
