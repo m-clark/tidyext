@@ -12,15 +12,16 @@ gather_multi(data, key = "key", values = "values", varlist = list(), ...,
 
 \item{key}{See \code{\link[tidyr]{gather}}.}
 
-\item{values}{Multiple values. \code{\link[tidyr]{gather}}.}
+\item{values}{Multiple values as a character vector or unquoted using vars().
+See \code{\link[tidyr]{gather}}.}
 
-\item{varlist}{A list with elements that are created with \code{\link[dplyr]{vars}}.  See
-details.}
+\item{varlist}{A list with elements that are created with
+\code{\link[dplyr]{vars}}.  See details.}
 
 \item{...}{See \code{\link[tidyr]{gather}}.}
 
-\item{na.rm}{For this to work it makes no sense to set this to true. See
-\code{\link[tidyr]{gather}}.}
+\item{na.rm}{In this setting it typically makes little sense to set this to
+TRUE. A warning will be provided. See \code{\link[tidyr]{gather}}.}
 
 \item{convert}{See \code{\link[tidyr]{gather}}.}
 
@@ -30,13 +31,21 @@ details.}
 A data frame in so-called 'long' format with columns \code{values}.
 }
 \description{
-This function extends gather to work on multiple sets of columns.
+This function extends gather to work on multiple sets of
+  columns.
 }
 \details{
 This function is an attempt to extend the tidyr
   \code{\link[tidyr]{gather}} function to deal with more than one set of
   inputs, which is very common in longitudinal design and survey data
-  generally.
+  generally. It will return the same thing as gather but with extra columns
+  for each of the values you're wishing to construct.
+
+  Notes:
+
+  At present it will only keep the first 'key', as the rest are redundant.  I
+  may extend this functionality in the future to handle a provided key or
+  possibly a function to apply to the resulting variable.
 }
 \examples{
 library(tidyext); library(dplyr)
@@ -46,6 +55,7 @@ demo_data_wide = data.frame(id = 1:10,
                             Y = matrix(sample(0:1, 40, replace = TRUE),
                             ncol = 4),
                             Z = matrix(rpois(40, 5), ncol = 4))
+
 test = demo_data_wide \%>\%
   gather_multi(key = wave,
                values = c('X', 'Y', 'Z'),

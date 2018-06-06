@@ -41,6 +41,17 @@ test_that('gather_multi takes dots', {
   expect_is(test_dat, 'data.frame')
 })
 
+test_that('gather_multi takes vars with values', {
+  test_dat = gather_multi(demo_data_wide,
+               key = wave,
+               values = vars(X, Y, Z),
+               varlist = c(vars(starts_with('X')),
+                              vars(starts_with('Y')),
+                              vars(starts_with('Z'))),
+               -id)
+  expect_is(test_dat, 'data.frame')
+})
+
 test_that('gather_multi warns with na.rm = TRUE', {
   expect_warning(gather_multi(demo_data_wide_miss,
                               key = wave,
