@@ -116,6 +116,7 @@ combn_2_col <- function(data,
                         collapse = '_',
                         toInteger=FALSE,
                         sparse=FALSE) {
+
   if (is.null(data) | is.null(var)) stop('Need data and variable name to continue.')
   if (max_m < 1) stop('Need positive value for max_m.')
 
@@ -133,17 +134,25 @@ combn_2_col <- function(data,
   combo_cols <- unique(unlist(data$combo))
 
   if (sparse) {
-    return(sapply(data$combo, function(x) as.integer(combo_cols %in% x)) %>%
-      t() %>%
-      Matrix::Matrix(sparse = TRUE, dimnames = list(rownames(data), combo_cols)))
-    # dimnames(result) = c(rownames(data), combo_cols)
-    # return(result)
+    return(
+      data$combo %>%
+        map(function(x) as.integer(combo_cols %in% x)) %>%
+        do.call(rbind,.) %>%
+        Matrix::Matrix(sparse = TRUE,
+                       dimnames = list(rownames(data), combo_cols))
+      )
   }
 
   if (toInteger) {
-    data[, combo_cols] <- sapply(data$combo, function(x) as.integer(combo_cols %in% x)) %>% t()
+    data[, combo_cols] <-
+      data$combo %>%
+      map(function(x) as.integer(combo_cols %in% x)) %>%
+      do.call(rbind,.)
   } else {
-    data[, combo_cols] <- sapply(data$combo, function(x) combo_cols %in% x) %>% t()
+    data[, combo_cols] <-
+      data$combo %>%
+      map(function(x) combo_cols %in% x) %>%
+      do.call(rbind,.)
   }
   data
 }
