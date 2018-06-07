@@ -8,7 +8,7 @@ Description: Common data processing functions useful to me.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/m-clark/tidyext,  https://m-clark.github.io/tidyext
+URL: https://m-clark.github.io/tidyext, https://github.com/m-clark/tidyext
 BugReports: https://github.com/m-clark/tidyext/issues
 Year: 2018
 Depends:

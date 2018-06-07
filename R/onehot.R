@@ -48,7 +48,7 @@ onehot <- function(data,
     message('Original data dropped when sparse is TRUE')
 
   if (is.null(var)) {
-    f_c <- purrr::map_lgl(data, inherits, c('factor', 'character'), )
+    f_c <- purrr::map_lgl(data, inherits, c('factor', 'character'))
   } else {
     f_c <- colnames(data) %in% var
   }
