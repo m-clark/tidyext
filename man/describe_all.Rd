@@ -49,8 +49,9 @@ This function comes out of my frustrations from various data set
   summaries either being inadequate for my needs, too 'busy' with output, or
   unable to deal well with mixed data types. Numeric data is treated
   separately from categorical, and provides the same information as in
-  \code{\link[tidyext]{num_summary}}. Categorical variables are defined as anything with equal or
-  fewer distinct values than \code{max_levels} combined with
+  \code{\link[tidyext]{num_summary}}. Categorical variables are defined as
+  anything with equal or fewer distinct values than \code{max_levels}
+  combined with
   \code{include_numeric}. Categorical variables are summarized with
   frequencies and percentages. For empty categorical variables (e.g. after a
   subset), a warning is thrown.
@@ -61,7 +62,8 @@ This function comes out of my frustrations from various data set
 }
 \examples{
 library(tidyext); library(dplyr)
-X = data.frame(f1 =gl(2, 1, 20, labels=c('A', 'B')), f2=gl(2, 2, 20, labels=c('X', 'Q')))
+X = data.frame(f1 =gl(2, 1, 20, labels=c('A', 'B')),
+               f2=gl(2, 2, 20, labels=c('X', 'Q')))
 X = X \%>\% mutate(bin1 = rbinom(20, 1, p=.5),
                  logic1 = sample(c(TRUE, FALSE), 20, replace = TRUE),
                  num1 = rnorm(20),

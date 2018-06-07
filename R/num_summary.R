@@ -19,15 +19,16 @@
 #' @export
 num_summary <- function(x, digits=1, extra=FALSE) {
   # initial check of variable type
-  test_x = tryCatch(as.numeric(x), warning = function(c) {
+  test_x <- tryCatch(as.numeric(x), warning = function(c) {
     msg <- conditionMessage(c)
     invisible(structure(msg, class = "try-warning"))
   })
-  if(class(test_x) == 'try-warning') stop('Need something numeric or which can reasonably be converted to such.
-                                          \nThe current variable would introduce NAs by coercion.')
+  if(class(test_x) == 'try-warning')
+stop('Need something numeric or which can reasonably be converted to such.
+     \nThe current variable would introduce NAs by coercion.')
 
-  x = as.numeric(x)
-  d = data.frame(
+  x <- as.numeric(x)
+  d <- data.frame(
     N = length(na.omit(x)),
     data.frame(t(c(summary(x)))),
     SD = sd(x, na.rm=TRUE),
@@ -38,11 +39,11 @@ num_summary <- function(x, digits=1, extra=FALSE) {
     rename(Q1 = X1st.Qu.,
            Q3 = X3rd.Qu.) %>%
     select(N, Mean, SD, everything(), -matches('NA'))   # drop summary() NA if present
-  colnames(d) = gsub(colnames(d), pattern='\\.', replacement='')
+  colnames(d) <- gsub(colnames(d), pattern='\\.', replacement='')
 
   if (extra) {
-    d$Distinct = n_distinct(x)
-    d$Zeros = sum(x == 0, na.rm = TRUE)
+    d$Distinct <- n_distinct(x)
+    d$Zeros <- sum(x == 0, na.rm = TRUE)
   }
 
   d %>% mutate_if(is.numeric, round, digits=digits)

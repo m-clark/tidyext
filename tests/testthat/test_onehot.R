@@ -29,9 +29,9 @@ test_that('onehot will message if given numeric.', {
 
 
 
-iris2 = iris
-iris2[sample(1:150, 25),] = NA
-iris2$constant = TRUE
+iris2 <- iris
+iris2[sample(1:150, 25),] <- NA
+iris2$constant <- TRUE
 
 test_that('onehot will error no valid variables', {
   expect_error(onehot(iris2, var = 'constant'))
@@ -54,7 +54,8 @@ test_that('onehot correctly handles na.fail', {
 })
 
 test_that('onehot correctly keeps original variable', {
-  expect_equal(ncol(onehot(iris, keep.original = TRUE)), ncol(iris) + nlevels(iris$Species))
+  expect_equal(ncol(onehot(iris, keep.original = TRUE)),
+               ncol(iris) + nlevels(iris$Species))
 })
 
 test_that('onehot takes var argument', {

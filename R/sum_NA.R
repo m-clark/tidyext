@@ -27,7 +27,9 @@ sum_NA <- function(x) {
 #' @rdname sum_NA
 #' @export
 sum_NaN <- function(x) {
-  if(!is.numeric(x)) stop('x must potentially be a number in order to not be a number. ~ The Buddha')
+  if(!is.numeric(x))
+    stop('x must potentially be a number, in order to not be a number.
+    ~ The Buddha')
   sum(is.nan(x))
 }
 

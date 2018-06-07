@@ -23,6 +23,7 @@
 #'   the encoded variables.
 #' @seealso \code{\link[stats]{model.matrix}}
 #' @importFrom stats model.matrix
+#' @importFrom purrr map_lgl map_int
 #' @export
 #'
 #' @examples
@@ -43,12 +44,13 @@ onehot <- function(data,
                    sparse=FALSE,
                    keep.original=FALSE) {
   if (!inherits(data,  'data.frame')) stop('Need a data frame.')
-  if (sparse & keep.original==TRUE) message('Original data dropped when sparse is TRUE')
+  if (sparse & keep.original==TRUE)
+    message('Original data dropped when sparse is TRUE')
 
   if (is.null(var)) {
-    f_c = sapply(data, inherits, c('factor', 'character'))
+    f_c <- purrr::map_lgl(data, inherits, c('factor', 'character'), )
   } else {
-    f_c = colnames(data) %in% var
+    f_c <- colnames(data) %in% var
   }
 
   if (all(!f_c)) stop("You didn't supply variable names,
@@ -56,33 +58,33 @@ onehot <- function(data,
                       If you really meant to do this,
                       supply colnames(data) to the var argument")
 
-  constants = sapply(data[f_c], n_distinct) == 1
+  constants <- purrr::map_int(data[f_c], n_distinct) == 1
   if (any(constants)) {
     message('You have supplied a constant. It will be ignored.')
-    f_c = f_c[!constants]
+    f_c <- f_c[!constants]
   }
 
   if (length(f_c) == 0) stop('No variables left to consider.')
 
-  any_numeric = any(sapply(data[f_c], inherits, 'numeric'))
+  any_numeric <- any(purrr::map_lgl(data[f_c], inherits, 'numeric'))
   if (any_numeric) message("
   You have supplied numeric variables.
   Attempts were made to keep the
   column names consistent, but you'll want to check.")
 
   # deal with NAs
-  init_na = options('na.action')
+  init_na <- options('na.action')
   options(na.action = nas)
-  if (nas %in% c('na.omit', 'na.exclude')) data = na.omit(data)
+  if (nas %in% c('na.omit', 'na.exclude')) data <- na.omit(data)
   on.exit(options(na.action = init_na$na.action))
 
   # encode
   if (sparse) {
-    res = data[f_c] %>%
+    res <- data[f_c] %>%
       mutate_all(as.character) %>%
       map(function(x) Matrix::sparse.model.matrix(~ x - 1, data=.))
   } else {
-    res = data[f_c] %>%
+    res <- data[f_c] %>%
       mutate_all(as.character) %>%
       map(function(x) model.matrix(~ x - 1, data=.) %>% as.data.frame())
   }
@@ -90,16 +92,17 @@ onehot <- function(data,
   # extract and fix names (if non-numeric)
 
   if (sparse) {
-    l_names = names(res)
+    l_names <- names(res)
 
     for (i in seq_along(res)) {
-      dimnames(res[[i]])[2][[1]] = paste0(l_names[i], '_', dimnames(res[[i]])[2][[1]])
+      dimnames(res[[i]])[2][[1]] <-
+        paste0(l_names[i], '_', dimnames(res[[i]])[2][[1]])
     }
 
-    res = do.call(cbind, res)
+    res <- do.call(cbind, res)
   } else {
-    res = do.call(cbind, res)
-    colnames(res) = gsub(colnames(res), pattern='.x|.X', replacement='_')
+    res <- do.call(cbind, res)
+    colnames(res) <- gsub(colnames(res), pattern='.x|.X', replacement='_')
   }
 
   # return

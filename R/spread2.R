@@ -67,11 +67,11 @@ spread2 <- function(data,
                     convert = FALSE,
                     drop = TRUE,
                     sep = NULL) {
-  k = enquo(key)
-  v = enquo(value)
+  k <- enquo(key)
+  v <- enquo(value)
 
   if (compact) {
-    data =   data %>%
+    data <- data %>%
       bind_cols(data %>%
                   select(-!!v) %>%
                   group_by_all() %>%
@@ -80,7 +80,7 @@ spread2 <- function(data,
                   select(rowid)
                 )
   } else {
-    data =   data %>%
+    data <- data %>%
       bind_cols(data %>%
                   tibble::rowid_to_column() %>%
                   select(rowid)

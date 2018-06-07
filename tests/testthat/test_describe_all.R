@@ -29,12 +29,12 @@ test_that('describe_all fails if not a data frame', {
 })
 
 test_that('describe_all can take digits argument', {
-  res = describe_all(data.frame(x=pi), digits = 2)[[1]]
+  res <- describe_all(data.frame(x=pi), digits = 2)[[1]]
   expect_equal(nchar(as.character(res$Mean)), 4)
 })
 
 test_that('describe_all can handle empty levels', {
-  res = describe_all(iris %>% filter(Species != 'setosa'))[[2]]
+  res <- describe_all(iris %>% filter(Species != 'setosa'))[[2]]
   expect_equal(nrow(res), 2)
 })
 
@@ -43,11 +43,13 @@ test_that('describe_all can handle empty categorical variables', {
 })
 
 test_that('describe_all can drop NA', {
-  expect_equal(nrow(describe_all(iris %>% rbind(NA), include_NAcat = T)[[2]]), 4)
+  expect_equal(nrow(describe_all(iris %>% rbind(NA), include_NAcat = T)[[2]]),
+               4)
 })
 
 test_that('describe_all can drop NA with old arg', {
-  expect_equal(nrow(describe_all(iris %>% rbind(NA), NAcat_include = T)[[2]]), 4)
+  expect_equal(nrow(describe_all(iris %>% rbind(NA), NAcat_include = T)[[2]]),
+               4)
 })
 
 
@@ -62,13 +64,15 @@ test_that('describe_all_num fails if not a data frame', {
 })
 
 test_that('describe_all_num returns message if no numeric', {
-  expect_message(describe_all_num(df1 %>% select_if(function(x) !is.numeric(x))))
+  expect_message(describe_all_num(df1 %>%
+                                    select_if(function(x) !is.numeric(x))))
 })
 
 
 
 test_that('describe_all_cat returns a data.frame', {
-  expect_is(describe_all_cat(df1) %>% select_if(function(x) !is.numeric(x)), 'data.frame')
+  expect_is(describe_all_cat(df1) %>% select_if(function(x) !is.numeric(x)),
+            'data.frame')
 })
 
 test_that('describe_all_cat fails if not a data frame', {
@@ -89,12 +93,19 @@ test_that('describe_all_cat can do different max_levels', {
 
 test_that('describe_all_cat can do numeric', {
   # including numeric should include variable g2 (4 levels)
-  expect_equal(nrow(describe_all_cat(df1, max_levels = 4, include_numeric = T)), 8)
+  expect_equal(nrow(describe_all_cat(df1, max_levels = 4, include_numeric = T)),
+               8)
 })
 
 test_that('describe_all_cat can sort result', {
-  init_sort = describe_all_cat(df1, max_levels = 10, include_numeric = T, sort_by_freq = T)
-  init_nosort = describe_all_cat(df1, max_levels = 10, include_numeric = T, sort_by_freq = F)
+  init_sort <- describe_all_cat(df1,
+                                max_levels = 10,
+                                include_numeric = T,
+                                sort_by_freq = T)
+  init_nosort <- describe_all_cat(df1,
+                                  max_levels = 10,
+                                  include_numeric = T,
+                                  sort_by_freq = F)
   expect_false(identical(init_nosort, init_sort))
 })
 

@@ -66,8 +66,8 @@ num_by <- function(data,
 
   # for future reference; the tryCatch was just to make it easy to pass a single
   # variable name in lieu of using vars().
-  # - summarise_* won't take single unquoted names nor is there a straightforward way to pass
-  # one or even check if one is being passed.
+  # - summarise_* won't take single unquoted names nor is there a
+  # straightforward way to pass one or even check if one is being passed.
   # - summarise_* also won't take an unquoted varname to vars, which is just a
   # wrapper to the quos function
   # - variants of vars do not return the same class object as vars()
@@ -80,26 +80,28 @@ num_by <- function(data,
   # perhaps tidyselect will have some useful documentation in the future
 
   # Initial checks ------------------------------------------------------------
-  if (nrow(data)==0 | is.null(data)) stop('No data to summarise.')
+  if (is.null(data)) stop('No data to summarise.')
+  if (nrow(data)==0) stop('No data to summarise.')
   if (!inherits(data, 'data.frame')) stop('Need a data.frame type object.')
 
 
   # section to deal with single variable name -------------------------------
-  mv = enquo(main_var)  # has to be here or errs with 'has already been evaluated'
+  mv <- enquo(main_var)  # has to be here or errs with 'already been evaluated'
 
-  check_mv = tryCatch(rlang::is_quosures(main_var), error = function(c) {
-    msg = conditionMessage(c)
+  check_mv <- tryCatch(rlang::is_quosures(main_var), error = function(c) {
+    msg <- conditionMessage(c)
     invisible(structure(msg, class = "try-error"))
   })
 
-  if (class(check_mv) == 'try-error') main_var = quos(!!mv)
+  if (class(check_mv) == 'try-error') main_var <- quos(!!mv)
 
-  class_mv = data %>%
+  class_mv <- data %>%
     summarise_at(main_var, funs(cls=class(.))) %>%
     unlist()
-  if (!all(class_mv %in% c('numeric', 'integer', 'logical'))) stop('Non-numeric/logical variable detected.')
+  if (!all(class_mv %in% c('numeric', 'integer', 'logical')))
+    stop('Non-numeric/logical variable detected.')
 
-  nc = length(class_mv)
+  nc <- length(class_mv)
 
   # Main processing ---------------------------------------------------------
 
@@ -107,8 +109,8 @@ num_by <- function(data,
 
     #• grouped result ----------------------------------------------------------
 
-    gv = enquo(group_var)
-    data = data %>%
+    gv <- enquo(group_var)
+    data <- data %>%
       # filter(!is.na(!!gv)) %>%
       group_by(!!gv) %>%
       summarise_at(main_var,
@@ -125,8 +127,9 @@ num_by <- function(data,
                    )
       )
     if (nc > 1) {
-      # regex will look for the last _ , in case there are variable names with underscores
-      data = data %>%
+      # regex will look for the last _ , in case there are variable names with
+      # underscores
+      data <- data %>%
         tidyr::gather(key=results, value=value, -!!gv) %>%
         tidyr::separate(col=results, sep='_(?=[^_]+$)', into=c('Variable', 'result')) %>%
         tidyr::spread(result, value) %>%   # the obsession with auto alphabetical order in the tidyverse strikes once again
@@ -136,7 +139,7 @@ num_by <- function(data,
 
     #• non-grouped result ------------------------------------------------------
 
-    data = data %>%
+    data <- data %>%
       summarise_at(main_var,
                    funs(
                      N = n()-sum(is.na(.)),
@@ -153,16 +156,18 @@ num_by <- function(data,
     if (nc > 1) {
       # suppress warnings if mixed logical and numerics
       suppressWarnings({
-        data = data %>%
+        data <- data %>%
           tidyr::gather(key=results, value=value) %>%
-          tidyr::separate(col=results, sep='_(?=[^_]+$)', into=c('Variable', 'result')) %>%
+          tidyr::separate(col=results,
+                          sep='_(?=[^_]+$)',
+                          into=c('Variable', 'result')) %>%
           tidyr::spread(result, value) %>%
           select(Variable, N,  Mean, SD, Min, Q1, Median, Q3, Max, Missing)
       })
     }
   }
 
-  if (digits) data = data %>% mutate_if(is.numeric, round, digits=digits)
+  if (digits) data <- data %>% mutate_if(is.numeric, round, digits=digits)
   data
 }
 
@@ -179,33 +184,45 @@ cat_by <- function(data,
                    sort_by_group=TRUE) {
   if (nrow(data)==0 | is.null(data)) stop('No data to summarise.')
 
-  mv = enquo(main_var)
-  check_mv = tryCatch(rlang::is_quosures(main_var), error = function(c) {
+  mv <- enquo(main_var)
+  check_mv <- tryCatch(rlang::is_quosures(main_var), error = function(c) {
     msg <- conditionMessage(c)
     invisible(structure(msg, class = "try-error"))
   })
 
-  if (class(check_mv) == 'try-error' | is.logical(check_mv) && !check_mv) main_var = quos(!!mv)
-  class_mv = data %>% summarise_at(main_var, funs(cls=class(.))) %>% unlist()
-  nlevs = data %>% summarise_at(main_var, funs(n_distinct(.))) %>% unlist()
+  if (class(check_mv) == 'try-error' | is.logical(check_mv) && !check_mv)
+    main_var <- quos(!!mv)
 
-  if (!all(class_mv  %in% c('character', 'factor', 'logical'))) warning("Some of these do not appear to be character, factor, or logical variables.")
+  class_mv <- data %>%
+    summarise_at(main_var, funs(cls=class(.))) %>%
+    unlist()
+  nlevs <- data %>%
+    summarise_at(main_var, funs(n_distinct(.))) %>%
+    unlist()
 
-  if (any(nlevs > 10)) warning("Greater than 10 levels found for at least one variable. This probably won't display well as a table.")
+  if (!all(class_mv  %in% c('character', 'factor', 'logical')))
+    warning("Some of these do not appear to be character, factor,
+    or logical variables.")
+
+  if (any(nlevs > 10))
+    warning("Greater than 10 levels found for at least one variable.
+    This probably won't display well as a table.")
 
   # use of group var --------------------------------------------------------
-  gv_exists = !rlang::quo_is_missing(enquo(group_var))
+  gv_exists <- !rlang::quo_is_missing(enquo(group_var))
   if (gv_exists) {
   # check that group_var is in main_var; if not add it
-    gv = enquo(group_var)
-    check_gv = tryCatch(tidyselect::vars_pull(names(select(data, !!mv)), !!gv), error = function(c) {
-      msg <- conditionMessage(c)
-      invisible(structure(msg, class = "try-error"))
-    })
+    gv <- enquo(group_var)
+    check_gv <- tryCatch(tidyselect::vars_pull(names(select(data, !!mv)), !!gv),
+                         error = function(c) {
+                           msg <- conditionMessage(c)
+                           invisible(structure(msg, class = "try-error"))
+                         })
 
-    if (class(check_gv) == 'try-error' | is.logical(check_gv) && !check_gv) main_var = c(main_var, vars(!!gv))
+    if (class(check_gv) == 'try-error' | is.logical(check_gv) && !check_gv)
+      main_var <- c(main_var, vars(!!gv))
 
-    data = data %>%
+    data <- data %>%
       select_at(main_var) %>%
       group_by_all() %>%
       summarise(N = n()) %>%     # Treat NA as a category -sum(is.na(!!mv))
@@ -213,27 +230,27 @@ cat_by <- function(data,
       mutate(`% of Total` = 100*N/sum(N))
 
     if (perc_by_group) {
-      varname = vars_pull(names(data), !!gv)
-      data = data %>%
+      varname <- vars_pull(names(data), !!gv)
+      data <- data %>%
         group_by(!!gv) %>%
         mutate(gv_perc = 100*N/sum(N))
-      colnames(data)[colnames(data) == 'gv_perc'] = paste0('% of ', varname)
+      colnames(data)[colnames(data) == 'gv_perc'] <- paste0('% of ', varname)
     }
 
     if (sort_by_group){
-      data = data %>%
+      data <- data %>%
         select(!!gv, everything()) %>%
         arrange(!!gv)
     }
   } else {
     # no group var --------------------------------------------------------
-    data = data %>%
+    data <- data %>%
       group_by_at(main_var) %>%
       summarise(N = n()) %>%     # Treat NA as a category -sum(is.na(!!mv))
       ungroup() %>%
       mutate(`% of Total` = 100*N/sum(N))
 
   }
-  if (digits) data = data %>% mutate_if(is.numeric, round, digits=digits)
+  if (digits) data <- data %>% mutate_if(is.numeric, round, digits=digits)
   data
 }

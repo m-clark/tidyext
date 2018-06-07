@@ -4,15 +4,20 @@ context('test spread2')
 set.seed(1234)
 # original example from SO
 df1 <- structure(list(age = c("21", "17", "32", "29", "15"),
-                      gender = structure(c(2L, 1L, 1L, 2L, 2L), .Label = c("Female", "Male"), class = "factor")),
-                 row.names = c(NA, -5L), class = c("tbl_df", "tbl", "data.frame"), .Names = c("age", "gender"))
+                      gender = structure(c(2L, 1L, 1L, 2L, 2L),
+                                         .Label = c("Female", "Male"),
+                                         class = "factor")),
+                 row.names = c(NA, -5L),
+                 class = c("tbl_df", "tbl", "data.frame"),
+                 .Names = c("age", "gender"))
 
 test_that('pre_process returns a dataframe', {
   expect_s3_class(spread2(df1, key=gender, value=age), 'data.frame')
 })
 
 test_that('pre_process can do compact arg', {
-  expect_s3_class(spread2(df1, key=gender, value=age, compact = F), 'data.frame')
+  expect_s3_class(spread2(df1, key=gender, value=age, compact = F),
+                  'data.frame')
 })
 
 test_that('pre_process can handle NA', {
@@ -24,7 +29,8 @@ test_that('pre_process can handle NA', {
 
   stocks_long <- stocks_wide %>% gather(stock, price)
   stocksm <- stocks_long
-  stocksm$price[sample(seq_along(stocksm$price), 5)] = NA
+  stocksm$price[sample(seq_along(stocksm$price), 5)] <- NA
 
-  expect_identical(nrow(spread2(stocksm, stock, price)), nrow(spread2(stocks_long, stock, price)))
+  expect_identical(nrow(spread2(stocksm, stock, price)),
+                   nrow(spread2(stocks_long, stock, price)))
 })

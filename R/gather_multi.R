@@ -59,7 +59,7 @@ gather_multi <- function(data,
          Data must be balanced.')
 
   # check if col lengths are the same
-  test = varlist %>% map_int(function(v) ncol(select(data, !!v)))
+  test <- varlist %>% map_int(function(v) ncol(select(data, !!v)))
   if (!all(test == max(test)))
     stop('Number of columns to be gathered for each variable must be equal
   in value. Data must be balanced.')

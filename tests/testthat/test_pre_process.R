@@ -26,30 +26,31 @@ test_that('pre_process will fail if scale_by is not numeric', {
 })
 
 test_that('pre_process can center', {
-  init = pre_process(df1, scale_by = 0)
+  init <- pre_process(df1, scale_by = 0)
   expect_equal(round(mean(init$b), 2), 0)
 })
 
 test_that('pre_process can standardize with specific input', {
-  init = pre_process(df1, scale_by = 2)
+  init <- pre_process(df1, scale_by = 2)
   expect_equal(round(sd(init$b), 2), .5)
 })
 
 test_that('pre_process can log', {
-  init = pre_process(mtcars, log_vars=vars(mpg, wt))
+  init <- pre_process(mtcars, log_vars=vars(mpg, wt))
   expect_equal(exp(init$mpg), mtcars$mpg)
 })
 
 test_that('pre_process can log with specific base', {
-  expect_is(pre_process(mtcars, log_vars=vars(mpg, wt), log_base = log(2)), 'data.frame')
+  expect_is(pre_process(mtcars, log_vars=vars(mpg, wt), log_base = log(2)),
+            'data.frame')
 })
 
 test_that('pre_process can zero_start', {
-  init = pre_process(df1, zero_start = vars(b))
+  init <- pre_process(df1, zero_start = vars(b))
   expect_equal(min(init$b), 0)
 })
 
 test_that('pre_process returns a zero one', {
-  init = pre_process(df1, zero_one = vars(b))
+  init <- pre_process(df1, zero_one = vars(b))
   expect_equal(max(init$b), 1)
 })

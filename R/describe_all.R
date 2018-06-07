@@ -25,8 +25,9 @@
 #'   summaries either being inadequate for my needs, too 'busy' with output, or
 #'   unable to deal well with mixed data types. Numeric data is treated
 #'   separately from categorical, and provides the same information as in
-#'   \code{\link[tidyext]{num_summary}}. Categorical variables are defined as anything with equal or
-#'   fewer distinct values than \code{max_levels} combined with
+#'   \code{\link[tidyext]{num_summary}}. Categorical variables are defined as
+#'   anything with equal or fewer distinct values than \code{max_levels}
+#'   combined with
 #'   \code{include_numeric}. Categorical variables are summarized with
 #'   frequencies and percentages. For empty categorical variables (e.g. after a
 #'   subset), a warning is thrown.
@@ -43,7 +44,8 @@
 #'
 #' @examples
 #' library(tidyext); library(dplyr)
-#' X = data.frame(f1 =gl(2, 1, 20, labels=c('A', 'B')), f2=gl(2, 2, 20, labels=c('X', 'Q')))
+#' X = data.frame(f1 =gl(2, 1, 20, labels=c('A', 'B')),
+#'                f2=gl(2, 2, 20, labels=c('X', 'Q')))
 #' X = X %>% mutate(bin1 = rbinom(20, 1, p=.5),
 #'                  logic1 = sample(c(TRUE, FALSE), 20, replace = TRUE),
 #'                  num1 = rnorm(20),
@@ -63,11 +65,11 @@ describe_all <- function(data,
                          ...) {
   assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
 
-  if(!is.null(NAcat_include)) include_NAcat = NAcat_include
+  if(!is.null(NAcat_include)) include_NAcat <- NAcat_include
 
-  data_num = describe_all_num(data, digits = digits, ...)
+  data_num <- describe_all_num(data, digits = digits, ...)
 
-  data_cat = describe_all_cat(data,
+  data_cat <- describe_all_cat(data,
                               digits = digits,
                               include_NAcat = include_NAcat,
                               include_numeric = include_numeric,
@@ -82,20 +84,20 @@ describe_all <- function(data,
 describe_all_num <- function(data, digits=2, ...) {
   assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
 
-  data_num = data %>%
+  data_num <- data %>%
     select_if(is.numeric)
 
-  nc_num = ncol(data_num)
+  nc_num <- ncol(data_num)
 
   if (nc_num > 0) {
-    cnames = colnames(data_num)
+    cnames <- colnames(data_num)
 
-    data_num = data_num %>%
+    data_num <- data_num %>%
       purrr::map_df(num_summary, digits=digits, ...) %>%
       mutate(Variable = cnames) %>%
       select(Variable, everything())
   } else {
-    data_num = message('No numeric data.')
+    data_num <- message('No numeric data.')
   }
   data_num
 }
@@ -111,50 +113,59 @@ describe_all_cat <- function(data,
                              sort_by_freq = FALSE) {
   assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
 
-  data_cat = data %>%
+  data_cat <- data %>%
     select_if(function(x) if_else(include_numeric,
                                   n_distinct(x) <= max_levels,
                                   n_distinct(x) <= max_levels & !is.numeric(x)))
-  nc_cat = ncol(data_cat)
+  nc_cat <- ncol(data_cat)
 
   if (nc_cat > 0) {
-    data_cat = data_cat %>%
+    data_cat <- data_cat %>%
       mutate_all(as.character)
 
-    cat_names = names(data_cat)
-    nlevs = data_cat %>%
+    cat_names <- names(data_cat)
+    nlevs <- data_cat %>%
       purrr::map_int(function(x) if_else(all(is.na(x)), 0L,
-                                         if_else(include_NAcat, n_distinct(x), n_distinct(na.omit(x)))))
+                                         if_else(include_NAcat,
+                                                 n_distinct(x),
+                                                 n_distinct(na.omit(x)))))
 
-    if (any(nlevs == 0)) warning(paste0(names(nlevs)[nlevs==0], ' have no category levels and will be dropped.\n'))
+    if (any(nlevs == 0))
+      warning(paste0(names(nlevs)[nlevs==0],
+                     ' have no category levels and will be dropped.\n'))
 
     if (any(nlevs > 0)){
-      data_cat = data_cat %>%
+      data_cat <- data_cat %>%
         select_if(nlevs > 0) %>%
-        purrr::map(function(x) data.frame(x=table(x, useNA = if_else(include_NAcat, 'ifany', 'no')),
-                                          y=prop.table(table(x, useNA = if_else(include_NAcat, 'ifany', 'no')))) %>%
-                     select(-y.x) %>%
-                     rename(Group=x.x,
-                            Frequency = x.Freq,
-                            perc=y.Freq) %>%
-                     mutate(perc = 100*round(perc, digits))
+        purrr::map(function(x)
+          data.frame(x=table(x, useNA = if_else(include_NAcat,
+                                                'ifany',
+                                                'no')),
+                     y=prop.table(table(x, useNA = if_else(include_NAcat,
+                                                           'ifany',
+                                                           'no')))) %>%
+            select(-y.x) %>%
+            rename(Group=x.x,
+                   Frequency = x.Freq,
+                   perc=y.Freq) %>%
+            mutate(perc = 100*round(perc, digits))
         )
 
-      data_cat = data.frame(Variable=rep(cat_names, nlevs),
-                            suppressWarnings(bind_rows(data_cat)),
-                            stringsAsFactors=FALSE) %>% # suppress coerce to char message
+      data_cat <- data.frame(Variable=rep(cat_names, nlevs),
+                             suppressWarnings(bind_rows(data_cat)),
+                             stringsAsFactors=FALSE) %>% # suppress coerce to char message
         rename(`%` = perc)    # otherwise lose symbol on bind rows
       if (sort_by_freq) {
-        data_cat = data_cat %>%
+        data_cat <- data_cat %>%
           group_by(Variable) %>%
           arrange(desc(`%`), .by_group = TRUE) %>%
           ungroup()
       }
     } else {
-      data_cat = message('No categorical data.')
+      data_cat <- message('No categorical data.')
     }
   } else {
-    data_cat = message('No categorical data.')
+    data_cat <- message('No categorical data.')
   }
   data_cat
 }

@@ -52,40 +52,41 @@ create_prediction_data <- function(model_data,
                                    cat = 'most_common',
                                    ...) {
   if (cat == 'most_common') {
-    catfun = function(x) {
-      cx = class(x)
-      x = suppressWarnings(names(sort(table(x), decreasing = TRUE))[1])
+    catfun <- function(x) {
+      cx <- class(x)
+      x <- suppressWarnings(names(sort(table(x), decreasing = TRUE))[1])
       if (cx == 'Date') {
-        x =  as.Date(x)
+        x <-  as.Date(x)
       } else {
-        x = type.convert(x, cx)
+        x <- type.convert(x, cx)
       }
     }
   } else {
     # use reference level
-    catfun =  function(x) {
-      cx = class(x)
-      x = levels(factor(x))[1]
+    catfun <-  function(x) {
+      cx <- class(x)
+      x <- levels(factor(x))[1]
       if (cx == 'Date') {
-        x =  as.Date(x)
+        x <-  as.Date(x)
       } else {
-        x = type.convert(x, cx)
+        x <- type.convert(x, cx)
       }
       x
     }
   }
 
-  pred_data = model_data %>%
+  pred_data <- model_data %>%
     select_if(! colnames(.) %in% names(conditional_data)) %>%
     mutate_if(function(x) is.numeric(x), num, ...) %>%
-    mutate_if(function(x) rlang::inherits_any(x, c('factor', 'string', 'logical', 'Date')),
+    mutate_if(function(x)
+      rlang::inherits_any(x, c('factor', 'string', 'logical', 'Date')),
               catfun) %>%
     slice(1)
 
   if (!is.null(conditional_data)) {
     data.frame(conditional_data, pred_data)
   } else {
-    data.frame(pred_data)   # tibbles don't always work with some predict methods
+    data.frame(pred_data)  # tibbles don't always work with some predict methods
   }
 }
 

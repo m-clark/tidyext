@@ -50,34 +50,35 @@ pre_process <- function(data,
                         zero_one = NULL) {
 
   if (!is.numeric(scale_by)) stop('scale_by needs to be numeric.')
-  check_log_var = !is.null(log_vars)
-  check_zero_start = !is.null(zero_start)
-  check_zero_one = !is.null(zero_one)
+  check_log_var <- !is.null(log_vars)
+  check_zero_start <- !is.null(zero_start)
+  check_zero_one <- !is.null(zero_one)
 
   if (check_log_var | check_zero_start | check_zero_one) {
     if (check_log_var) {
-      data = data %>%
+      data <- data %>%
         mutate_at(log_vars, log, base=log_base)
     }
     if (check_zero_start) {
-      data = data %>%
+      data <- data %>%
         mutate_at(zero_start, function(x) x - min(x, na.rm = TRUE))
     }
     if (check_zero_one) {
-      data = data %>%
+      data <- data %>%
         mutate_at(zero_one, scales::rescale)
     }
   }
   if (std) {
-    num_cols = data %>%
+    num_cols <- data %>%
       select_not(!!!log_vars, !!!zero_start, !!!zero_one) %>%
       select_if(function(x) inherits(x, c('numeric', 'integer'))) %>%
       colnames()
-    data = data %>%
+    data <- data %>%
       mutate_at(num_cols,
-                function(x) scale(x, scale = ifelse(scale_by,
-                                                    scale_by*sd(x, na.rm = TRUE),
-                                                    FALSE))[,1])
+                function(x)
+                  scale(x, scale = ifelse(scale_by,
+                                          scale_by*sd(x, na.rm = TRUE),
+                                          FALSE))[,1])
   }
   data
 }

@@ -117,13 +117,15 @@ combn_2_col <- function(data,
                         toInteger=FALSE,
                         sparse=FALSE) {
 
-  if (is.null(data) | is.null(var)) stop('Need data and variable name to continue.')
+  if (is.null(data) | is.null(var))
+    stop('Need data and variable name to continue.')
+
   if (max_m < 1) stop('Need positive value for max_m.')
 
   data$combo <-
-    sapply(stringr::str_split(data[[var]], pattern=sep),
+    map(stringr::str_split(data[[var]], pattern=sep),
            function(str_vec)
-             sapply(seq_along(str_vec),
+             map(seq_along(str_vec),
                     function(m)
                       combn(str_vec,
                             m = min(max_m, m),
