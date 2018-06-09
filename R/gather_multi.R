@@ -3,7 +3,7 @@
 #'   columns.
 #' @param data A data frame.
 #' @param key See \code{\link[tidyr]{gather}}.
-#' @param values Multiple values as a character vector or unquoted using vars().
+#' @param values Multiple values as a character vector, or as unquoted using vars().
 #'   See \code{\link[tidyr]{gather}}.
 #' @param varlist A list with elements that are created with
 #'   \code{\link[dplyr]{vars}}.  See details.
@@ -68,10 +68,12 @@ gather_multi <- function(data,
   casewise deletion.  Missing on any values in the
   resulting data set will be missing on all variables.')
 
+  k = enquo(key)
+
   # first gather
   data_long <- data %>%
     select_not(!!!varlist[-1]) %>%
-    gather(key = key,
+    gather(key = !!k,
            value = !!values[[1]],
            !!varlist[[1]],
            ...,
@@ -83,7 +85,7 @@ gather_multi <- function(data,
   for (i in 2:length(varlist)) {
     data_long <- data %>%
       select_not(!!!varlist[-i]) %>%
-      gather(key = key,
+      gather(key = !!k,
              value = !!values[[i]],
              !!varlist[[i]],
              ...,

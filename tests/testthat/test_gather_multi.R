@@ -22,33 +22,43 @@ demo_data_wide_miss[sample(1:10, 3), 'Z.3'] <- NA
 
 test_that('gather_multi returns a data frame', {
   test_dat <- gather_multi(demo_data_wide,
-               key = wave,
-               values = c('X', 'Y', 'Z'),
-               varlist = c(vars(starts_with('X')),
-                              vars(starts_with('Y')),
-                              vars(starts_with('Z'))))
+                           key = wave,
+                           values = c('X', 'Y', 'Z'),
+                           varlist = c(vars(starts_with('X')),
+                                       vars(starts_with('Y')),
+                                       vars(starts_with('Z'))))
+  expect_is(test_dat, 'data.frame')
+})
+
+test_that('gather_multi takes a quoted key', {
+  test_dat <- gather_multi(demo_data_wide,
+                           key = 'wave',
+                           values = c('X', 'Y', 'Z'),
+                           varlist = c(vars(starts_with('X')),
+                                       vars(starts_with('Y')),
+                                       vars(starts_with('Z'))))
   expect_is(test_dat, 'data.frame')
 })
 
 test_that('gather_multi takes dots', {
   test_dat <- gather_multi(demo_data_wide,
-               key = wave,
-               values = c('X', 'Y', 'Z'),
-               varlist = c(vars(starts_with('X')),
-                              vars(starts_with('Y')),
-                              vars(starts_with('Z'))),
-               -id)
+                           key = wave,
+                           values = c('X', 'Y', 'Z'),
+                           varlist = c(vars(starts_with('X')),
+                                       vars(starts_with('Y')),
+                                       vars(starts_with('Z'))),
+                           -id)
   expect_is(test_dat, 'data.frame')
 })
 
-test_that('gather_multi takes vars with values', {
+test_that('gather_multi takes vars with unquoted values', {
   test_dat <- gather_multi(demo_data_wide,
-               key = wave,
-               values = vars(X, Y, Z),
-               varlist = c(vars(starts_with('X')),
-                              vars(starts_with('Y')),
-                              vars(starts_with('Z'))),
-               -id)
+                           key = wave,
+                           values = vars(X, Y, Z),
+                           varlist = c(vars(starts_with('X')),
+                                       vars(starts_with('Y')),
+                                       vars(starts_with('Z'))),
+                           -id)
   expect_is(test_dat, 'data.frame')
 })
 

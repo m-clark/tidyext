@@ -12,7 +12,7 @@ gather_multi(data, key = "key", values = "values", varlist = list(), ...,
 
 \item{key}{See \code{\link[tidyr]{gather}}.}
 
-\item{values}{Multiple values as a character vector or unquoted using vars().
+\item{values}{Multiple values as a character vector, or as unquoted using vars().
 See \code{\link[tidyr]{gather}}.}
 
 \item{varlist}{A list with elements that are created with
