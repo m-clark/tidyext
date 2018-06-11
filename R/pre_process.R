@@ -36,7 +36,7 @@
 #' @export
 #'
 #' @examples
-#' library(tidyext); library(dplyr)
+#' library(tidyext)
 #' pre_process(mtcars)
 #' pre_process(mtcars, log_vars=vars(mpg, wt))
 #' pre_process(mtcars, zero_start=vars(cyl, gear))

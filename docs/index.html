@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tidyext</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.3</span>
       </span>
     </div>
 
@@ -90,73 +90,42 @@
 <a href="#tidyext" class="anchor"></a>tidyext</h1></div>
 <p><img src="reference/figures/tidyext_hex.png" align="right" width="200/"></p>
 <p><br></p>
-<p>This package takes some data processing functions originally found in <a href="https://github.com/m-clark/lazerhawk">lazerhawk</a>, extending the functionality of the tidyverse. For folks that do a lot of data processing in that world, these make a handful of some very common tasks a bit easier, and with an eye toward eventual tidy/clean presentation and visualization with tools like <a href="https://haozhu233.github.io/kableExtra/awesome_table_in_html.html">kableExtra</a> and <a href="http://ggplot2.tidyverse.org/">ggplot2</a>.</p>
+<div id="overview" class="section level3">
+<h3 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h3>
+<p>Extensions and extras for tidy processing. This package provides some data processing and summarizing functions that would commonly be useful in the tidyverse. For folks that do a lot of data processing in that world, these make a handful of some very common tasks a bit easier, and with an eye toward eventual tidy/clean presentation and visualization with tools like <a href="https://haozhu233.github.io/kableExtra/awesome_table_in_html.html">kableExtra</a> and <a href="http://ggplot2.tidyverse.org/">ggplot2</a>.</p>
 <p>As these functions are more universally useful, especially to my colleagues and friends who use R, putting them as their own package with few dependencies will perhaps make it easier to use for them. The goal is more or less for this to depend on nothing one wouldn’t have already with base R and the tidyverse package loaded. Also, as all the functions use the tidyverse functionality, they are easily customizable.</p>
+</div>
 <div id="installation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
-<p>The usual GitHub installation. <strong>devtools</strong> package required.</p>
+<p>The usual GitHub installation via the <span class="pack">devtools</span> package.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">'m-clark/tidyext'</span>)</a></code></pre></div>
+<p>Note that this package more or less assumes your are working within the <span class="pack">tidyverse</span>, especially <span class="pack">dplyr</span>. As such you should have the <span class="pack">tidyverse</span> packages installed.</p>
 </div>
 <div id="functions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#functions" class="anchor"></a>Functions</h3>
-<div id="cat_by" class="section level4">
-<h4 class="hasAnchor">
-<a href="#cat_by" class="anchor"></a>cat_by</h4>
-<p>A quick summarize for categorical variables, possibly with dplyr::group_by, that provides frequencies and percentages of categories, ready for publishing tables or plotting.</p>
-</div>
-<div id="combn_2_col" class="section level4">
-<h4 class="hasAnchor">
-<a href="#combn_2_col" class="anchor"></a>combn_2_col</h4>
-<p>Takes a column with multiple entries per cell and creates indicator columns of all possible combinations of the cell values up to m combinations.</p>
-</div>
-<div id="create_prediction_data" class="section level4">
-<h4 class="hasAnchor">
-<a href="#create_prediction_data" class="anchor"></a>create_prediction_data</h4>
-<p>Straightforward way to quickly create data to make model predictions.</p>
-</div>
-<div id="describe_all" class="section level4">
-<h4 class="hasAnchor">
-<a href="#describe_all" class="anchor"></a>describe_all</h4>
-<p>A summary function for mixed data types that provides the information I usually want. Saves one from doing a group_by %&gt;% summarize operation to create multiple results for multiple types of variables. Has corresponding describe_all_num and describe_all_cat for numeric-only and categorical-only data respectively.</p>
-</div>
-<div id="num_by" class="section level4">
-<h4 class="hasAnchor">
-<a href="#num_by" class="anchor"></a>num_by</h4>
-<p>A quick summarize, possibly with dplyr::group_by, that provides things like mean, sd, etc. See num_summary.</p>
-</div>
-<div id="num_summary" class="section level4">
-<h4 class="hasAnchor">
-<a href="#num_summary" class="anchor"></a>num_summary</h4>
-<p>A little better than the base R summary, gives the info one typically wants as well as options for rounding and other statistics.</p>
-</div>
-<div id="onehot" class="section level4">
-<h4 class="hasAnchor">
-<a href="#onehot" class="anchor"></a>onehot</h4>
-<p>A function for one-hot encoding with a few helpful options for dealing with missing data, using sparse matrices, and more.</p>
-</div>
-<div id="pre_process" class="section level4">
-<h4 class="hasAnchor">
-<a href="#pre_process" class="anchor"></a>pre_process</h4>
-<p>Easily pre-process a data set with common operations like standardization, logging, etc.</p>
-</div>
-<div id="spread2" class="section level4">
-<h4 class="hasAnchor">
-<a href="#spread2" class="anchor"></a>spread2</h4>
-<p>The tidyr spread without the duplicate row id problem.</p>
-</div>
-<div id="sum_na-sum_nan-sum_blank" class="section level4">
-<h4 class="hasAnchor">
-<a href="#sum_na-sum_nan-sum_blank" class="anchor"></a>sum_NA, sum_NaN, sum_blank</h4>
-<p>Understand your nothingness.</p>
+<ul>
+<li><p><span class="func">cat_by</span>: A quick summarize for categorical variables, possibly with <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by</a></code>, that provides frequencies and percentages of categories, ready for publishing tables or plotting.</p></li>
+<li><p><span class="func">combn_2_col</span>: Takes a column with multiple entries per cell and creates indicator columns of all possible combinations of the cell values up to m combinations.</p></li>
+<li><p><span class="func">create_prediction_data</span>: Straightforward way to quickly create data to make model predictions.</p></li>
+<li><p><span class="func">describe_all</span>: A summary function for mixed data types that provides the information I usually want. Saves one from doing a <code>group_by %&gt;%  summarize</code> operation to create multiple results for multiple types of variables. Has corresponding <span class="func">describe_all_num</span> and <span class="func">describe_all_cat</span> for numeric-only and categorical-only data respectively.</p></li>
+<li><p><span class="func">gather_multi</span>: Gather multiple sets of variables.</p></li>
+<li><p><span class="func">num_by</span>: A quick summarize, possibly with <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by</a></code>, that provides things like mean, sd, etc. See <code>num_summary</code>.</p></li>
+<li><p><span class="func">num_summary</span>: A little better than the base R summary, gives the info one typically wants as well as options for rounding and other statistics.</p></li>
+<li><p><span class="func">onehot</span>: A function for one-hot encoding with a few helpful options for dealing with missing data, using sparse matrices, and more.</p></li>
+<li><p><span class="func">pre_process</span>: Easily pre-process a data set with common operations like standardization, logging, etc.</p></li>
+<li><p><span class="func">spread2</span>: The tidyr spread without the duplicate row id problem.</p></li>
+<li><p><span class="func">sum_NA</span>, <span class="func">sum_NaN</span>, <span class="func">sum_blank</span>: Understand your nothingness.</p></li>
+</ul>
 <p><br></p>
-</div>
 </div>
 <div id="version-history" class="section level3">
 <h3 class="hasAnchor">
 <a href="#version-history" class="anchor"></a>Version history</h3>
 <ul>
+<li>0.1.3 Added gather_multi</li>
 <li>0.1.2 Added spread2</li>
 <li>0.1.1 Added pre_process</li>
 <li>0.1.0 Initial release</li>

@@ -1,7 +1,7 @@
 Package: tidyext
 Type: Package
 Title: Tidy Extensions for Data Processing
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: person("Michael", "Clark", role = c("aut", "cre"), email = "micl@umich.edu")
 Maintainer: Michael Clark <micl@umich.edu>
 Description: Common data processing functions useful to me.
@@ -16,15 +16,16 @@ Depends:
 Imports:
     assertthat,
     dplyr,
+    magrittr,
     purrr,
     rlang,
     scales,
     tibble,
-    tidyr,
-    tidyselect
+    tidyr
 Suggests:
     Matrix,
     stringi,
     stringr,
     testthat,
+    covr
 RoxygenNote: 6.0.1

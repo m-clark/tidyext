@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidyext</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.3</span>
       </span>
     </div>
 
@@ -186,8 +186,9 @@ variables with fewer or equal max_levels? Default is FALSE.</p></td>
   summaries either being inadequate for my needs, too 'busy' with output, or
   unable to deal well with mixed data types. Numeric data is treated
   separately from categorical, and provides the same information as in
-  <code><a href='num_summary.html'>num_summary</a></code>. Categorical variables are defined as anything with equal or
-  fewer distinct values than <code>max_levels</code> combined with
+  <code><a href='num_summary.html'>num_summary</a></code>. Categorical variables are defined as
+  anything with equal or fewer distinct values than <code>max_levels</code>
+  combined with
   <code>include_numeric</code>. Categorical variables are summarized with
   frequencies and percentages. For empty categorical variables (e.g. after a
   subset), a warning is thrown.</p>
@@ -203,7 +204,8 @@ variables with fewer or equal max_levels? Default is FALSE.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>tidyext</span>); <span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='no'>X</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>f1</span> <span class='kw'>=</span><span class='fu'>gl</span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>20</span>, <span class='kw'>labels</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>'A'</span>, <span class='st'>'B'</span>)), <span class='kw'>f2</span><span class='kw'>=</span><span class='fu'>gl</span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>20</span>, <span class='kw'>labels</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>'X'</span>, <span class='st'>'Q'</span>)))
+<span class='no'>X</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>f1</span> <span class='kw'>=</span><span class='fu'>gl</span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>20</span>, <span class='kw'>labels</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>'A'</span>, <span class='st'>'B'</span>)),
+               <span class='kw'>f2</span><span class='kw'>=</span><span class='fu'>gl</span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>20</span>, <span class='kw'>labels</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>'X'</span>, <span class='st'>'Q'</span>)))
 <span class='no'>X</span> <span class='kw'>=</span> <span class='no'>X</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>bin1</span> <span class='kw'>=</span> <span class='fu'>rbinom</span>(<span class='fl'>20</span>, <span class='fl'>1</span>, <span class='kw'>p</span><span class='kw'>=</span><span class='fl'>.5</span>),
                  <span class='kw'>logic1</span> <span class='kw'>=</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/sample.html'>sample</a></span>(<span class='fu'>c</span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), <span class='fl'>20</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
                  <span class='kw'>num1</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>20</span>),

@@ -1,3 +1,9 @@
+# tidyext  0.1
+
+## tidyext 0.1.3
+
+Added gather_multi
+
 ## tidyext 0.1.2 
 
 Added spread2

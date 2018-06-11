@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • tidyext!</title>
+<title>Objects exported from other packages — reexports • tidyext!</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,7 +30,15 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Objects exported from other packages — reexports" />
+
+<meta property="og:description" content="These objects are imported from other packages. Follow the links
+below to see their documentation.
+
+  dplyrvars" />
+
+<meta property="og:description" content="magrittr%&gt;%
+" />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -48,7 +56,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -109,125 +117,33 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Objects exported from other packages</h1>
+    <small class="dont-index">Source: <a href='https://github.com/m-clark/tidyext/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>reexports.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>These objects are imported from other packages. Follow the links
+below to see their documentation.</p>
+<dl class='dl-horizontal'>
+  <dt>dplyr</dt><dd><p><code><a href='http://dplyr.tidyverse.org/reference/vars.html'>vars</a></code></p></dd>
 
-    <colgroup>
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <dt>magrittr</dt><dd><p><code>%&gt;%</code></p></dd>
+</dl>
+    
+    </div>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-summary" class="hasAnchor"><a href="#section-data-summary" class="anchor"></a>Data summary</h2>
-          <p class="section-desc"><p>Functions for summarizing data.</p></p>
-        </th>
-      </tr>
-      <tr>
-        <!--  -->
-        <td>
-          <p><code><a href="num_by.html">num_by()</a></code> <code><a href="num_by.html">cat_by()</a></code> </p>
-        </td>
-        <td><p>Summarize data by groups</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="describe_all.html">describe_all()</a></code> <code><a href="describe_all.html">describe_all_num()</a></code> <code><a href="describe_all.html">describe_all_cat()</a></code> </p>
-        </td>
-        <td><p>Describe your data cleanly and effectively</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="num_summary.html">num_summary()</a></code> </p>
-        </td>
-        <td><p>Get numerical summaries</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="sum_NA.html">sum_NA()</a></code> <code><a href="sum_NA.html">sum_NaN()</a></code> <code><a href="sum_NA.html">sum_blank()</a></code> </p>
-        </td>
-        <td><p>Investigate missingness</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-creating-data" class="hasAnchor"><a href="#section-creating-data" class="anchor"></a>Creating data</h2>
-          <p class="section-desc"><p>Functions for creating data.</p></p>
-        </th>
-      </tr>
-      <tr>
-        <!--  -->
-        <td>
-          <p><code><a href="combn_2_col.html">combn_2_col()</a></code> </p>
-        </td>
-        <td><p>Combinations to columns</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="create_prediction_data.html">create_prediction_data()</a></code> </p>
-        </td>
-        <td><p>Generate prediction data</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="gather_multi.html">gather_multi()</a></code> </p>
-        </td>
-        <td><p>Gather multiple sets of variables</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="onehot.html">onehot()</a></code> </p>
-        </td>
-        <td><p>One-hot encoding</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="pre_process.html">pre_process()</a></code> </p>
-        </td>
-        <td><p>Perform common preprocessing of numeric data</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="spread2.html">spread2()</a></code> </p>
-        </td>
-        <td><p>Spread without frustration</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-miscellaneous" class="hasAnchor"><a href="#section-miscellaneous" class="anchor"></a>Miscellaneous</h2>
-          <p class="section-desc"><p>Miscellaneous functions.</p></p>
-        </th>
-      </tr>
-      <tr>
-        <!--  -->
-        <td>
-          <p><code><a href="select_not.html">select_not()</a></code> </p>
-        </td>
-        <td><p>Don't select these unquoted columns passed as arguments.</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="tidyext.html">tidyext</a></code> </p>
-        </td>
-        <td><p>tidyext: Common data processing in the tidyverse.</p></td>
-      </tr>
-    </tbody>
-    </table>
+        
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-data-summary">Data summary</a></li>
-      <li><a href="#section-creating-data">Creating data</a></li>
-      <li><a href="#section-miscellaneous">Miscellaneous</a></li>
-    </ul>
+                </ul>
+
   </div>
 </div>
 

@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidyext</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.3</span>
       </span>
     </div>
 
@@ -156,7 +156,7 @@
   get `invalid argument` errors.  I needed this functionality because an
   operation was to be performed on some columns, but not if some operations
   had been performed on others, and those others were passed as unquoted
-  variables via <code>vars()</code>. See <a href='pre_process.html'>pre_process</a>.</p>
+  variables via <code><a href='http://dplyr.tidyverse.org/reference/vars.html'>vars()</a></code>. See <a href='pre_process.html'>pre_process</a>.</p>
 <p>In the end, it was far easier to write a two line function than figure out
   the tidy eval approach that would have worked with less code. It literally
   just does:</p>
@@ -167,7 +167,7 @@
   answer on SO</a> shows how one <em>could</em> do it.  He is a
   developer for RStudio, so one can assume it's a fairly spot on suggestion.
   Yet even that would need a bit of modification to work with a
-  <code>vars()</code>, which I needed for multiple column entries to a single
+  <code><a href='http://dplyr.tidyverse.org/reference/vars.html'>vars()</a></code>, which I needed for multiple column entries to a single
   argument.  Here is what ultimately would work with tidyeval using that
   approach.</p>
 <p></p><pre>x = vars_input %&gt;%
