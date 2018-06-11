@@ -1,3 +1,10 @@
+# tidyext  0.2
+
+## tidyext 0.2.0
+
+More or less a recognition of the package website and that I'll probably stop fiddling with things for a while.
+
+
 # tidyext  0.1
 
 ## tidyext 0.1.3

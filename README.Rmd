@@ -52,7 +52,7 @@ Note that this package more or less assumes your are working within the <span cl
 
 - <span class="func">gather_multi</span>: Gather multiple sets of variables.
 
-- <span class="func">num_by</span>: A quick summarize, possibly with `dplyr::group_by`, that provides things like mean, sd, etc. See `num_summary`.
+- <span class="func">num_by</span>: A quick summarize, possibly with `dplyr::group_by`, that provides things like mean, sd, etc. See <span class="func">num_summary</span>.
 
 - <span class="func">num_summary</span>: A little better than the base R summary, gives the info one typically wants as well as options for rounding and other statistics.
 

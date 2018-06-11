@@ -2,7 +2,7 @@
 % Please edit documentation in R/select_not.R
 \name{select_not}
 \alias{select_not}
-\title{Don't select these unquoted columns passed as arguments.}
+\title{Don't select these unquoted columns passed as arguments. select(-!!var) 😲}
 \usage{
 select_not(data, ...)
 }

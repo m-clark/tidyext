@@ -63,8 +63,7 @@ x = num_summary(mtcars$mpg)
 glimpse(x)
 
 mtcars %>% 
-  map(num_summary) %>% 
-  bind_rows()
+  map_dfr(num_summary, .id = 'Variable')
 ```
 
 There are also functions for summarizing missingness.
@@ -72,7 +71,7 @@ There are also functions for summarizing missingness.
 ```{r missing}
 sum_NA(df_miss$a)
 
-sum_blank(c(letters, '', ''))
+sum_blank(c(letters, '', '   '))
 
 sum_NaN(c(1, NaN, 2))
 ```
@@ -93,13 +92,13 @@ Note how the categorical data result is just as ready for visualization as the n
 
 ```{r describe_cat, out.width='50%'}
 describe_all_cat(df_miss, include_NAcat = TRUE, sort_by_freq = TRUE) %>% 
-  filter(Variable == 'd') %>% 
+  filter(Variable == 'g1') %>% 
   ggplot(aes(x=Group, y=`%`)) +
   geom_col(width = .25)
 ```
 
 
-Typically during data processing, we are performing grouped operations.  As such there is a corresponding num_by and cat_by to provide the same information by some grouping variable.  This basically is saving you from doing `group_by %>% summarize()` and creating variables for all these values.  It can also take a set of variables to summarize using <span class="func">vars</span>.
+Typically during data processing, we are performing grouped operations.  As such there is a corresponding <span class="func">num_by</span> and <span class="func">cat_by</span> to provide the same information by some grouping variable.  This basically is saving you from doing `group_by %>% summarize()` and creating variables for all these values.  It can also take a set of variables to summarize using <span class="func">vars</span>.
 
 ```{r num_by}
 df_miss %>% 
@@ -135,8 +134,24 @@ onehot(iris) %>%
   slice(c(1:2, 51:52, 101:102))
 ```
 
+It can do it sparsely.
 
-We can quickly create data for use with <span class="func">predict</span>, and a function for pre-processing data for use with a model.  By default it will put numeric variables at their mean, and categorical variables at their most common category.
+```{r onehot2}
+iris %>% 
+  slice(c(1:2, 51:52, 101:102)) %>% 
+  onehot(sparse = TRUE)
+```
+
+Chose a specific variable, whether you want to keep the others, and how to deal with NA.
+
+```{r onehot3}
+df_miss %>%
+  onehot(var = c('g1', 'g2'), nas = 'na.omit', keep.original = FALSE) %>%
+  head()
+```
+
+
+With <span class="func">create_prediction_data</span>, we can quickly create data for use with <span class="func">predict</span> after a model.  By default it will put numeric variables at their mean, and categorical variables at their most common category.
 
 ```{r create_prediction_data}
 create_prediction_data(iris)
@@ -152,7 +167,7 @@ cd = data.frame(cyl=4, hp=100)
 create_prediction_data(mtcars, conditional_data = cd)
 ```
 
-For modeling purposes, we often want to center or scale the data, take logs etc.  The pre_process function will standardize numeric data by default.
+For modeling purposes, we often want to center or scale the data, take logs etc.  The <span class="func">pre_process</span> function will standardize numeric data by default.
 
 ```{r preprocess}
 pre_process(df1)
@@ -169,11 +184,11 @@ pre_process(mtcars,
   describe_all_num()
 ```
 
-Note that center/standardizing is done to any variables *not* chosen for `log`, `zero_start`, and `zero_one`.  
+Note that center/standardizing is done to any numeric variables *not* chosen for `log`, `zero_start`, and `zero_one`.  
 
-Here's a specific function you will probably never need, but will be glad to have if you do.  Some data columns have multiple entries for each observation/cell.  While understandable why someone would do this, it's not very good practice. This will split out the entries, or any particular combination of them, into their own indicator column.
+Here's a specific function you will probably never need, but will be glad to have if you do.  Some data columns have multiple entries for each observation/cell.  While it's understandable why someone would do this, it's not very good practice. This will split out the entries, or any particular combination of them, into their own indicator column.
 
-```{r combn}
+```{r combn, message=TRUE}
 d = data.frame(id = 1:4,
                labs = c('A-B', 'B-C-D-E', 'A-E', 'D-E'))
 combn_2_col(data=d, var='labs', max_m=2, sep = '-', collapse = ':', toInteger = T)
@@ -181,7 +196,7 @@ combn_2_col(data=d, var='labs', max_m=2, sep = '-', collapse = ':', toInteger = 
 combn_2_col(data=d, var='labs', max_m=2, sparse = T)
 ```
 
-And finally, there is a function that makes <span class="pack">tidyr's</span> <span class="func">spread</span> work like it should when you don't have unique identifiers.  
+In addition, there is a function that makes <span class="pack">tidyr's</span> <span class="func">spread</span> work like it should when you don't have unique identifiers.  I spent a lot of time coming up with the name for this one.
 
 ```{r spread2, error=TRUE}
 # initial example from spread
@@ -220,7 +235,7 @@ stocksm %>%
   spread2(stock, price)        # works fine
 ```
 
-However, with unbalanced data the result can be interpreted in different ways, so you'll have a choice to make.
+However, with unbalanced data the result can be interpreted in different ways, so you'll have a choice to make.  
 
 ```{r spread2compact}
 stocksm$price[sample(1:nrow(stocksm), 5)] = NA
@@ -231,7 +246,9 @@ stocksm %>%
   spread2(stock, price, compact = FALSE)
 ```
 
-Use <span class="func">gather_multi</span> to extend gather to deal with multiple sets of variables.
+I can speak from experience that having longitudinal data in the `compact = FALSE` format is about the worst way you could keep such data.
+
+Use <span class="func">gather_multi</span> to extend `tidyr::gather` to deal with multiple sets of variables.
 
 ```{r gather_multi}
 demo_data_wide = data.frame(id = 1:10,
@@ -249,6 +266,7 @@ gather_multi(demo_data_wide,
              -id)
 ```
 
+Note that this only makes sense with balanced data, though it will work if NAs are present.  Also, you may want to change the key in some fashion.
 
 <br>
 <br>

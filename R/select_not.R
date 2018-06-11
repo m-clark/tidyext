@@ -1,4 +1,4 @@
-#' Don't select these unquoted columns passed as arguments.
+#' Don't select these unquoted columns passed as arguments. select(-!!var) 😲
 #' @description Drop columns provided as unquoted names to arguments.
 #' @param data The data set to work with.
 #' @param ... Arguments as with \code{select}.

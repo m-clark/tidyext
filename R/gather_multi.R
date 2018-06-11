@@ -68,7 +68,7 @@ gather_multi <- function(data,
   casewise deletion.  Missing on any values in the
   resulting data set will be missing on all variables.')
 
-  k = enquo(key)
+  k <- enquo(key)
 
   # first gather
   data_long <- data %>%
