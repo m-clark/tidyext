@@ -36,11 +36,11 @@ test_that('num_by will take digits', {
                   'data.frame')
 })
 
-test_that('fails on non-numeric', {
+test_that('num_by fails on non-numeric', {
   expect_error(num_by(df1, main_var = c_))
 })
 
-test_that('fails with non-data.frame object', {
+test_that('num_by fails with non-data.frame object', {
   expect_error(num_by(as.matrix(df1[,'a']), main_var = a))
 })
 

@@ -38,7 +38,7 @@
 #' @importFrom stats quantile
 #' @importFrom rlang is_quosures
 #' @importFrom tidyr gather spread separate
-#' @importFrom tidyselect vars_pull
+#' @importFrom dplyr quo_name
 #' @examples
 #' library(tidyext)
 #' df1 <- data.frame(g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')),
@@ -211,16 +211,8 @@ cat_by <- function(data,
   # use of group var --------------------------------------------------------
   gv_exists <- !rlang::quo_is_missing(enquo(group_var))
   if (gv_exists) {
-  # check that group_var is in main_var; if not add it
     gv <- enquo(group_var)
-    check_gv <- tryCatch(tidyselect::vars_pull(names(select(data, !!mv)), !!gv),
-                         error = function(c) {
-                           msg <- conditionMessage(c)
-                           invisible(structure(msg, class = "try-error"))
-                         })
-
-    if (class(check_gv) == 'try-error' | is.logical(check_gv) && !check_gv)
-      main_var <- c(main_var, vars(!!gv))
+    main_var <- c(vars(!!gv), main_var)
 
     data <- data %>%
       select_at(main_var) %>%
@@ -230,7 +222,7 @@ cat_by <- function(data,
       mutate(`% of Total` = 100*N/sum(N))
 
     if (perc_by_group) {
-      varname <- vars_pull(names(data), !!gv)
+      varname <- dplyr::quo_name(gv)
       data <- data %>%
         group_by(!!gv) %>%
         mutate(gv_perc = 100*N/sum(N))
