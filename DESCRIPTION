@@ -14,15 +14,14 @@ Year: 2018
 Depends:
     R (>= 3.4.0)
 Imports:
-    assertthat,
     dplyr,
-    magrittr,
     purrr,
     rlang,
     scales,
     tibble,
     tidyr
 Suggests:
+    magrittr,
     Matrix,
     stringi,
     stringr,

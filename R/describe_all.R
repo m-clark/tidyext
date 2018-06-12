@@ -17,7 +17,6 @@
 #' @param ...  Additional arguments passed to \code{num_summary}
 #'
 #' @import dplyr
-#' @importFrom assertthat assert_that
 #' @importFrom stats median sd
 #' @importFrom purrr map map_int map_df
 #'
@@ -63,7 +62,7 @@ describe_all <- function(data,
                          sort_by_freq = FALSE,
                          NAcat_include = NULL,
                          ...) {
-  assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
+  if(!inherits(data, 'data.frame')) stop('Need a data.frame class object.')
 
   if(!is.null(NAcat_include)) include_NAcat <- NAcat_include
 
@@ -82,7 +81,7 @@ describe_all <- function(data,
 #' @rdname describe_all
 #' @export
 describe_all_num <- function(data, digits=2, ...) {
-  assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
+  if(!inherits(data, 'data.frame')) stop('Need a data.frame class object.')
 
   data_num <- data %>%
     select_if(is.numeric)
@@ -111,7 +110,7 @@ describe_all_cat <- function(data,
                              max_levels = 10,
                              include_numeric = FALSE,
                              sort_by_freq = FALSE) {
-  assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
+  if(!inherits(data, 'data.frame')) stop('Need a data.frame class object.')
 
   data_cat <- data %>%
     select_if(function(x) if_else(include_numeric,

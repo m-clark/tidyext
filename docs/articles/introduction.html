@@ -84,7 +84,7 @@
       <h1>Demonstration of tidyext</h1>
                         <h4 class="author">Michel Clark</h4>
             
-            <h4 class="date"><span style="font-style:normal;font-family:'Open Sans'">2018-06-10</span></h4>
+            <h4 class="date"><span style="font-style:normal;font-family:'Open Sans'">2018-06-11</span></h4>
       
       <small class="dont-index">Source: <a href="https://github.com/m-clark/tidyext/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -480,10 +480,10 @@
 <a class="sourceLine" id="cb19-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb19-14" data-line-number="14"><span class="kw"><a href="../reference/gather_multi.html">gather_multi</a></span>(demo_data_wide,</a>
 <a class="sourceLine" id="cb19-15" data-line-number="15">             <span class="dt">key =</span> wave,</a>
-<a class="sourceLine" id="cb19-16" data-line-number="16">             <span class="dt">values =</span> <span class="kw"><a href="http://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(X, Y, Z),</a>
-<a class="sourceLine" id="cb19-17" data-line-number="17">             <span class="dt">varlist =</span> <span class="kw">c</span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(<span class="kw">starts_with</span>(<span class="st">'X'</span>)),</a>
-<a class="sourceLine" id="cb19-18" data-line-number="18">                         <span class="kw"><a href="http://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(<span class="kw">starts_with</span>(<span class="st">'Y'</span>)),</a>
-<a class="sourceLine" id="cb19-19" data-line-number="19">                         <span class="kw"><a href="http://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(<span class="kw">starts_with</span>(<span class="st">'Z'</span>))),</a>
+<a class="sourceLine" id="cb19-16" data-line-number="16">             <span class="dt">values  =</span> <span class="kw"><a href="http://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(X, Y, Z),</a>
+<a class="sourceLine" id="cb19-17" data-line-number="17">             <span class="dt">varlist =</span> <span class="kw"><a href="http://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(<span class="kw">starts_with</span>(<span class="st">'X'</span>),</a>
+<a class="sourceLine" id="cb19-18" data-line-number="18">                            <span class="kw">starts_with</span>(<span class="st">'Y'</span>),</a>
+<a class="sourceLine" id="cb19-19" data-line-number="19">                            <span class="kw">starts_with</span>(<span class="st">'Z'</span>)),</a>
 <a class="sourceLine" id="cb19-20" data-line-number="20">             <span class="op">-</span>id)</a>
 <a class="sourceLine" id="cb19-21" data-line-number="21">   id wave            X Y Z</a>
 <a class="sourceLine" id="cb19-22" data-line-number="22"><span class="dv">1</span>   <span class="dv">1</span>  X<span class="fl">.1</span> <span class="fl">-0.192437435</span> <span class="dv">0</span> <span class="dv">2</span></a>

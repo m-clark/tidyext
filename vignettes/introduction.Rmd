@@ -259,10 +259,10 @@ head(demo_data_wide)
 
 gather_multi(demo_data_wide,
              key = wave,
-             values = vars(X, Y, Z),
-             varlist = c(vars(starts_with('X')),
-                         vars(starts_with('Y')),
-                         vars(starts_with('Z'))),
+             values  = vars(X, Y, Z),
+             varlist = vars(starts_with('X'),
+                            starts_with('Y'),
+                            starts_with('Z')),
              -id)
 ```
 

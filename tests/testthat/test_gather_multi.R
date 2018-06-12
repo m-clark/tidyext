@@ -24,9 +24,9 @@ test_that('gather_multi returns a data frame', {
   test_dat <- gather_multi(demo_data_wide,
                            key = wave,
                            values = c('X', 'Y', 'Z'),
-                           varlist = c(vars(starts_with('X')),
-                                       vars(starts_with('Y')),
-                                       vars(starts_with('Z'))))
+                           varlist = vars(starts_with('X'),
+                                          starts_with('Y'),
+                                          starts_with('Z')))
   expect_is(test_dat, 'data.frame')
 })
 
@@ -34,9 +34,31 @@ test_that('gather_multi takes a quoted key', {
   test_dat <- gather_multi(demo_data_wide,
                            key = 'wave',
                            values = c('X', 'Y', 'Z'),
-                           varlist = c(vars(starts_with('X')),
-                                       vars(starts_with('Y')),
-                                       vars(starts_with('Z'))))
+                           varlist = vars(starts_with('X'),
+                                          starts_with('Y'),
+                                          starts_with('Z')))
+  expect_is(test_dat, 'data.frame')
+})
+
+test_that('gather_multi can use key_func', {
+  test_dat <- gather_multi(demo_data_wide,
+                           key = 'wave',
+                           values = c('X', 'Y', 'Z'),
+                           varlist = vars(starts_with('X'),
+                                          starts_with('Y'),
+                                          starts_with('Z')),
+                           key_func = function(x) substr(x, start=3, stop=3))
+  expect_is(test_dat, 'data.frame')
+})
+
+test_that('gather_multi can use key_func', {
+  test_dat <- gather_multi(demo_data_wide,
+                           key = wave,
+                           values = c('X', 'Y', 'Z'),
+                           varlist = vars(starts_with('X'),
+                                          starts_with('Y'),
+                                          starts_with('Z')),
+                           key_func = function(x) substr(x, start=3, stop=3))
   expect_is(test_dat, 'data.frame')
 })
 
@@ -44,9 +66,9 @@ test_that('gather_multi takes dots', {
   test_dat <- gather_multi(demo_data_wide,
                            key = wave,
                            values = c('X', 'Y', 'Z'),
-                           varlist = c(vars(starts_with('X')),
-                                       vars(starts_with('Y')),
-                                       vars(starts_with('Z'))),
+                           varlist = vars(starts_with('X'),
+                                          starts_with('Y'),
+                                          starts_with('Z')),
                            -id)
   expect_is(test_dat, 'data.frame')
 })
@@ -55,9 +77,9 @@ test_that('gather_multi takes vars with unquoted values', {
   test_dat <- gather_multi(demo_data_wide,
                            key = wave,
                            values = vars(X, Y, Z),
-                           varlist = c(vars(starts_with('X')),
-                                       vars(starts_with('Y')),
-                                       vars(starts_with('Z'))),
+                           varlist = vars(starts_with('X'),
+                                          starts_with('Y'),
+                                          starts_with('Z')),
                            -id)
   expect_is(test_dat, 'data.frame')
 })
@@ -66,9 +88,9 @@ test_that('gather_multi warns with na.rm = TRUE', {
   expect_warning(gather_multi(demo_data_wide_miss,
                               key = wave,
                               values = c('X', 'Y', 'Z'),
-                              varlist = c(vars(starts_with('X')),
-                                          vars(starts_with('Y')),
-                                          vars(starts_with('Z'))),
+                              varlist = vars(starts_with('X'),
+                                             starts_with('Y'),
+                                             starts_with('Z')),
                               -id,
                               na.rm = TRUE))
 })
@@ -77,9 +99,9 @@ test_that('gather_multi errors with imbalance', {
   expect_error(gather_multi(demo_data_wide_miss,
                             key = wave,
                             values = c('X', 'Z'),
-                            varlist = c(vars(starts_with('X')),
-                                        vars(starts_with('Y')),
-                                        vars(starts_with('Z'))),
+                            varlist = vars(starts_with('X'),
+                                           starts_with('Y'),
+                                           starts_with('Z')),
                             -id))
 })
 
@@ -87,8 +109,8 @@ test_that('gather_multi errors with imbalance', {
   expect_error(gather_multi(demo_data_wide_miss,
                             key = wave,
                             values = c('X', 'Y', 'Z'),
-                            varlist = c(vars(starts_with('X')),
-                                        vars(starts_with('Y')),
-                                        vars(one_of('Z.1', 'Z.2'))),
+                            varlist = vars(starts_with('X'),
+                                           starts_with('Y'),
+                                           one_of('Z.1', 'Z.2')),
                             -id))
 })
