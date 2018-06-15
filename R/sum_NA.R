@@ -8,6 +8,9 @@
 #'   just use the underlying function, e.g. is.na. For total blank values, the
 #'   stringi package is required.
 #'
+#'   For more in this realm, I suggest you visit
+#'   \href{http://naniar.njtierney.com/}{naniar}.
+#'
 #' @return The number of non-elements so defined
 #'
 #' @examples

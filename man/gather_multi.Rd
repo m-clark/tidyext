@@ -2,7 +2,7 @@
 % Please edit documentation in R/gather_multi.R
 \name{gather_multi}
 \alias{gather_multi}
-\title{Gather multiple sets of variables}
+\title{Extend tidyr gather to multiple sets of variables}
 \usage{
 gather_multi(data, key = "key", values = "values", varlist = list(), ...,
   key_func = NULL, na.rm = FALSE, convert = FALSE, factor_key = FALSE)

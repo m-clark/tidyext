@@ -1,6 +1,6 @@
-#' @importFrom dplyr %>%
+#' @importFrom magrittr %>%
 #' @export
-dplyr::`%>%`
+magrittr::`%>%`
 
 
 

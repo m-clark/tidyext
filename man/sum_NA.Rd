@@ -27,6 +27,9 @@ These functions return the number of NA, NaN, or blank values in a
   in longitudinal settings. If you are dealing with singletons, you should
   just use the underlying function, e.g. is.na. For total blank values, the
   stringi package is required.
+
+  For more in this realm, I suggest you visit
+  \href{http://naniar.njtierney.com/}{naniar}.
 }
 \examples{
 library(tidyext)

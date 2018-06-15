@@ -13,6 +13,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr]{\%>\%}}, \code{\link[dplyr]{vars}}}
+  \item{dplyr}{\code{\link[dplyr]{vars}}}
+
+  \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 }}
 
