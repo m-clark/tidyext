@@ -30,10 +30,11 @@ test_that('create_prediction_data handles logical', {
   expect_is(create_prediction_data(iris2), 'data.frame')
 })
 
-test_that('create_prediction_data takes an alternate cat option for non-factor', {
-  iris2 <- iris %>% mutate(Setosa = Species=='setosa')
-  expect_is(create_prediction_data(iris2, cat = 'ref'), 'data.frame')
-})
+test_that('create_prediction_data takes an alternate cat option for non-factor',
+          {
+            iris2 <- iris %>% mutate(Setosa = Species=='setosa')
+            expect_is(create_prediction_data(iris2, cat = 'ref'), 'data.frame')
+          })
 
 test_that('create_prediction_data handles date', {
   mtcars2 <- mtcars %>%

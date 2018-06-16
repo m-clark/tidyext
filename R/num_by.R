@@ -194,15 +194,18 @@ cat_by <- function(data,
     main_var <- quos(!!mv)
 
   class_mv <- data %>%
-    summarise_at(main_var, funs(cls=class(.))) %>%
-    unlist()
+    select_at(main_var) %>%
+    purrr::map(class) %>%
+    unlist() %>%
+    unique()
+
   nlevs <- data %>%
     summarise_at(main_var, funs(n_distinct(.))) %>%
     unlist()
 
-  if (!all(class_mv  %in% c('character', 'factor', 'logical')))
-    warning("Some of these do not appear to be character, factor,
-    or logical variables.")
+  if (!all(class_mv  %in% c('character', 'factor', 'logical', 'ordered')))
+    warning("Some of these do not appear to be character, factor/ordered,
+  or logical variables.")
 
   if (any(nlevs > 10))
     warning("Greater than 10 levels found for at least one variable.
