@@ -6,3 +6,4 @@
 ^.*\.Rmd
 ^pkgdown$
 ^codecov\.yml$
+^appveyor\.yml$
