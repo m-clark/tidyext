@@ -4,6 +4,7 @@ set.seed(1234)
 df1 <- tibble(
   g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')),
   g2 = sample(1:4, 50, replace = TRUE),
+  g3 = ordered(sample(letters[1:3], 50, replace = TRUE)),
   a = rnorm(50),
   b = rpois(50, 10),
   c = sample(letters, 50, replace=TRUE),
@@ -54,6 +55,7 @@ test_that('describe_all can drop NA with old arg', {
 
 
 
+# describe_all_num --------------------------------------------------------
 
 test_that('describe_all_num returns a data.frame', {
   expect_is(describe_all_num(df1 %>% select_if(is.numeric)), 'data.frame')
@@ -69,6 +71,7 @@ test_that('describe_all_num returns message if no numeric', {
 })
 
 
+# describe_all_cat --------------------------------------------------------
 
 test_that('describe_all_cat returns a data.frame', {
   expect_is(describe_all_cat(df1) %>% select_if(function(x) !is.numeric(x)),
@@ -88,30 +91,40 @@ test_that('describe_all_cat returns warning if no levels', {
 })
 
 test_that('describe_all_cat can do different max_levels', {
-  expect_equal(nrow(describe_all_cat(df1, max_levels = 2)), 4)
+  expect_equal(nrow(describe_all_cat(df1, max_levels = 2)), 9)
 })
 
 test_that('describe_all_cat can do numeric', {
   # including numeric should include variable g2 (4 levels)
   expect_equal(nrow(describe_all_cat(df1, max_levels = 4, include_numeric = T)),
-               8)
-})
-
-test_that('describe_all_cat can sort result', {
-  init_sort <- describe_all_cat(df1,
-                                max_levels = 10,
-                                include_numeric = T,
-                                sort_by_freq = T)
-  init_nosort <- describe_all_cat(df1,
-                                  max_levels = 10,
-                                  include_numeric = T,
-                                  sort_by_freq = F)
-  expect_false(identical(init_nosort, init_sort))
+               16)
 })
 
 test_that('describe_all_cat can drop NA', {
   expect_equal(nrow(describe_all_cat(iris %>% rbind(NA), include_NAcat = T)), 4)
 })
 
+test_that('describe_all_cat can handle too big max_levels', {
+  expect_s3_class(describe_all_cat(df1, max_levels = Inf, include_numeric = T),
+                  'data.frame')
+})
 
+test_that('describe_all_cat can sort result', {
+  init_sort <- describe_all_cat(df1,
+                                max_levels = 3,
+                                include_numeric = T,
+                                sort_by_freq = T)
+  init_nosort <- describe_all_cat(df1,
+                                  max_levels = 3,
+                                  include_numeric = T,
+                                  sort_by_freq = F)
+  expect_false(identical(init_nosort, init_sort))
+})
 
+test_that('describe_all_cat will return list data frame', {
+  init <- describe_all_cat(df1,
+                           max_levels = 3,
+                           include_numeric = T,
+                           as_ordered = T)
+  expect_is(init$data, 'list')
+})

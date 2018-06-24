@@ -50,6 +50,11 @@ test_that('cat_by will do percentages out of total', {
 })
 
 
+test_that('cat_by takes ordered/multi-class without issue', {
+  df1$g2 <- as.ordered(df1$g2)
+  expect_s3_class(cat_by(df1, main_var = g2), 'data.frame')
+})
+
 test_that('cat_by warns on numeric', {
   expect_warning(cat_by(df1, main_var = g2))
 })
@@ -57,3 +62,4 @@ test_that('cat_by warns on numeric', {
 test_that('cat_by warns on too many levels', {
   expect_warning(cat_by(df1, main_var = c))
 })
+

@@ -22,6 +22,7 @@ Imports:
     tibble,
     tidyr
 Suggests:
+    ggplot2,
     Matrix,
     stringi,
     stringr,

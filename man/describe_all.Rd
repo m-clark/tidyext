@@ -7,13 +7,12 @@
 \title{Describe your data cleanly and effectively}
 \usage{
 describe_all(data, digits = 2, include_NAcat = TRUE, max_levels = 10,
-  include_numeric = FALSE, sort_by_freq = FALSE, NAcat_include = NULL,
-  ...)
+  include_numeric = FALSE, NAcat_include = NULL, sort_by_freq = TRUE, ...)
 
 describe_all_num(data, digits = 2, ...)
 
 describe_all_cat(data, digits = 2, include_NAcat = TRUE, max_levels = 10,
-  include_numeric = FALSE, sort_by_freq = FALSE)
+  include_numeric = FALSE, sort_by_freq = TRUE, as_ordered = FALSE)
 }
 \arguments{
 \item{data}{The dataset, of class data.frame.}
@@ -29,17 +28,22 @@ TRUE.}
 categorical variables. Default is 10.}
 
 \item{include_numeric}{For categorical summary, also include numeric
-variables with fewer or equal max_levels? Default is FALSE.}
+variables with unique values fewer or equal to max_levels? Default is
+FALSE.}
 
-\item{sort_by_freq}{Sort categorical result by frequency? Default is FALSE.}
+\item{NAcat_include}{Deprecated alias of include_NAcat.}
 
-\item{NAcat_include}{Deprecated include_NAcat.}
+\item{sort_by_freq}{Sort categorical levels by frequency? Default is TRUE.}
 
 \item{...}{Additional arguments passed to \code{num_summary}}
+
+\item{as_ordered}{Return the categorical results with the levels as ordered.
+See details and example.}
 }
 \value{
 A list with two elements of summaries for numeric and other variables
-  respectively.
+  respectively. Or the contents of those elements if the type-specific
+  functions are used.
 }
 \description{
 Describe data sets with multiple variable types effectively.
@@ -47,14 +51,21 @@ Describe data sets with multiple variable types effectively.
 \details{
 This function comes out of my frustrations from various data set
   summaries either being inadequate for my needs, too 'busy' with output, or
-  unable to deal well with mixed data types. Numeric data is treated
-  separately from categorical, and provides the same information as in
-  \code{\link[tidyext]{num_summary}}. Categorical variables are defined as
-  anything with equal or fewer distinct values than \code{max_levels}
-  combined with
-  \code{include_numeric}. Categorical variables are summarized with
-  frequencies and percentages. For empty categorical variables (e.g. after a
-  subset), a warning is thrown.
+  unable to deal well with mixed data types.
+
+  Numeric data is treated separately from categorical, and provides the same
+  information as in \code{\link[tidyext]{num_summary}}.
+
+  Categorical variables are defined as those with class 'character', 'factor',
+  'logical', 'ordered',  combined with \code{include_numeric}. They are are
+  summarized with frequencies and percentages. For empty categorical
+  variables (e.g. after a subset), a warning is thrown.
+
+  The \code{as_ordered} argument is to get around the notorious alphabetical
+  ordering of ggplot. It returns a data.frame where the 'data' column
+  contains the frequency information of the categorical levels, while leaving
+  the levels \emph{in order}. This way you can directly plot the result in
+  the manner you've actually requested. See the example.
 
   The functions \code{describe_all_num} and  \code{describe_all_cat} will
   provide only numeric or only categorical data summaries respectively.
@@ -72,6 +83,18 @@ X = X \%>\% mutate(bin1 = rbinom(20, 1, p=.5),
 describe_all(X)
 
 describe_all(data.frame(x=factor(1:7)), digits=5)
+describe_all(mtcars, digits=5, include_numeric=TRUE, max_levels=3)
+
+library(ggplot2)
+freqs = describe_all_cat(mtcars,
+                         include_numeric=TRUE,
+                         max_levels=3,
+                         as_ordered = TRUE)
+freqs \%>\%
+  filter(Variable == 'cyl') \%>\%
+  tidyr::unnest() \%>\%
+  ggplot(aes(x=Group, y=`\%`)) +
+  geom_point(size = 10)
 }
 \seealso{
 \code{\link[base]{summary}} \code{\link[tidyext]{num_by}}

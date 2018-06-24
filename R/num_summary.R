@@ -18,16 +18,19 @@
 #' num_summary(c('1','2','3'))
 #' @export
 num_summary <- function(x, digits=1, extra=FALSE) {
+
   # initial check of variable type
   test_x <- tryCatch(as.numeric(x), warning = function(c) {
     msg <- conditionMessage(c)
     invisible(structure(msg, class = "try-warning"))
   })
+
   if(class(test_x) == 'try-warning')
-stop('Need something numeric or which can reasonably be converted to such.
+    stop('Need something numeric or which can reasonably be converted to such.
      \nThe current variable would introduce NAs by coercion.')
 
   x <- as.numeric(x)
+
   d <- data.frame(
     N = length(na.omit(x)),
     data.frame(t(c(summary(x)))),
@@ -38,7 +41,8 @@ stop('Need something numeric or which can reasonably be converted to such.
     # rename_all(funs(gsub(., pattern='.', replacement=''))) %>%
     rename(Q1 = X1st.Qu.,
            Q3 = X3rd.Qu.) %>%
-    select(N, Mean, SD, everything(), -matches('NA'))   # drop summary() NA if present
+    select(N, Mean, SD, everything(), -matches('NA')) # drop summary() NA if present
+
   colnames(d) <- gsub(colnames(d), pattern='\\.', replacement='')
 
   if (extra) {
