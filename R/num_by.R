@@ -10,17 +10,17 @@
 #'   want within group percentages also (default is TRUE)
 #' @param sort_by_group when supplied a grouping variable for cat_by, do you
 #'   want result sorted on the grouping variable? Default is TRUE.
-#' @param digits optional rounding
+#' @param digits Optional rounding.
+#' @param extra See \link[tidyext]{num_summary}.
 #'
 #' @details The \code{num_by} function takes a numeric variable from a dataframe
 #'   and provides sample size, mean, standard deviation, min, first quartile,
 #'   median, third quartile, max, and number of missing values, possibly over a
 #'   grouping variable.
 #'
-#'   It works in the dplyr style using unquoted (bare)
-#'   variable names, using the vars() function if there is more than one
-#'   variable.  If using a grouping variable, it will treat missing values as a
-#'   separate group.
+#'   It works in the dplyr style using unquoted (bare) variable names, using the
+#'   \code{vars()} function if there is more than one variable.  If using a
+#'   grouping variable, it will treat missing values as a separate group.
 #'
 #'   For \code{cat_by}, frequencies and percentage (out of total or group_var)
 #'   are returned. Warnings are given if any of the main
@@ -62,7 +62,8 @@
 num_by <- function(data,
                    main_var,
                    group_var,
-                   digits=FALSE) {
+                   digits = FALSE,
+                   extra = FALSE) {
 
   # for future reference; the tryCatch was just to make it easy to pass a single
   # variable name in lieu of using vars().
@@ -98,10 +99,13 @@ num_by <- function(data,
   class_mv <- data %>%
     summarise_at(main_var, funs(cls=class(.))) %>%
     unlist()
+
   if (!all(class_mv %in% c('numeric', 'integer', 'logical')))
     stop('Non-numeric/logical variable detected.')
 
   nc <- length(class_mv)
+
+  cnames <- names(select_at(data, main_var))
 
   # Main processing ---------------------------------------------------------
 
@@ -110,64 +114,29 @@ num_by <- function(data,
     #• grouped result ----------------------------------------------------------
 
     gv <- enquo(group_var)
+
     data <- data %>%
-      # filter(!is.na(!!gv)) %>%
+      select(!!!gv, !!!main_var) %>%
       group_by(!!gv) %>%
-      summarise_at(main_var,
-                   funs(
-                     N = n()-sum(is.na(.)),           # this was faster on 1mil observations than several alternatives
-                     Mean = mean(., na.rm = TRUE),
-                     SD = sd(., na.rm = TRUE),
-                     Min = min(., na.rm = TRUE),
-                     Q1 = quantile(., p=.25, na.rm = TRUE),
-                     Median = median(., na.rm = TRUE),
-                     Q3 = quantile(., p=.75, na.rm = TRUE),
-                     Max = max(., na.rm = TRUE),
-                     Missing = sum_NA(.)
-                   )
-      )
-    if (nc > 1) {
-      # regex will look for the last _ , in case there are variable names with
-      # underscores
-      data <- data %>%
-        tidyr::gather(key=results, value=value, -!!gv) %>%
-        tidyr::separate(col=results, sep='_(?=[^_]+$)', into=c('Variable', 'result')) %>%
-        tidyr::spread(result, value) %>%   # the obsession with auto alphabetical order in the tidyverse strikes once again
-        select(!!gv, Variable, N,  Mean, SD, Min, Q1, Median, Q3, Max, Missing)
-    }
+      tidyr::nest() %>%
+      mutate(result = purrr::map(data,
+                                 ~purrr::map_dfr(., function(x)
+                                   num_summary(x, digits, extra),
+                                   .id='Variable')
+                                 )
+             ) %>%
+      tidyr::unnest(result)
   } else {
 
     #• non-grouped result ------------------------------------------------------
 
     data <- data %>%
-      summarise_at(main_var,
-                   funs(
-                     N = n()-sum(is.na(.)),
-                     Mean = mean(., na.rm = TRUE),
-                     SD = sd(., na.rm = TRUE),
-                     Min = min(., na.rm = TRUE),
-                     Q1 = quantile(., p=.25, na.rm = TRUE),
-                     Median = median(., na.rm = TRUE),
-                     Q3 = quantile(., p=.75, na.rm = TRUE),
-                     Max = max(., na.rm = TRUE),
-                     Missing = sum_NA(.)
-                   )
-      )
-    if (nc > 1) {
-      # suppress warnings if mixed logical and numerics
-      suppressWarnings({
-        data <- data %>%
-          tidyr::gather(key=results, value=value) %>%
-          tidyr::separate(col=results,
-                          sep='_(?=[^_]+$)',
-                          into=c('Variable', 'result')) %>%
-          tidyr::spread(result, value) %>%
-          select(Variable, N,  Mean, SD, Min, Q1, Median, Q3, Max, Missing)
-      })
-    }
+      select_at(main_var) %>%
+      purrr::map_df(num_summary, digits, extra) %>%
+      mutate(Variable = cnames) %>%
+      select(Variable, everything())
   }
 
-  if (digits) data <- data %>% mutate_if(is.numeric, round, digits=digits)
   data
 }
 
@@ -185,6 +154,7 @@ cat_by <- function(data,
   if (nrow(data)==0 | is.null(data)) stop('No data to summarise.')
 
   mv <- enquo(main_var)
+
   check_mv <- tryCatch(rlang::is_quosures(main_var), error = function(c) {
     msg <- conditionMessage(c)
     invisible(structure(msg, class = "try-error"))
@@ -213,6 +183,7 @@ cat_by <- function(data,
 
   # use of group var --------------------------------------------------------
   gv_exists <- !rlang::quo_is_missing(enquo(group_var))
+
   if (gv_exists) {
     gv <- enquo(group_var)
     main_var <- c(vars(!!gv), main_var)
@@ -226,9 +197,11 @@ cat_by <- function(data,
 
     if (perc_by_group) {
       varname <- dplyr::quo_name(gv)
+
       data <- data %>%
         group_by(!!gv) %>%
         mutate(gv_perc = 100*N/sum(N))
+
       colnames(data)[colnames(data) == 'gv_perc'] <- paste0('% of ', varname)
     }
 
@@ -246,6 +219,8 @@ cat_by <- function(data,
       mutate(`% of Total` = 100*N/sum(N))
 
   }
+
   if (digits) data <- data %>% mutate_if(is.numeric, round, digits=digits)
+
   data
 }

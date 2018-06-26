@@ -5,7 +5,7 @@
 \alias{cat_by}
 \title{Summarize data by groups}
 \usage{
-num_by(data, main_var, group_var, digits = FALSE)
+num_by(data, main_var, group_var, digits = FALSE, extra = FALSE)
 
 cat_by(data, main_var, group_var, digits = FALSE, perc_by_group = TRUE,
   sort_by_group = TRUE)
@@ -18,7 +18,9 @@ supplied using the vars() function.}
 
 \item{group_var}{the (optional) grouping variable.}
 
-\item{digits}{optional rounding}
+\item{digits}{Optional rounding.}
+
+\item{extra}{See \link[tidyext]{num_summary}.}
 
 \item{perc_by_group}{when supplied a grouping variable for cat_by, do you
 want within group percentages also (default is TRUE)}
@@ -38,10 +40,9 @@ The \code{num_by} function takes a numeric variable from a dataframe
   median, third quartile, max, and number of missing values, possibly over a
   grouping variable.
 
-  It works in the dplyr style using unquoted (bare)
-  variable names, using the vars() function if there is more than one
-  variable.  If using a grouping variable, it will treat missing values as a
-  separate group.
+  It works in the dplyr style using unquoted (bare) variable names, using the
+  \code{vars()} function if there is more than one variable.  If using a
+  grouping variable, it will treat missing values as a separate group.
 
   For \code{cat_by}, frequencies and percentage (out of total or group_var)
   are returned. Warnings are given if any of the main

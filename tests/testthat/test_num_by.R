@@ -23,7 +23,7 @@ test_that('num_by errors without data', {
   expect_error(num_by(data=filter(df1, g1=='c'), main_var = a))
 })
 
-test_that('num_by takes multple main_varn', {
+test_that('num_by takes multple main_var', {
   expect_s3_class(num_by(df1, main_var = vars(a,b)), 'data.frame')
 })
 

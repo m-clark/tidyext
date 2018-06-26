@@ -7,14 +7,15 @@
 #'   categorical is applied to the proportion (i.e. before converting to
 #'   percentage).
 #' @param include_NAcat Include NA values as categorical levels? Default is
-#'   TRUE.
-#' @param NAcat_include Deprecated alias of include_NAcat.
+#'   \code{TRUE}.
+#' @param NAcat_include Deprecated alias of \code{include_NAcat}.
 #' @param max_levels The maximum number of levels you want to display for
-#' categorical variables. Default is 10.
+#'   categorical variables. Default is 10.
 #' @param include_numeric For categorical summary, also include numeric
-#'   variables with unique values fewer or equal to max_levels? Default is
-#'   FALSE.
-#' @param sort_by_freq Sort categorical levels by frequency? Default is TRUE.
+#'   variables with unique values fewer or equal to \code{max_levels}? Default
+#'   is \code{FALSE}.
+#' @param sort_by_freq Sort categorical levels by frequency? Default is
+#'   \code{TRUE}.
 #' @param as_ordered Return the categorical results with the levels as ordered.
 #'   See details and example.
 #' @param ...  Additional arguments passed to \code{num_summary}
@@ -31,15 +32,18 @@
 #'   information as in \code{\link[tidyext]{num_summary}}.
 #'
 #'   Categorical variables are defined as those with class 'character', 'factor',
-#'   'logical', 'ordered',  combined with \code{include_numeric}. They are are
+#'   'logical', 'ordered', combined with \code{include_numeric}. They are are
 #'   summarized with frequencies and percentages. For empty categorical
-#'   variables (e.g. after a subset), a warning is thrown.
+#'   variables (e.g. after a subset), a warning is thrown. Note that max_levels
+#'   is used with \link[dplyr]{top_n}, and so will return additional values when
+#'   there are ties.
 #'
 #'   The \code{as_ordered} argument is to get around the notorious alphabetical
 #'   ordering of ggplot. It returns a data.frame where the 'data' column
 #'   contains the frequency information of the categorical levels, while leaving
-#'   the levels \emph{in order}. This way you can directly plot the result in
-#'   the manner you've actually requested. See the example.
+#'   the levels \emph{in order} (e.g. decreasing if \code{sort_by_freq} was
+#'   \code{TRUE}). This way you can directly plot the result in the manner
+#'   you've actually requested. See the example.
 #'
 #'   The functions \code{describe_all_num} and  \code{describe_all_cat} will
 #'   provide only numeric or only categorical data summaries respectively.
@@ -194,6 +198,8 @@ describe_all_cat <- function(data,
   } else {
     return(message('No categorical data.'))
   }
+
+  # a check on a sensible max_levels
   if (any(max_levels > map_int(data_cat, n_distinct)))
     max_levels <- max(map_int(data_cat, n_distinct))
 
