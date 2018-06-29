@@ -15,11 +15,11 @@ test_that('cat_by returns a data frame', {
   expect_s3_class(cat_by(df1, main_var = g1), 'data.frame')
 })
 
-test_that('num_by errors without data', {
+test_that('cat_by errors without data', {
   expect_error(cat_by(data=NULL, main_var = a))
 })
 
-test_that('num_by errors without data', {
+test_that('cat_by errors without data', {
   expect_error(cat_by(data=filter(df1, g1=='c'), main_var = a))
 })
 

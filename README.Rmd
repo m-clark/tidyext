@@ -33,7 +33,7 @@ As these functions are more universally useful, especially to my colleagues and 
 
 ### Installation
 
-The usual GitHub installation via the <span class="pack">devtools</span> package.
+To install from GitHub the <span class="pack">devtools</span> package is required.
 
 ```{r eval=FALSE}
 devtools::install_github('m-clark/tidyext')

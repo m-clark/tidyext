@@ -32,8 +32,8 @@ use the tidyverse functionality, they are easily customizable.
 
 ### Installation
 
-The usual GitHub installation via the <span class="pack">devtools</span>
-package.
+To install from GitHub the <span class="pack">devtools</span> package is
+required.
 
 ``` r
 devtools::install_github('m-clark/tidyext')

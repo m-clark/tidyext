@@ -10,7 +10,7 @@
 #'   want within group percentages also (default is TRUE)
 #' @param sort_by_group when supplied a grouping variable for cat_by, do you
 #'   want result sorted on the grouping variable? Default is TRUE.
-#' @param digits Optional rounding.
+#' @param digits Optional rounding. Default is 1.
 #' @param extra See \link[tidyext]{num_summary}.
 #'
 #' @details The \code{num_by} function takes a numeric variable from a dataframe
@@ -37,8 +37,9 @@
 #' @seealso describe_all
 #' @importFrom stats quantile
 #' @importFrom rlang is_quosures
-#' @importFrom tidyr gather spread separate
+#' @importFrom tidyr nest unnest
 #' @importFrom dplyr quo_name
+#' @importFrom purrr map_dfr
 #' @examples
 #' library(tidyext)
 #' df1 <- data.frame(g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')),
@@ -62,7 +63,7 @@
 num_by <- function(data,
                    main_var,
                    group_var,
-                   digits = FALSE,
+                   digits = 1,
                    extra = FALSE) {
 
   # for future reference; the tryCatch was just to make it easy to pass a single
