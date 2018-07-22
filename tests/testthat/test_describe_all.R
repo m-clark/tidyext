@@ -54,6 +54,10 @@ test_that('describe_all can drop NA with old arg', {
                4)
 })
 
+test_that('describe_all can handle grouped df', {
+  expect_is(describe_all(iris %>% group_by(Species)), 'list')
+})
+
 
 
 # describe_all_num --------------------------------------------------------

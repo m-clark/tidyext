@@ -142,7 +142,7 @@ iris %>%
   onehot(sparse = TRUE)
 ```
 
-Chose a specific variable, whether you want to keep the others, and how to deal with NA.
+Choose a specific variable, whether you want to keep the others, and how to deal with NA.
 
 ```{r onehot3}
 df_miss %>%

@@ -99,6 +99,7 @@ freqs \%>\%
   tidyr::unnest() \%>\%
   ggplot(aes(x=Group, y=`\%`)) +
   geom_point(size = 10)
+
 }
 \seealso{
 \code{\link[base]{summary}} \code{\link[tidyext]{num_by}}

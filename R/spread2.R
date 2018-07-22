@@ -87,12 +87,12 @@ spread2 <- function(data,
                 )
   }
   data %>%
-    spread(key = !!k,
-           value = !!v,
-           fill = fill,
-           convert = convert,
-           drop = drop,
-           sep = sep) %>%
+    tidyr::spread(key = !!k,
+                  value = !!v,
+                  fill = fill,
+                  convert = convert,
+                  drop = drop,
+                  sep = sep) %>%
     select(-rowid)
 }
 

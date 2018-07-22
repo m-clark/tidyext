@@ -27,7 +27,7 @@ test_that('pre_process can handle NA', {
     Z = rnorm(10, 0, 4)
   )
 
-  stocks_long <- stocks_wide %>% gather(stock, price)
+  stocks_long <- stocks_wide %>% tidyr::gather(stock, price)
   stocksm <- stocks_long
   stocksm$price[sample(seq_along(stocksm$price), 5)] <- NA
 

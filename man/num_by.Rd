@@ -5,7 +5,7 @@
 \alias{cat_by}
 \title{Summarize data by groups}
 \usage{
-num_by(data, main_var, group_var, digits = FALSE, extra = FALSE)
+num_by(data, main_var, group_var, digits = 1, extra = FALSE)
 
 cat_by(data, main_var, group_var, digits = FALSE, perc_by_group = TRUE,
   sort_by_group = TRUE)
@@ -18,7 +18,7 @@ supplied using the vars() function.}
 
 \item{group_var}{the (optional) grouping variable.}
 
-\item{digits}{Optional rounding.}
+\item{digits}{Optional rounding. Default is 1.}
 
 \item{extra}{See \link[tidyext]{num_summary}.}
 

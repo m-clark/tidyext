@@ -80,6 +80,7 @@
 #'   tidyr::unnest() %>%
 #'   ggplot(aes(x=Group, y=`%`)) +
 #'   geom_point(size = 10)
+#'
 #' @export
 describe_all <- function(data,
                          digits = 2,
@@ -90,7 +91,11 @@ describe_all <- function(data,
                          sort_by_freq = TRUE,
                          ...) {
 
-  if(!inherits(data, 'data.frame')) stop('Need a data.frame class object.')
+  if(!inherits(data, 'data.frame'))
+    stop('Need a data.frame class object.')
+
+  if(!inherits(data, 'grouped_df'))
+    data <- dplyr::ungroup(data)
 
   if(!is.null(NAcat_include)) include_NAcat <- NAcat_include
 

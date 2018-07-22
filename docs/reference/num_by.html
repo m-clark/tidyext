@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -36,6 +38,7 @@
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -61,7 +64,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">tidyext</a>
+        <a class="navbar-link" href="../index.html">tidyext!</a>
         <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
@@ -124,7 +127,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>num_by</span>(<span class='no'>data</span>, <span class='no'>main_var</span>, <span class='no'>group_var</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>num_by</span>(<span class='no'>data</span>, <span class='no'>main_var</span>, <span class='no'>group_var</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>extra</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>cat_by</span>(<span class='no'>data</span>, <span class='no'>main_var</span>, <span class='no'>group_var</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>perc_by_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>sort_by_group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
@@ -147,7 +150,11 @@ supplied using the vars() function.</p></td>
     </tr>
     <tr>
       <th>digits</th>
-      <td><p>optional rounding</p></td>
+      <td><p>Optional rounding. Default is 1.</p></td>
+    </tr>
+    <tr>
+      <th>extra</th>
+      <td><p>See <a href='num_summary.html'>num_summary</a>.</p></td>
     </tr>
     <tr>
       <th>perc_by_group</th>
@@ -171,10 +178,9 @@ want result sorted on the grouping variable? Default is TRUE.</p></td>
   and provides sample size, mean, standard deviation, min, first quartile,
   median, third quartile, max, and number of missing values, possibly over a
   grouping variable.</p>
-<p>It works in the dplyr style using unquoted (bare)
-  variable names, using the vars() function if there is more than one
-  variable.  If using a grouping variable, it will treat missing values as a
-  separate group.</p>
+<p>It works in the dplyr style using unquoted (bare) variable names, using the
+  <code><a href='http://dplyr.tidyverse.org/reference/vars.html'>vars()</a></code> function if there is more than one variable.  If using a
+  grouping variable, it will treat missing values as a separate group.</p>
 <p>For <code>cat_by</code>, frequencies and percentage (out of total or group_var)
   are returned. Warnings are given if any of the main
   variables are more than 10 levels, or the data appears to be
@@ -201,16 +207,14 @@ want result sorted on the grouping variable? Default is TRUE.</p></td>
                  )
 
 
-<span class='fu'>num_by</span>(<span class='no'>df1</span>, <span class='kw'>main_var</span> <span class='kw'>=</span> <span class='no'>a</span>)</div><div class='output co'>#&gt;    N        Mean       SD      Min         Q1     Median        Q3      Max
-#&gt; 1 50 -0.06755164 1.044981 -2.44668 -0.7773296 0.05284552 0.6594563 2.648932
-#&gt;   Missing
-#&gt; 1       0</div><div class='input'><span class='fu'>num_by</span>(<span class='no'>df1</span>, <span class='kw'>main_var</span> <span class='kw'>=</span> <span class='no'>a</span>, <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='no'>g2</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 10
-#&gt;      g2     N  Mean    SD   Min    Q1 Median    Q3   Max Missing
-#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-#&gt; 1     1    12 -0.15  0.87 -1.31 -0.87  -0.2   0.45  1.23       0
-#&gt; 2     2     8  0.52  1.01 -0.64 -0.01   0.47  0.76  2.65       0
-#&gt; 3     3    15  0.18  1.05 -1.69 -0.46   0.07  1.04  1.76       0
-#&gt; 4     4    15 -0.56  1.05 -2.45 -1.3   -0.47  0.18  1.15       0</div><div class='input'>
+<span class='fu'>num_by</span>(<span class='no'>df1</span>, <span class='kw'>main_var</span> <span class='kw'>=</span> <span class='no'>a</span>)</div><div class='output co'>#&gt;   Variable  N Mean SD  Min   Q1 Median  Q3 Max Missing
+#&gt; 1        a 50 -0.1  1 -2.4 -0.8    0.1 0.7 2.6       0</div><div class='input'><span class='fu'>num_by</span>(<span class='no'>df1</span>, <span class='kw'>main_var</span> <span class='kw'>=</span> <span class='no'>a</span>, <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='no'>g2</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 12
+#&gt;      g2 data  Variable     N  Mean    SD   Min    Q1 Median    Q3   Max Missing
+#&gt;   &lt;int&gt; &lt;lis&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1     1 &lt;tib… a           12 -0.15  0.87 -1.31 -0.87  -0.2   0.45  1.23       0
+#&gt; 2     3 &lt;tib… a           15  0.18  1.05 -1.69 -0.46   0.07  1.04  1.76       0
+#&gt; 3     2 &lt;tib… a            8  0.52  1.01 -0.64 -0.01   0.47  0.76  2.65       0
+#&gt; 4     4 &lt;tib… a           15 -0.56  1.05 -2.45 -1.3   -0.47  0.18  1.15       0</div><div class='input'>
 <span class='fu'>num_by</span>(<span class='no'>df1</span>, <span class='kw'>main_var</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='no'>a</span>,<span class='no'>b</span>), <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='no'>g1</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 11
 #&gt;   g1    Variable     N  Mean    SD   Min    Q1 Median    Q3   Max Missing
 #&gt;   &lt;fct&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;

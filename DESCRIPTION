@@ -4,7 +4,7 @@ Title: Tidy Extensions for Data Processing
 Version: 0.2.0
 Authors@R: person("Michael", "Clark", role = c("aut", "cre"), email = "micl@umich.edu")
 Maintainer: Michael Clark <micl@umich.edu>
-Description: Common data processing and summary functions.
+Description: Common data processing and summary functions to extend your tidy ways.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

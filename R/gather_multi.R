@@ -88,6 +88,7 @@
 #'                      key_func = function(x) substr(x, start=3, stop=3))
 #' test
 #' @importFrom rlang :=
+#' @importFrom tidyr gather
 #' @export
 gather_multi <- function(data,
                          key = "key",
@@ -119,25 +120,25 @@ gather_multi <- function(data,
   # first gather
   data_long <- data %>%
     select_not(!!!varlist[-1]) %>%
-    gather(key = !!k,
-           value = !!values[[1]],
-           !!varlist[[1]],
-           ...,
-           na.rm = na.rm,
-           convert = convert,
-           factor_key = factor_key) %>%
+    tidyr::gather(key = !!k,
+                  value = !!values[[1]],
+                  !!varlist[[1]],
+                  ...,
+                  na.rm = na.rm,
+                  convert = convert,
+                  factor_key = factor_key) %>%
     rowid_to_column()
 
   for (i in 2:length(varlist)) {
     data_long <- data %>%
       select_not(!!!varlist[-i]) %>%
-      gather(key = !!k,
-             value = !!values[[i]],
-             !!varlist[[i]],
-             ...,
-             na.rm = na.rm,
-             convert = convert,
-             factor_key = factor_key) %>%
+      tidyr::gather(key = !!k,
+                    value = !!values[[i]],
+                    !!varlist[[i]],
+                    ...,
+                    na.rm = na.rm,
+                    convert = convert,
+                    factor_key = factor_key) %>%
       rowid_to_column()%>%
       select(rowid, !!values[[i]]) %>%
       left_join(data_long, ., by='rowid')
