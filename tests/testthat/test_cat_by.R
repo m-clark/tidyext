@@ -63,3 +63,6 @@ test_that('cat_by warns on too many levels', {
   expect_warning(cat_by(df1, main_var = c))
 })
 
+test_that('cat_by wont fail with already grouped data', {
+  expect_s3_class(cat_by(group_by(df1, g1), main_var = d, group_var = g2), 'data.frame')
+})

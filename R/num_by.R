@@ -81,7 +81,7 @@ num_by <- function(data,
   # distinct won't take a vars input, because why would it?
   # perhaps tidyselect will have some useful documentation in the future
 
-  # Initial checks ------------------------------------------------------------
+  # Initial checks ----------------------------------------------------------
   if (is.null(data)) stop('No data to summarise.')
   if (nrow(data)==0) stop('No data to summarise.')
   if (!inherits(data, 'data.frame')) stop('Need a data.frame type object.')
@@ -96,6 +96,9 @@ num_by <- function(data,
   })
 
   if (class(check_mv) == 'try-error') main_var <- quos(!!mv)
+
+
+  data = dplyr::ungroup(data)   # remove any previous grouping
 
   class_mv <- data %>%
     summarise_at(main_var, funs(cls=class(.))) %>%
@@ -164,6 +167,8 @@ cat_by <- function(data,
   if (class(check_mv) == 'try-error' | is.logical(check_mv) && !check_mv)
     main_var <- quos(!!mv)
 
+  data = dplyr::ungroup(data)   # remove any previous grouping
+
   class_mv <- data %>%
     select_at(main_var) %>%
     purrr::map(class) %>%
@@ -186,6 +191,7 @@ cat_by <- function(data,
   gv_exists <- !rlang::quo_is_missing(enquo(group_var))
 
   if (gv_exists) {
+
     gv <- enquo(group_var)
     main_var <- c(vars(!!gv), main_var)
 

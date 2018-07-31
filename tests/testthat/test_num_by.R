@@ -65,3 +65,7 @@ test_that('num_by can use helper functions', {
   res <- num_by(df1, main_var = vars(contains('a')), group_var = g2)
   expect_s3_class(res, 'data.frame')
 })
+
+test_that('num_by wont fail with already grouped data', {
+  expect_s3_class(num_by(group_by(df1, g1), main_var = d, group_var = g2), 'data.frame')
+})
