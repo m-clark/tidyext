@@ -69,3 +69,15 @@ test_that('num_by can use helper functions', {
 test_that('num_by wont fail with already grouped data', {
   expect_s3_class(num_by(group_by(df1, g1), main_var = d, group_var = g2), 'data.frame')
 })
+
+
+test_that('num_by can handle select not', {
+  df2 = select(df1, g1, a, b, d, a_b)
+  expect_s3_class(num_by(df2, main_var = -b, group_var = g1), 'data.frame')
+})
+
+test_that('num_by can handle select not', {
+  df2 = select(df1, a, b, d, a_b)
+  expect_s3_class(num_by(df2, main_var = -b), 'data.frame')
+})
+

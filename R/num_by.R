@@ -68,10 +68,6 @@ num_by <- function(data,
 
   # for future reference; the tryCatch was just to make it easy to pass a single
   # variable name in lieu of using vars().
-  # - summarise_* won't take single unquoted names nor is there a
-  # straightforward way to pass one or even check if one is being passed.
-  # - summarise_* also won't take an unquoted varname to vars, which is just a
-  # wrapper to the quos function
   # - variants of vars do not return the same class object as vars()
   #
   # Other stuff:
@@ -97,12 +93,30 @@ num_by <- function(data,
 
   if (class(check_mv) == 'try-error') main_var <- quos(!!mv)
 
-
   data = dplyr::ungroup(data)   # remove any previous grouping
 
-  class_mv <- data %>%
-    summarise_at(main_var, funs(cls=class(.))) %>%
-    unlist()
+  # Class check: the following unwieldy bit is first just to check for
+  # numeric-like variables passed to main_var.  More of it is just to be able to
+  # pass a -x for main_var, as selecting in that fashion would include the
+  # grouping variable, which we don't want to include in the class check; if the
+  # usual selection case occurs (i.e. no - sign), then the group_var wouldn't be
+  # selected, so trying to drop it would cause an error; purrr::map variants
+  # just provided new ways to fail
+  gv <- enquo(group_var)
+  no_group = rlang::quo_is_missing(gv)
+
+  if (no_group) {
+    class_mv <- data %>%
+      summarise_at(main_var, class) %>%
+      unlist()
+  } else {
+    gv_name = rlang::quo_name(gv)
+
+    class_mv <- data %>%
+      select_not(gv_name) %>%
+      summarise_at(main_var, class) %>%
+      unlist()
+  }
 
   if (!all(class_mv %in% c('numeric', 'integer', 'logical')))
     stop('Non-numeric/logical variable detected.')
@@ -113,14 +127,14 @@ num_by <- function(data,
 
   # Main processing ---------------------------------------------------------
 
-  if (!rlang::quo_is_missing(enquo(group_var))) {
+  if (!no_group) {
 
     #• grouped result ----------------------------------------------------------
 
     gv <- enquo(group_var)
 
     data <- data %>%
-      select(!!!gv, !!!main_var) %>%
+      select(!!!main_var, !!gv) %>%
       group_by(!!gv) %>%
       tidyr::nest() %>%
       mutate(result = purrr::map(data,
