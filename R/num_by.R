@@ -78,30 +78,31 @@ num_by <- function(data,
   # perhaps tidyselect will have some useful documentation in the future
 
   # Initial checks ----------------------------------------------------------
-  if (is.null(data)) stop('No data to summarise.')
-  if (nrow(data)==0) stop('No data to summarise.')
-  if (!inherits(data, 'data.frame')) stop('Need a data.frame type object.')
+  if (is.null(data))
+    stop('No data to summarise.')
+  if (nrow(data) == 0)
+    stop('No data to summarise.')
+  if (!inherits(data, 'data.frame'))
+    stop('Need a data.frame type object.')
 
 
-  # section to deal with single variable name -------------------------------
-  mv <- enquo(main_var)  # has to be here or errs with 'already been evaluated'
+  # section to deal with single variable name versus vars() ------------------
+  mv <- enquo(main_var)
 
-  check_mv <- tryCatch(rlang::is_quosures(main_var), error = function(c) {
-    msg <- conditionMessage(c)
-    invisible(structure(msg, class = "try-error"))
-  })
+  vars_check = grepl(rlang::expr_text(mv), pattern = 'vars')
 
-  if (class(check_mv) == 'try-error') main_var <- quos(!!mv)
+  if (!vars_check)
+    main_var <- quos(!!mv)
 
-  data = dplyr::ungroup(data)   # remove any previous grouping
-
-  # Class check: the following unwieldy bit is first just to check for
+  # main_var class check: the following unwieldy bit is first just to check for
   # numeric-like variables passed to main_var.  More of it is just to be able to
   # pass a -x for main_var, as selecting in that fashion would include the
   # grouping variable, which we don't want to include in the class check; if the
   # usual selection case occurs (i.e. no - sign), then the group_var wouldn't be
   # selected, so trying to drop it would cause an error; purrr::map variants
   # just provided new ways to fail
+
+  data = dplyr::ungroup(data)   # remove any previous grouping
   gv <- enquo(group_var)
   no_group = rlang::quo_is_missing(gv)
 
@@ -110,10 +111,8 @@ num_by <- function(data,
       summarise_at(main_var, class) %>%
       unlist()
   } else {
-    gv_name = rlang::quo_name(gv)
-
     class_mv <- data %>%
-      select_not(gv_name) %>%
+      select_not(!!gv) %>%
       summarise_at(main_var, class) %>%
       unlist()
   }
@@ -131,8 +130,6 @@ num_by <- function(data,
 
     #• grouped result ----------------------------------------------------------
 
-    gv <- enquo(group_var)
-
     data <- data %>%
       select(!!!main_var, !!gv) %>%
       group_by(!!gv) %>%
@@ -144,6 +141,11 @@ num_by <- function(data,
                                  )
              ) %>%
       tidyr::unnest(result)
+
+    # sometimes tidyr will return the list column of data
+    if ('data' %in% names(data)) {
+      data = select_not(data, `data`)
+    }
   } else {
 
     #• non-grouped result ------------------------------------------------------
@@ -169,16 +171,14 @@ cat_by <- function(data,
                    digits=FALSE,
                    perc_by_group=TRUE,
                    sort_by_group=TRUE) {
-  if (nrow(data)==0 | is.null(data)) stop('No data to summarise.')
+  if (nrow(data) == 0 | is.null(data))
+    stop('No data to summarise.')
 
   mv <- enquo(main_var)
 
-  check_mv <- tryCatch(rlang::is_quosures(main_var), error = function(c) {
-    msg <- conditionMessage(c)
-    invisible(structure(msg, class = "try-error"))
-  })
+  vars_check = grepl(rlang::expr_text(mv), pattern = 'vars')
 
-  if (class(check_mv) == 'try-error' | is.logical(check_mv) && !check_mv)
+  if (!vars_check)
     main_var <- quos(!!mv)
 
   data = dplyr::ungroup(data)   # remove any previous grouping
