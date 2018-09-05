@@ -7,12 +7,14 @@
 \title{Describe your data cleanly and effectively}
 \usage{
 describe_all(data, digits = 2, include_NAcat = TRUE, max_levels = 10,
-  include_numeric = FALSE, NAcat_include = NULL, sort_by_freq = TRUE, ...)
+  include_numeric = FALSE, NAcat_include = NULL, sort_by_freq = TRUE,
+  ...)
 
 describe_all_num(data, digits = 2, ...)
 
-describe_all_cat(data, digits = 2, include_NAcat = TRUE, max_levels = 10,
-  include_numeric = FALSE, sort_by_freq = TRUE, as_ordered = FALSE)
+describe_all_cat(data, digits = 2, include_NAcat = TRUE,
+  max_levels = 10, include_numeric = FALSE, sort_by_freq = TRUE,
+  as_ordered = FALSE)
 }
 \arguments{
 \item{data}{The dataset, of class data.frame.}
