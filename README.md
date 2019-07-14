@@ -91,6 +91,11 @@ Note that this package more or less assumes your are working within the
     <span class="func">sum\_NaN</span>,
     <span class="func">sum\_blank</span>: Understand your nothingness.
 
+  - <span class="func">row\_sums</span>,
+    <span class="func">row\_means</span>,
+    <span class="func">row\_apply</span>: Simple (intuitive) rowwise
+    calculations.
+
 <br>
 
 ### Version history

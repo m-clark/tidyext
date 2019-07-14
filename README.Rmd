@@ -65,6 +65,8 @@ Note that this package more or less assumes your are working within the <span cl
 
 - <span class="func">sum_NA</span>, <span class="func">sum_NaN</span>, <span class="func">sum_blank</span>: Understand your nothingness.
 
+- <span class="func">row_sums</span>, <span class="func">row_means</span>, <span class="func">row_apply</span>: Simple (intuitive) rowwise calculations.
+
 <br>
 
 
