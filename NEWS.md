@@ -1,4 +1,13 @@
+# tidyext  0.3
+
+Added `row_sums`, `row_means`, and `row_apply`
+
+
 # tidyext  0.2
+
+## tidyext 0.2.x
+
+Misc fixes and updates
 
 ## tidyext 0.2.0
 

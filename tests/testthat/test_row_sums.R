@@ -8,12 +8,12 @@ d = data.frame(x = 1:3,
 #   row_sums(x:y)
 # d  %>%
 #   row_means(matches('x|z'))
-row_apply(
-  d ,
-  everything(),
-  .fun = function(x)
-    apply(x, 1, median)
-)
+# row_apply(
+#   d ,
+#   everything(),
+#   .fun = function(x)
+#     apply(x, 1, median)
+# )
 
 
 

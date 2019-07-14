@@ -42,6 +42,7 @@ reference:
       - onehot
       - pre_process
       - spread2
+      - row_sums
   - title: "Miscellaneous"
     desc: >
       Miscellaneous functions.

@@ -268,6 +268,29 @@ gather_multi(demo_data_wide,
 
 Note that this only makes sense with balanced data, though it will work if NAs are present.  Also, you may want to change the key in some fashion.
 
+Oftentimes I need to create a column that represents the total scores or means of just a few columns.  This is a slight annoyance in the tidyverse, and there isn't much support behind the <span class="pack" style = "">dplyr</span>:<span class="func" style = "">rowwise</span> function.  As such, tidyext has a couple simple wrappers for row_sums, row_means, and row_apply.
+
+```{r}
+d = data.frame(x = 1:3,
+               y = 4:6,
+               z = 7:9,
+               q = NA)
+
+d  %>%
+ row_sums(x:y)
+
+d  %>%
+ row_means(matches('x|z'))
+
+row_apply(
+ d ,
+ x:z,
+ .fun = function(x)
+   apply(x, 1, paste, collapse = '')
+)
+```
+
+
 <br>
 <br>
 <br>
