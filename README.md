@@ -4,7 +4,7 @@ Status](https://travis-ci.org/m-clark/tidyext.svg?branch=master)](https://travis
 Status](https://ci.appveyor.com/api/projects/status/github/m-clark/tidyext?branch=master&svg=true)](https://ci.appveyor.com/project/m-clark/tidyext)
 [![codecov](https://codecov.io/gh/m-clark/tidyext/branch/master/graph/badge.svg)](https://codecov.io/gh/m-clark/tidyext)
 <a href="https://github.com/m-clark/tidyext" alt="Miscellaneous Shenanigans">
-<img src="https://img.shields.io/badge/miscellaneous_shenanigans-constant-ff5500.svg?colorA=00aaff&longCache=true&style=for-the-badge"  width=27.5%/></a>
+<img src="https://img.shields.io/badge/miscellaneous_shenanigans-constant-ff5500.svg?colorA=00aaff&longCache=true&style=for-the-badge"  width=75%/></a>
 
 # tidyext
 
@@ -95,8 +95,10 @@ Note that this package more or less assumes your are working within the
 
 ### Version history
 
+  - 0.3.0 add `row_sums`, `row_means`, `row_apply`
+  - 0.2.x Misc updates
   - 0.2.0 Website
-  - 0.1.3 Added gather\_multi
-  - 0.1.2 Added spread2
-  - 0.1.1 Added pre\_process
+  - 0.1.3 Added `gather_multi`
+  - 0.1.2 Added `spread2`
+  - 0.1.1 Added `pre_process`
   - 0.1.0 Initial release
