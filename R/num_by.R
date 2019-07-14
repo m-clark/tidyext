@@ -190,7 +190,7 @@ cat_by <- function(data,
     unique()
 
   nlevs <- data %>%
-    summarise_at(main_var, funs(n_distinct(.))) %>%
+    summarise_at(main_var, list(~n_distinct(.))) %>%
     unlist()
 
   if (!all(class_mv  %in% c('character', 'factor', 'logical', 'ordered')))
