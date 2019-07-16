@@ -19,12 +19,15 @@ knitr::opts_chunk$set(
 <a href="https://github.com/m-clark/tidyext" alt="Miscellaneous Shenanigans">
         <img src="https://img.shields.io/badge/miscellaneous_shenanigans-constant-ff5500.svg?colorA=00aaff&longCache=true&style=for-the-badge"  style="width:75%"/></a>
         
-# tidyext 
-<img src="man/figures/tidyext_hex.png" align="right" width = 200/>
-
+        
 <br>
 
-### Overview
+# tidyext <img src="man/figures/tidyext_hex.png" align = "right" width = 100>
+
+
+
+
+### Overview 
 
 Extensions and extras for tidy processing. This package provides some data processing and summarizing functions that would commonly be useful in the tidyverse.  For folks that do a lot of data processing in that world, these make a handful of some very common tasks a bit easier, and with an eye toward eventual tidy/clean presentation and visualization with tools like [kableExtra](https://haozhu233.github.io/kableExtra/awesome_table_in_html.html) and [ggplot2](http://ggplot2.tidyverse.org/).
 

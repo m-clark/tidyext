@@ -6,10 +6,11 @@ Status](https://ci.appveyor.com/api/projects/status/github/m-clark/tidyext?branc
 <a href="https://github.com/m-clark/tidyext" alt="Miscellaneous Shenanigans">
 <img src="https://img.shields.io/badge/miscellaneous_shenanigans-constant-ff5500.svg?colorA=00aaff&longCache=true&style=for-the-badge"  style="width:75%"/></a>
 
+<br>
+
 # tidyext
 
-<img src="man/figures/tidyext_hex.png" align="right" width = 200/>
-
+<img src="man/figures/tidyext_hex.png" style="display:block; margin: 0 auto; width:10%">
 <br>
 
 ### Overview
