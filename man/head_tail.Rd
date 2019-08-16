@@ -9,7 +9,7 @@ head_tail(data, n_slice = 6)
 \arguments{
 \item{data}{The data frame to slice}
 
-\item{n_slice}{How many rows of the head and tail you want}
+\item{n_slice}{How many rows of the head and tail you want. Default is 6.}
 }
 \value{
 A data frame of the first and last n_slice rows

@@ -1,7 +1,7 @@
 #' Show head and tail simultaneously
 #'
 #' @param data The data frame to slice
-#' @param n_slice How many rows of the head and tail you want
+#' @param n_slice How many rows of the head and tail you want. Default is 6.
 #'
 #' @details This will work on matrices and also not be limited to default tibble display.
 #' @return A data frame of the first and last n_slice rows
