@@ -4,8 +4,13 @@
 \alias{onehot}
 \title{One-hot encoding}
 \usage{
-onehot(data, var = NULL, nas = "na.pass", sparse = FALSE,
-  keep.original = FALSE)
+onehot(
+  data,
+  var = NULL,
+  nas = "na.pass",
+  sparse = FALSE,
+  keep.original = FALSE
+)
 }
 \arguments{
 \item{data}{A data frame}

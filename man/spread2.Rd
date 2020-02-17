@@ -4,8 +4,16 @@
 \alias{spread2}
 \title{Spread without frustration}
 \usage{
-spread2(data, key, value, compact = TRUE, fill = NA, convert = FALSE,
-  drop = TRUE, sep = NULL)
+spread2(
+  data,
+  key,
+  value,
+  compact = TRUE,
+  fill = NA,
+  convert = FALSE,
+  drop = TRUE,
+  sep = NULL
+)
 }
 \arguments{
 \item{data}{See \code{\link[tidyr]{spread}}.}

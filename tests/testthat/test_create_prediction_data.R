@@ -13,7 +13,7 @@ test_that('create_prediction_data takes an alternate num function and args', {
 test_that('create_prediction_data takes an alternate cat option', {
   iris2 <- iris %>% mutate(Species = relevel(Species, 'virginica'))
   expect_equal(create_prediction_data(iris2, cat = 'ref')[['Species']],
-               factor('virginica'))
+               'virginica')
 })
 
 test_that('create_prediction_data takes additional data', {

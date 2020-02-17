@@ -4,9 +4,17 @@
 \alias{gather_multi}
 \title{Extend tidyr gather to multiple sets of variables}
 \usage{
-gather_multi(data, key = "key", values = "values", varlist = list(),
-  ..., key_func = NULL, na.rm = FALSE, convert = FALSE,
-  factor_key = FALSE)
+gather_multi(
+  data,
+  key = "key",
+  values = "values",
+  varlist = list(),
+  ...,
+  key_func = NULL,
+  na.rm = FALSE,
+  convert = FALSE,
+  factor_key = FALSE
+)
 }
 \arguments{
 \item{data}{A data frame.}

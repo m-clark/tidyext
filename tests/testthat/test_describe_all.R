@@ -128,9 +128,11 @@ test_that('describe_all_cat can sort result', {
 })
 
 test_that('describe_all_cat will return list data frame', {
-  init <- describe_all_cat(df1,
-                           max_levels = 3,
-                           include_numeric = T,
-                           as_ordered = T)
+  init <- describe_all_cat(
+    df1,
+    max_levels = 3,
+    include_numeric = T,
+    as_ordered = T
+  )
   expect_is(init$data, 'list')
 })

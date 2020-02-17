@@ -4,8 +4,15 @@
 \alias{combn_2_col}
 \title{Combinations to columns}
 \usage{
-combn_2_col(data, var, sep = "[^[:alnum:]]+", max_m = 1,
-  collapse = "_", toInteger = FALSE, sparse = FALSE)
+combn_2_col(
+  data,
+  var,
+  sep = "[^[:alnum:]]+",
+  max_m = 1,
+  collapse = "_",
+  toInteger = FALSE,
+  sparse = FALSE
+)
 }
 \arguments{
 \item{data}{The data frame in question.}

@@ -1,3 +1,7 @@
+# tidyext  0.3.1
+
+Fix issue with `create_prediction_data` that would drop leading zeros.
+
 # tidyext  0.3
 
 Added `row_sums`, `row_means`, and `row_apply`

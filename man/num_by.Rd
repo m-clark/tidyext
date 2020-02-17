@@ -7,8 +7,14 @@
 \usage{
 num_by(data, main_var, group_var, digits = 1, extra = FALSE)
 
-cat_by(data, main_var, group_var, digits = FALSE, perc_by_group = TRUE,
-  sort_by_group = TRUE)
+cat_by(
+  data,
+  main_var,
+  group_var,
+  digits = FALSE,
+  perc_by_group = TRUE,
+  sort_by_group = TRUE
+)
 }
 \arguments{
 \item{data}{data frame}

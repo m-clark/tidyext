@@ -4,8 +4,13 @@
 \alias{create_prediction_data}
 \title{Generate prediction data}
 \usage{
-create_prediction_data(model_data, conditional_data = NULL, num = mean,
-  cat = "most_common", ...)
+create_prediction_data(
+  model_data,
+  conditional_data = NULL,
+  num = mean,
+  cat = "most_common",
+  ...
+)
 }
 \arguments{
 \item{model_data}{The original data. Ideally this would come from a model

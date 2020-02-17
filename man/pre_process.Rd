@@ -4,8 +4,15 @@
 \alias{pre_process}
 \title{Perform common preprocessing of numeric data}
 \usage{
-pre_process(data, std = TRUE, scale_by = 1, log_vars = NULL,
-  log_base = exp(1), zero_start = NULL, zero_one = NULL)
+pre_process(
+  data,
+  std = TRUE,
+  scale_by = 1,
+  log_vars = NULL,
+  log_base = exp(1),
+  zero_start = NULL,
+  zero_one = NULL
+)
 }
 \arguments{
 \item{data}{A data frame or tibble.}

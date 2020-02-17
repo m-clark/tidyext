@@ -3,7 +3,6 @@
 \docType{package}
 \name{tidyext}
 \alias{tidyext}
-\alias{tidyext-package}
 \title{tidyext: Common data processing in the tidyverse.}
 \description{
 This package is a collection of functions that do the things I commonly need

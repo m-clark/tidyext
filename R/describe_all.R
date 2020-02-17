@@ -225,7 +225,7 @@ describe_all_cat <- function(data,
   if (as_ordered) {
     return(
       data_cat %>%
-        tidyr::nest(.key = 'data') %>%
+        tidyr::nest() %>%
         mutate(data = map(data, mutate, Group = factor(Group,
                                                        levels = unique(Group))))
     )

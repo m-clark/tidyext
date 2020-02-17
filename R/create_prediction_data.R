@@ -54,22 +54,36 @@ create_prediction_data <- function(model_data,
   if (cat == 'most_common') {
     catfun <- function(x) {
       cx <- class(x)
+
       x <- suppressWarnings(names(sort(table(x), decreasing = TRUE))[1])
+      # problem: how to get label of vector and return the proper class.
+      # assigning a class with `class` won't work; type.convert (and readr's
+      # version) will not allow a class argument. `as` will error even when
+      # as.factor or whatever would work. initial code with type.convert was fine
+      # but found to drop leading zeros just using type.convert.
+
       if (cx == 'Date') {
         x <-  as.Date(x)
+      } else if (cx %in% c('character', 'factor')){
+        x <- methods::as(x, 'character')
       } else {
-        x <- type.convert(x, cx)
+        x <- type.convert(x)
       }
+      x
     }
   } else {
     # use reference level
     catfun <-  function(x) {
       cx <- class(x)
+
       x <- levels(factor(x))[1]
+
       if (cx == 'Date') {
         x <-  as.Date(x)
+      } else if (cx %in% c('character', 'factor')){
+        x <- methods::as(x, 'character')
       } else {
-        x <- type.convert(x, cx)
+        x <- type.convert(x)
       }
       x
     }
@@ -79,7 +93,7 @@ create_prediction_data <- function(model_data,
     select_if(! colnames(.) %in% names(conditional_data)) %>%
     mutate_if(function(x) is.numeric(x), num, ...) %>%
     mutate_if(function(x)
-      rlang::inherits_any(x, c('factor', 'string', 'logical', 'Date')),
+      rlang::inherits_any(x, c('factor', 'character', 'logical', 'Date')),
               catfun) %>%
     slice(1)
 
