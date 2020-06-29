@@ -32,7 +32,7 @@ describe_all_cat(
 \arguments{
 \item{data}{The dataset, of class data.frame.}
 
-\item{digits}{See \code{\link[base]{round}}. Default is 2, which for
+\item{digits}{See [base::round()]. Default is 2, which for
 categorical is applied to the proportion (i.e. before converting to
 percentage).}
 

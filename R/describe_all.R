@@ -3,7 +3,7 @@
 #' @description Describe data sets with multiple variable types effectively.
 #'
 #' @param data The dataset, of class data.frame.
-#' @param digits See \code{\link[base]{round}}. Default is 2, which for
+#' @param digits See [base::round()]. Default is 2, which for
 #'   categorical is applied to the proportion (i.e. before converting to
 #'   percentage).
 #' @param include_NAcat Include NA values as categorical levels? Default is
