@@ -1,7 +1,6 @@
 ---
 output:
-  md_document:
-    variant: gfm
+  github_document:
 highlight: pygments
 ---
 
@@ -12,12 +11,10 @@ knitr::opts_chunk$set(
 ```
 
 
-
-[![Build Status](https://travis-ci.org/m-clark/tidyext.svg?branch=master)](https://travis-ci.org/m-clark/tidyext)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/m-clark/tidyext?branch=master&svg=true)](https://ci.appveyor.com/project/m-clark/tidyext)
+[![R build status](https://github.com/m-clark/tidyext/workflows/R-CMD-check/badge.svg)](https://github.com/m-clark/tidyext/actions)
 [![codecov](https://codecov.io/gh/m-clark/tidyext/branch/master/graph/badge.svg)](https://codecov.io/gh/m-clark/tidyext)
 <a href="https://github.com/m-clark/tidyext" alt="Miscellaneous Shenanigans">
-        <img src="https://img.shields.io/badge/miscellaneous_shenanigans-constant-ff5500.svg?colorA=00aaff&longCache=true&style=for-the-badge"  style="width:75%"/></a>
+        <img src="https://img.shields.io/badge/miscellaneous_shenanigans-constant-ff5500.svg?colorA=00aaff&longCache=true&style=for-the-badge"  style="width:50%"/></a>
         
         
 <br>
