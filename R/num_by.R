@@ -46,18 +46,18 @@
 #'                   g2 = sample(1:4, 50, replace = TRUE),
 #'                   a = rnorm(50),
 #'                   b = rpois(50, 10),
-#'                   c = sample(letters, 50, replace=TRUE),
-#'                   d = sample(c(TRUE, FALSE), 50, replace=TRUE)
+#'                   c = sample(letters, 50, replace = TRUE),
+#'                   d = sample(c(TRUE, FALSE), 50, replace = TRUE)
 #'                  )
 #'
 #'
 #' num_by(df1, main_var = a)
-#' num_by(df1, main_var = a, group_var = g2, digits=2)
+#' num_by(df1, main_var = a, group_var = g2, digits = 2)
 #'
 #' num_by(df1, main_var = dplyr::vars(a,b), group_var = g1, digits=1)
 #'
 #' cat_by(df1, main_var = g1, group_var = g2, digits=1)
-#' cat_by(df1, main_var = dplyr::vars(g1,d), group_var = g2, perc_by_group=FALSE)
+#' cat_by(df1, main_var = dplyr::vars(g1,d), group_var = g2, perc_by_group = FALSE)
 #'
 #' @export
 num_by <- function(data,
@@ -80,8 +80,10 @@ num_by <- function(data,
   # Initial checks ----------------------------------------------------------
   if (is.null(data))
     stop('No data to summarise.')
+
   if (nrow(data) == 0)
     stop('No data to summarise.')
+
   if (!inherits(data, 'data.frame'))
     stop('Need a data.frame type object.')
 
@@ -89,7 +91,7 @@ num_by <- function(data,
   # section to deal with single variable name versus vars() ------------------
   mv <- enquo(main_var)
 
-  vars_check = grepl(rlang::expr_text(mv), pattern = 'vars')
+  vars_check <- grepl(rlang::expr_text(mv), pattern = 'vars')
 
   if (!vars_check)
     main_var <- quos(!!mv)
@@ -102,9 +104,9 @@ num_by <- function(data,
   # selected, so trying to drop it would cause an error; purrr::map variants
   # just provided new ways to fail
 
-  data = dplyr::ungroup(data)   # remove any previous grouping
+  data <- dplyr::ungroup(data)   # remove any previous grouping
   gv <- enquo(group_var)
-  no_group = rlang::quo_is_missing(gv)
+  no_group <- rlang::quo_is_missing(gv)
 
   if (no_group) {
     class_mv <- data %>%
@@ -134,17 +136,17 @@ num_by <- function(data,
       select(!!!main_var, !!gv) %>%
       group_by(!!gv) %>%
       tidyr::nest() %>%
-      mutate(result = purrr::map(data,
-                                 ~purrr::map_dfr(., function(x)
-                                   num_summary(x, digits, extra),
-                                   .id='Variable')
-                                 )
-             ) %>%
+      mutate(result = purrr::map(
+        data,
+        ~ purrr::map_dfr(., function(x)
+          num_summary(x, digits, extra),
+          .id = 'Variable')
+      )) %>%
       tidyr::unnest(result)
 
     # sometimes tidyr will return the list column of data
     if ('data' %in% names(data)) {
-      data = select_not(data, `data`)
+      data <- select_not(data, `data`)
     }
   } else {
 
@@ -176,12 +178,12 @@ cat_by <- function(data,
 
   mv <- enquo(main_var)
 
-  vars_check = grepl(rlang::expr_text(mv), pattern = 'vars')
+  vars_check <- grepl(rlang::expr_text(mv), pattern = 'vars')
 
   if (!vars_check)
     main_var <- quos(!!mv)
 
-  data = dplyr::ungroup(data)   # remove any previous grouping
+  data  <- dplyr::ungroup(data)   # remove any previous grouping
 
   class_mv <- data %>%
     select_at(main_var) %>%

@@ -4,10 +4,10 @@
 #' @param data A data frame or tibble.
 #' @param std Standardize numeric/integer variables?
 #' @param scale_by A single value to standardize by. See details. Default is 1.
-#' @param log_vars Which variables to log. Requires vars().
-#' @param log_base Log base. Default is exp(1).
-#' @param zero_start Which variables to start by zero. Requires vars().
-#' @param zero_one Which variables to rescale from 0 to 1. Requires vars().
+#' @param log_vars Which variables to log. Requires `vars()`.
+#' @param log_base Log base. Default is `exp(1)`.
+#' @param zero_start Which variables to start by zero. Requires `vars()`.
+#' @param zero_one Which variables to rescale from 0 to 1. Requires `vars()`.
 #'
 #' @details  At a minimum, by default, this function will standardize
 #'   numeric/integer variables in a data set by the value provided to std (1
@@ -41,15 +41,18 @@
 #' pre_process(mtcars, log_vars=vars(mpg, wt))
 #' pre_process(mtcars, zero_start=vars(cyl, gear))
 #' pre_process(mtcars, zero_one=vars(mpg))
-pre_process <- function(data,
-                        std = TRUE,
-                        scale_by = 1,
-                        log_vars = NULL,
-                        log_base = exp(1),
-                        zero_start = NULL,
-                        zero_one = NULL) {
+pre_process <- function(
+  data,
+  std = TRUE,
+  scale_by = 1,
+  log_vars = NULL,
+  log_base = exp(1),
+  zero_start = NULL,
+  zero_one = NULL
+) {
 
   if (!is.numeric(scale_by)) stop('scale_by needs to be numeric.')
+
   check_log_var <- !is.null(log_vars)
   check_zero_start <- !is.null(zero_start)
   check_zero_one <- !is.null(zero_one)
@@ -68,18 +71,23 @@ pre_process <- function(data,
         mutate_at(zero_one, scales::rescale)
     }
   }
+
   if (std) {
     num_cols <- data %>%
       select_not(!!!log_vars, !!!zero_start, !!!zero_one) %>%
       select_if(function(x) inherits(x, c('numeric', 'integer'))) %>%
       colnames()
+
     data <- data %>%
       mutate_at(num_cols,
                 function(x)
-                  scale(x, scale = ifelse(scale_by,
-                                          scale_by*sd(x, na.rm = TRUE),
-                                          FALSE))[,1])
+                  scale(x, scale = ifelse(
+                    scale_by,
+                    scale_by * sd(x, na.rm = TRUE),
+                    FALSE
+                  ))[, 1])
   }
+
   data
 }
 

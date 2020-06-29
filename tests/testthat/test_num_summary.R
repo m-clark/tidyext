@@ -1,12 +1,12 @@
 context('test num_summary')
 
 df1 <- tibble(
-  g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')),
+  g1 = factor(sample(1:2, 50, replace = TRUE), labels = c('a', 'b')),
   g2 = sample(1:4, 50, replace = TRUE),
   a = rnorm(50),
   b = rpois(50, 10),
-  c = sample(letters, 50, replace=TRUE),
-  d = sample(c(T,F), 50, replace=TRUE)
+  c = sample(letters, 50, replace = TRUE),
+  d = sample(c(TRUE, FALSE), 50, replace = TRUE)
 )
 
 test_that('num_summary returns a data frame', {

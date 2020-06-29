@@ -1,6 +1,7 @@
 #' Extend tidyr gather to multiple sets of variables
 #' @description  This function extends gather to work on multiple sets of
-#'   columns.
+#'   columns.  It is now deprecated and no longer needed due to advancements in
+#'   `tidyr`.
 #'
 #' @param data A data frame.
 #' @param key See \code{\link[tidyr]{gather}}.
@@ -62,6 +63,7 @@
 #' @return A data frame in so-called 'long' format with columns \code{values}.
 #'
 #' @examples
+#' \dontrun{
 #' library(tidyext); library(dplyr)
 #'
 #' # example of longitudinal data with 4 waves
@@ -87,6 +89,7 @@
 #'                                     starts_with('Z')),
 #'                      key_func = function(x) substr(x, start=3, stop=3))
 #' test
+#' }
 #' @importFrom rlang :=
 #' @importFrom tidyr gather
 #' @export
@@ -99,6 +102,8 @@ gather_multi <- function(data,
                          na.rm = FALSE,
                          convert = FALSE,
                          factor_key = FALSE) {
+
+  .Deprecated("tidyr::pivot_longer")
 
   # check if list of vars = length of values
   if (length(values) != length(varlist))

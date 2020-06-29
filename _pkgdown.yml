@@ -40,8 +40,8 @@ reference:
       - create_prediction_data
       - gather_multi
       - onehot
-      - pre_process
-      - spread2
+      # - pre_process
+      # - spread2
       - row_sums
   - title: "Miscellaneous"
     desc: >

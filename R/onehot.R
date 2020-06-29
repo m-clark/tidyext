@@ -1,4 +1,5 @@
 #' One-hot encoding
+#'
 #' @description  Add indicators for all desired variables in a data set.
 #' @param data A data frame
 #' @param var A character string/vector of names to be encoded. If NULL, the
@@ -38,11 +39,14 @@
 #' str(onehot(iris2, nas = 'na.omit'))
 
 
-onehot <- function(data,
-                   var=NULL,
-                   nas='na.pass',
-                   sparse=FALSE,
-                   keep.original=FALSE) {
+onehot <- function(
+  data,
+  var = NULL,
+  nas = 'na.pass',
+  sparse = FALSE,
+  keep.original = FALSE
+) {
+
   if (!inherits(data,  'data.frame')) stop('Need a data frame.')
   if (sparse & keep.original==TRUE)
     message('Original data dropped when sparse is TRUE')
@@ -67,6 +71,7 @@ onehot <- function(data,
   if (length(f_c) == 0) stop('No variables left to consider.')
 
   any_numeric <- any(purrr::map_lgl(data[f_c], inherits, 'numeric'))
+
   if (any_numeric) message("
   You have supplied numeric variables.
   Attempts were made to keep the
@@ -75,7 +80,9 @@ onehot <- function(data,
   # deal with NAs
   init_na <- options('na.action')
   options(na.action = nas)
+
   if (nas %in% c('na.omit', 'na.exclude')) data <- na.omit(data)
+
   on.exit(options(na.action = init_na$na.action))
 
   # encode

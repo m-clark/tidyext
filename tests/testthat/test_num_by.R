@@ -1,13 +1,13 @@
 context('test num_by')
 
 df1 <- tibble(
-  g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')),
-  g2 = sample(1:4, 50, replace = TRUE),
-  a = rnorm(50),
-  b = rpois(50, 10),
-  c_ = sample(letters, 50, replace=TRUE),
-  d = sample(c(T,F), 50, replace=TRUE),
-  a_b = a*b,
+  g1   = factor(sample(1:2, 50, replace = TRUE), labels = c('a', 'b')),
+  g2   = sample(1:4, 50, replace = TRUE),
+  a    = rnorm(50),
+  b    = rpois(50, 10),
+  c_   = sample(letters, 50, replace = TRUE),
+  d    = sample(c(TRUE, FALSE), 50, replace = TRUE),
+  a_b  = a * b,
   b_sq = b^2
 )
 
@@ -16,11 +16,11 @@ test_that('num_by returns a data frame', {
 })
 
 test_that('num_by errors without data', {
-  expect_error(num_by(data=NULL, main_var = a))
+  expect_error(num_by(data = NULL, main_var = a))
 })
 
 test_that('num_by errors without data', {
-  expect_error(num_by(data=filter(df1, g1=='c'), main_var = a))
+  expect_error(num_by(data = filter(df1, g1 == 'c'), main_var = a))
 })
 
 test_that('num_by takes multple main_var', {

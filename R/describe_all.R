@@ -82,14 +82,17 @@
 #'   geom_point(size = 10)
 #'
 #' @export
-describe_all <- function(data,
-                         digits = 2,
-                         include_NAcat = TRUE,
-                         max_levels = 10,
-                         include_numeric = FALSE,
-                         NAcat_include = NULL,
-                         sort_by_freq = TRUE,
-                         ...) {
+describe_all <- function(
+  data,
+  digits = 2,
+  include_NAcat = TRUE,
+  max_levels = 10,
+  include_numeric = FALSE,
+  NAcat_include = NULL,
+  sort_by_freq = TRUE,
+  ...
+) {
+
 
   if(!inherits(data, 'data.frame'))
     stop('Need a data.frame class object.')
@@ -138,14 +141,15 @@ describe_all_num <- function(data, digits = 2, ...) {
 
 #' @rdname describe_all
 #' @export
-describe_all_cat <- function(data,
-                             digits = 2,
-                             include_NAcat = TRUE,
-                             max_levels = 10,
-                             include_numeric = FALSE,
-                             sort_by_freq = TRUE,
-                             as_ordered = FALSE
-                             ) {
+describe_all_cat <- function(
+  data,
+  digits = 2,
+  include_NAcat = TRUE,
+  max_levels = 10,
+  include_numeric = FALSE,
+  sort_by_freq = TRUE,
+  as_ordered = FALSE
+) {
 
   if(!inherits(data, 'data.frame')) stop('Need a data.frame class object.')
 
@@ -163,11 +167,14 @@ describe_all_cat <- function(data,
     cat_names <- names(data_cat)
 
     nlevs <- data_cat %>%
-      purrr::map_int(function(x) if_else(all(is.na(x)),
-                                         0L,
-                                         if_else(include_NAcat,
-                                                 n_distinct(x),
-                                                 n_distinct(na.omit(x)))))
+      purrr::map_int(function(x)
+        if_else(
+          all(is.na(x)),
+          0L,
+          if_else(include_NAcat,
+                  n_distinct(x),
+                  n_distinct(na.omit(x)))
+        ))
 
     if (any(nlevs == 0))
       warning(paste0(names(nlevs)[nlevs==0],
@@ -177,17 +184,19 @@ describe_all_cat <- function(data,
       data_cat <- data_cat %>%
         select_if(nlevs > 0) %>%
         purrr::map(function(x)
-          data.frame(x=table(x, useNA = if_else(include_NAcat,
-                                                'ifany',
-                                                'no')),
-                     y=prop.table(table(x, useNA = if_else(include_NAcat,
-                                                           'ifany',
-                                                           'no')))) %>%
+          data.frame(x = table(x, useNA = if_else(include_NAcat,
+                                                  'ifany',
+                                                  'no')),
+                     y = prop.table(table(x, useNA = if_else(
+                       include_NAcat,
+                       'ifany',
+                       'no'
+                     )))) %>%
             select(-y.x) %>%
-            rename(Group=x.x,
+            rename(Group = x.x,
                    Frequency = x.Freq,
-                   perc=y.Freq) %>%
-            mutate(perc = 100*round(perc, digits))
+                   perc = y.Freq) %>%
+            mutate(perc = 100 * round(perc, digits))
         )
 
       data_cat <-
@@ -210,7 +219,7 @@ describe_all_cat <- function(data,
 
   data_cat <- data_cat %>%
     group_by(Variable) %>%
-    top_n(n = max_levels, wt=`%`)
+    top_n(n = max_levels, wt = `%`)
 
   if (isTRUE(sort_by_freq)) {
     # grouped arrange sorts the grouping variable too for no reason, which would
@@ -226,8 +235,12 @@ describe_all_cat <- function(data,
     return(
       data_cat %>%
         tidyr::nest() %>%
-        mutate(data = map(data, mutate, Group = factor(Group,
-                                                       levels = unique(Group))))
+        mutate(
+          data = map(
+            data,
+            mutate,
+            Group = factor(Group, levels = unique(Group)))
+        )
     )
   }
 

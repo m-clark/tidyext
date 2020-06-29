@@ -43,7 +43,8 @@ A data frame in so-called 'long' format with columns \code{values}.
 }
 \description{
 This function extends gather to work on multiple sets of
-  columns.
+  columns.  It is now deprecated and no longer needed due to advancements in
+  `tidyr`.
 }
 \details{
 This function is an attempt to extend the tidyr
@@ -89,6 +90,7 @@ At present it will only keep the first 'key', as the rest are redundant.
   You can use the key_func argument to pretty it up.
 }
 \examples{
+\dontrun{
 library(tidyext); library(dplyr)
 
 # example of longitudinal data with 4 waves
@@ -114,4 +116,5 @@ test <- gather_multi(demo_data_wide,
                                     starts_with('Z')),
                      key_func = function(x) substr(x, start=3, stop=3))
 test
+}
 }

@@ -1,5 +1,8 @@
 #' Spread without frustration
 #'
+#'#' @description  This is now deprecated and no longer needed due to
+#'advancements in `tidyr`.
+#'
 #' @param data See \code{\link[tidyr]{spread}}.
 #' @param key See \code{\link[tidyr]{spread}}.
 #' @param value See \code{\link[tidyr]{spread}}.
@@ -28,6 +31,7 @@
 #' @seealso \code{\link[tidyr]{spread}}
 #' @importFrom tibble rowid_to_column
 #' @examples
+#' \dontrun{
 #' library(tidyext); library(tidyr)
 #'
 #' # initial example from spread
@@ -57,6 +61,7 @@
 #' stocksm$price[sample(1:nrow(stocksm), 5)] = NA
 #' stocksm %>% spread2(stock, price)
 #' stocksm %>% spread2(stock, price, compact = FALSE)
+#'}
 #'
 #' @export
 spread2 <- function(data,
@@ -67,6 +72,9 @@ spread2 <- function(data,
                     convert = FALSE,
                     drop = TRUE,
                     sep = NULL) {
+
+  .Deprecated("tidyr::pivot_wider")
+
   k <- enquo(key)
   v <- enquo(value)
 

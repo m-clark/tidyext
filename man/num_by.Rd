@@ -67,18 +67,18 @@ df1 <- data.frame(g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')
                   g2 = sample(1:4, 50, replace = TRUE),
                   a = rnorm(50),
                   b = rpois(50, 10),
-                  c = sample(letters, 50, replace=TRUE),
-                  d = sample(c(TRUE, FALSE), 50, replace=TRUE)
+                  c = sample(letters, 50, replace = TRUE),
+                  d = sample(c(TRUE, FALSE), 50, replace = TRUE)
                  )
 
 
 num_by(df1, main_var = a)
-num_by(df1, main_var = a, group_var = g2, digits=2)
+num_by(df1, main_var = a, group_var = g2, digits = 2)
 
 num_by(df1, main_var = dplyr::vars(a,b), group_var = g1, digits=1)
 
 cat_by(df1, main_var = g1, group_var = g2, digits=1)
-cat_by(df1, main_var = dplyr::vars(g1,d), group_var = g2, perc_by_group=FALSE)
+cat_by(df1, main_var = dplyr::vars(g1,d), group_var = g2, perc_by_group = FALSE)
 
 }
 \seealso{

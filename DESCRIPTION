@@ -1,7 +1,7 @@
 Package: tidyext
 Type: Package
 Title: Tidy Extensions for Data Processing
-Version: 0.3.1
+Version: 0.3.5
 Authors@R: person("Michael", "Clark", role = c("aut", "cre"), email = "micl@umich.edu")
 Maintainer: Michael Clark <micl@umich.edu>
 Description: Common data processing and summary functions to extend your tidy ways.
@@ -12,15 +12,15 @@ URL: https://m-clark.github.io/tidyext, https://github.com/m-clark/tidyext
 BugReports: https://github.com/m-clark/tidyext/issues
 Year: 2020
 Depends:
-    R (>= 3.4.0)
+    R (>= 3.6.0)
 Imports:
-    dplyr,
+    dplyr (>= 1.0.0),
     purrr,
     magrittr,
     rlang,
     scales,
     tibble,
-    tidyr
+    tidyr (>= 1.0.0)
 Suggests:
     ggplot2,
     Matrix,
@@ -29,4 +29,4 @@ Suggests:
     stringr,
     testthat,
     covr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1

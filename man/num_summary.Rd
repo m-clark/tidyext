@@ -30,4 +30,5 @@ Takes a numeric variable and provides sample size, mean, standard
 library(tidyext)
 num_summary(c(1:10, NA))
 num_summary(c('1','2','3'))
+
 }

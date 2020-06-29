@@ -1,3 +1,7 @@
+# tidyext  0.3.5
+
+Cleanup and update for R 4.0 and dplyr 1.0. Deprecate gather_multi and spread2.
+
 # tidyext  0.3.1
 
 Fix issue with `create_prediction_data` that would drop leading zeros.

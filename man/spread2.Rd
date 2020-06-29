@@ -38,7 +38,8 @@ in fact be what is desired. The other is more 'compact'. See the examples.}
 A data frame with 'wide' format.
 }
 \description{
-Spread without frustration
+#' @description  This is now deprecated and no longer needed due to
+advancements in `tidyr`.
 }
 \details{
 Anyone that uses spread more than once has likely come across the
@@ -56,6 +57,7 @@ Anyone that uses spread more than once has likely come across the
   by R documentation).
 }
 \examples{
+\dontrun{
 library(tidyext); library(tidyr)
 
 # initial example from spread
@@ -85,6 +87,7 @@ stocksm \%>\% spread2(stock, price, compact = FALSE)
 stocksm$price[sample(1:nrow(stocksm), 5)] = NA
 stocksm \%>\% spread2(stock, price)
 stocksm \%>\% spread2(stock, price, compact = FALSE)
+}
 
 }
 \seealso{

@@ -16,10 +16,11 @@
 #'
 head_tail = function(data, n_slice = 6) {
   # initial checks
-  if (is.matrix(data)) data = as.data.frame(data)
-  if (! inherits(data, 'data.frame'))
-    stop('Need a data frame.'
-    )
+  if (is.matrix(data))
+    data <- as.data.frame(data)
+
+  if (!inherits(data, 'data.frame'))
+    stop('Need a data frame.')
 
   # create the slicing index and add to result
   index = c(1:n_slice, (nrow(data) - n_slice + 1):nrow(data))

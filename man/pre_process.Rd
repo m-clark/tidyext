@@ -21,13 +21,13 @@ pre_process(
 
 \item{scale_by}{A single value to standardize by. See details. Default is 1.}
 
-\item{log_vars}{Which variables to log. Requires vars().}
+\item{log_vars}{Which variables to log. Requires `vars()`.}
 
-\item{log_base}{Log base. Default is exp(1).}
+\item{log_base}{Log base. Default is `exp(1)`.}
 
-\item{zero_start}{Which variables to start by zero. Requires vars().}
+\item{zero_start}{Which variables to start by zero. Requires `vars()`.}
 
-\item{zero_one}{Which variables to rescale from 0 to 1. Requires vars().}
+\item{zero_one}{Which variables to rescale from 0 to 1. Requires `vars()`.}
 }
 \value{
 A data frame that has been processed

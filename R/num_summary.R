@@ -16,14 +16,18 @@
 #' library(tidyext)
 #' num_summary(c(1:10, NA))
 #' num_summary(c('1','2','3'))
+#'
 #' @export
-num_summary <- function(x, digits=1, extra=FALSE) {
+num_summary <- function(x, digits = 1, extra = FALSE) {
 
   # initial check of variable type
-  test_x <- tryCatch(as.numeric(x), warning = function(c) {
-    msg <- conditionMessage(c)
-    invisible(structure(msg, class = "try-warning"))
-  })
+  test_x <- tryCatch(
+    as.numeric(x),
+    warning = function(c) {
+      msg <- conditionMessage(c)
+      invisible(structure(msg, class = "try-warning"))
+    }
+  )
 
   if(class(test_x) == 'try-warning')
     stop('Need something numeric or which can reasonably be converted to such.
@@ -34,7 +38,7 @@ num_summary <- function(x, digits=1, extra=FALSE) {
   d <- data.frame(
     N = length(na.omit(x)),
     data.frame(t(c(summary(x)))),
-    SD = sd(x, na.rm=TRUE),
+    SD = sd(x, na.rm = TRUE),
     Missing = sum_NA(x)
   ) %>%
     # currently there is a bug that keeps this from working
@@ -43,12 +47,15 @@ num_summary <- function(x, digits=1, extra=FALSE) {
            Q3 = X3rd.Qu.) %>%
     select(N, Mean, SD, everything(), -matches('NA')) # drop summary() NA if present
 
-  colnames(d) <- gsub(colnames(d), pattern='\\.', replacement='')
+  colnames(d) <- gsub(colnames(d), pattern = '\\.', replacement = '')
 
   if (extra) {
-    d$Distinct <- n_distinct(x)
-    d$Zeros <- sum(x == 0, na.rm = TRUE)
+    d <- d %>%
+      mutate(
+        Distinct = n_distinct(x),
+        Zeros = sum(x == 0, na.rm = TRUE)
+      )
   }
 
-  d %>% mutate_if(is.numeric, round, digits=digits)
+  d %>% dplyr::mutate_if(is.numeric, round, digits = digits)
 }
