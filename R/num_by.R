@@ -9,7 +9,7 @@
 #' @param perc_by_group when supplied a grouping variable for cat_by, do you
 #'   want within group percentages also (default is TRUE)
 #' @param sort_by_group when supplied a grouping variable for cat_by, do you
-#'   want result sorted on the grouping variable? Default is TRUE.
+#'   want the result sorted on the grouping variable? Default is TRUE.
 #' @param digits Optional rounding. Default is 1.
 #' @param extra See \link[tidyext]{num_summary}.
 #'
@@ -167,12 +167,14 @@ num_by <- function(data,
 #' @rdname num_by
 #' @export
 #'
-cat_by <- function(data,
-                   main_var,
-                   group_var,
-                   digits=FALSE,
-                   perc_by_group=TRUE,
-                   sort_by_group=TRUE) {
+cat_by <- function(
+  data,
+  main_var,
+  group_var,
+  digits = FALSE,
+  perc_by_group = TRUE,
+  sort_by_group = TRUE
+) {
   if (nrow(data) == 0 | is.null(data))
     stop('No data to summarise.')
 

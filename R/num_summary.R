@@ -35,11 +35,11 @@ num_summary <- function(x, digits = 1, extra = FALSE) {
 
   x <- as.numeric(x)
 
-  d <- data.frame(
+  d <- tibble(
     N = length(na.omit(x)),
     data.frame(t(c(summary(x)))),
     SD = sd(x, na.rm = TRUE),
-    Missing = sum_NA(x)
+    `% Missing` = round(100*sum_NA(x)/length(x))
   ) %>%
     # currently there is a bug that keeps this from working
     # rename_all(funs(gsub(., pattern='.', replacement=''))) %>%
@@ -52,7 +52,7 @@ num_summary <- function(x, digits = 1, extra = FALSE) {
   if (extra) {
     d <- d %>%
       mutate(
-        Distinct = n_distinct(x),
+        Distinct = n_distinct(na.omit(x)),
         Zeros = sum(x == 0, na.rm = TRUE)
       )
   }

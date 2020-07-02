@@ -32,7 +32,7 @@ supplied using the vars() function.}
 want within group percentages also (default is TRUE)}
 
 \item{sort_by_group}{when supplied a grouping variable for cat_by, do you
-want result sorted on the grouping variable? Default is TRUE.}
+want the result sorted on the grouping variable? Default is TRUE.}
 }
 \value{
 data.frame/tibble with the corresponding summary statistics
