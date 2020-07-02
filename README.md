@@ -63,9 +63,6 @@ Note that this package more or less assumes your are working within the
     <span class="func">describe\_all\_cat</span> for numeric-only and
     categorical-only data respectively.
 
-  - <span class="func">gather\_multi</span>: Gather multiple sets of
-    variables.
-
   - <span class="func">num\_by</span>: A quick summarize, possibly with
     `dplyr::group_by`, that provides things like mean, sd, etc. See
     <span class="func">num\_summary</span>.
@@ -80,9 +77,6 @@ Note that this package more or less assumes your are working within the
 
   - <span class="func">pre\_process</span>: Easily pre-process a data
     set with common operations like standardization, logging, etc.
-
-  - <span class="func">spread2</span>: The tidyr spread without the
-    duplicate row id problem.
 
   - <span class="func">sum\_NA</span>,
     <span class="func">sum\_NaN</span>,

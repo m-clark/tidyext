@@ -51,8 +51,6 @@ Note that this package more or less assumes your are working within the <span cl
 
 - <span class="func">describe_all</span>: A summary function for mixed data types that provides the information I usually want.  Saves one from doing a `group_by %>%  summarize` operation to create multiple results for multiple types of variables. Has corresponding <span class="func">describe_all_num</span> and <span class="func">describe_all_cat</span> for numeric-only and categorical-only data respectively.
 
-- <span class="func">gather_multi</span>: Gather multiple sets of variables.
-
 - <span class="func">num_by</span>: A quick summarize, possibly with `dplyr::group_by`, that provides things like mean, sd, etc. See <span class="func">num_summary</span>.
 
 - <span class="func">num_summary</span>: A little better than the base R summary, gives the info one typically wants as well as options for rounding and other statistics.
@@ -60,8 +58,6 @@ Note that this package more or less assumes your are working within the <span cl
 - <span class="func">onehot</span>: A function for one-hot encoding with a few helpful options for dealing with missing data, using sparse matrices, and more.
 
 - <span class="func">pre_process</span>: Easily pre-process a data set with common operations like standardization, logging, etc.
-
-- <span class="func">spread2</span>: The tidyr spread without the duplicate row id problem.
 
 - <span class="func">sum_NA</span>, <span class="func">sum_NaN</span>, <span class="func">sum_blank</span>: Understand your nothingness.
 
