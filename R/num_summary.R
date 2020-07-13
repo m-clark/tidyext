@@ -35,7 +35,7 @@ num_summary <- function(x, digits = 1, extra = FALSE) {
 
   x <- as.numeric(x)
 
-  d <- tibble(
+  d <- dplyr::tibble(
     N = length(na.omit(x)),
     data.frame(t(c(summary(x)))),
     SD = sd(x, na.rm = TRUE),

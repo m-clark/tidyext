@@ -40,7 +40,7 @@ reference:
       - create_prediction_data
       - gather_multi
       - onehot
-      # - pre_process
+      - pre_process
       # - spread2
       - row_sums
   - title: "Miscellaneous"
@@ -48,6 +48,8 @@ reference:
       Miscellaneous functions.
     contents:
       - select_not
+      - head_tail
+      - rnd
       - tidyext
 figures:
   dev: svglite::svglite

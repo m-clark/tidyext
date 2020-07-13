@@ -1,6 +1,10 @@
+# tidyext  0.3.6
+
+Added `row_min` and `row_max`. Removed some dependencies.
+
 # tidyext  0.3.5
 
-Cleanup and update for R 4.0 and dplyr 1.0. Deprecate gather_multi and spread2.
+Cleanup and update for R 4.0 and dplyr 1.0. Deprecate `gather_multi` and `spread2`.
 
 # tidyext  0.3.1
 

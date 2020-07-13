@@ -3,12 +3,18 @@
 \name{row_sums}
 \alias{row_sums}
 \alias{row_means}
+\alias{row_min}
+\alias{row_max}
 \alias{row_apply}
 \title{Apply simple rowwise functions}
 \usage{
 row_sums(data, ..., na_rm = FALSE, varname = "sum")
 
 row_means(data, ..., na_rm = FALSE, varname = "mean")
+
+row_min(data, ..., na_rm = FALSE, varname = "min")
+
+row_max(data, ..., na_rm = FALSE, varname = "max")
 
 row_apply(data, ..., .fun, varname = "var")
 }
@@ -19,7 +25,7 @@ row_apply(data, ..., .fun, varname = "var")
 
 \item{na_rm}{Whether to remove \code{NA} values or not. Default is \code{FALSE}.}
 
-\item{varname}{The column name of the sums means etc.}
+\item{varname}{The column name of the sums means etc. as a character string.}
 
 \item{.fun}{The function to apply.}
 }
@@ -47,6 +53,9 @@ d  \%>\%
 
 d  \%>\%
   row_means(matches('x|z'))
+
+d  \%>\%
+  row_max(matches('x|y'))
 
 row_apply(
   d ,

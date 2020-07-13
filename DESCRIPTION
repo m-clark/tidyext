@@ -1,7 +1,7 @@
 Package: tidyext
 Type: Package
 Title: Tidy Extensions for Data Processing
-Version: 0.3.5
+Version: 0.3.6
 Authors@R: person("Michael", "Clark", role = c("aut", "cre"), email = "micl@umich.edu")
 Maintainer: Michael Clark <micl@umich.edu>
 Description: Common data processing and summary functions to extend your tidy ways.
@@ -16,10 +16,8 @@ Depends:
 Imports:
     dplyr (>= 1.0.0),
     purrr,
-    magrittr,
     rlang,
     scales,
-    tibble,
     tidyr (>= 1.0.0)
 Suggests:
     ggplot2,
@@ -28,5 +26,6 @@ Suggests:
     stringi,
     stringr,
     testthat,
+    tibble,
     covr
 RoxygenNote: 7.1.1

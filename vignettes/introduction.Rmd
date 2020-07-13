@@ -31,15 +31,18 @@ knitr::opts_chunk$set(echo = T, message=F, warning=F, error=F, collapse = TRUE,
 To begin, we can load up the <span class="pack">tidyverse</span> and this package. I'll also create some data that will be useful for demonstration.
 
 ```{r packages}
-library(tidyverse); library(tidyext)
+library(tidyverse)
+library(tidyext)
+
 set.seed(8675309)
+
 df1 <- tibble(
-  g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')),
+  g1 = factor(sample(1:2, 50, replace = TRUE), labels = c('a', 'b')),
   g2 = sample(1:4, 50, replace = TRUE),
   a = rnorm(50),
   b = rpois(50, 10),
-  c = sample(letters, 50, replace=TRUE),
-  d = sample(c(T,F), 50, replace=TRUE)
+  c = sample(letters, 50, replace = TRUE),
+  d = sample(c(T, F), 50, replace = TRUE)
 )
 
 df_miss = df1
@@ -189,88 +192,30 @@ Note that center/standardizing is done to any numeric variables *not* chosen for
 Here's a specific function you will probably never need, but will be glad to have if you do.  Some data columns have multiple entries for each observation/cell.  While it's understandable why someone would do this, it's not very good practice. This will split out the entries, or any particular combination of them, into their own indicator column.
 
 ```{r combn, message=TRUE}
-d = data.frame(id = 1:4,
-               labs = c('A-B', 'B-C-D-E', 'A-E', 'D-E'))
-combn_2_col(data=d, var='labs', max_m=2, sep = '-', collapse = ':', toInteger = T)
+d = data.frame(id = 1:4, labs = c('A-B', 'B-C-D-E', 'A-E', 'D-E'))
 
-combn_2_col(data=d, var='labs', max_m=2, sparse = T)
-```
-
-In addition, there is a function that makes <span class="pack">tidyr's</span> <span class="func">spread</span> work like it should when you don't have unique identifiers.  I spent a lot of time coming up with the name for this one.
-
-```{r spread2, error=TRUE}
-# initial example from spread
-stocks_init <- data.frame(
-  time = as.Date('2009-01-01') + 0:9,
-  X = rnorm(10, 0, 1),
-  Y = rnorm(10, 0, 2),
-  Z = rnorm(10, 0, 4)
+combn_2_col(
+  data = d,
+  var = 'labs',
+  max_m = 2,
+  sep = '-',
+  collapse = ':',
+  toInteger = T
 )
 
-# a very common situation
-stocks <- data.frame(
-  X = rnorm(10, 0, 1),
-  Y = rnorm(10, 0, 2),
-  Z = rnorm(10, 0, 4)
+combn_2_col(
+  data = d,
+  var = 'labs',
+  max_m = 2,
+  sparse = T
 )
-
-
-stocksm_init <- stocks_init %>% 
-  gather(stock, price, -time)
-head(stocksm_init)
-
-stocksm_init %>% 
-  spread(stock, price)  %>% 
-  head()                                 # works fine
-
-# no time
-stocksm <- stocks %>% 
-  gather(stock, price)
-head(stocksm)
-
-stocksm %>% 
-  spread(stock, price)         # annoying
-
-stocksm %>% 
-  spread2(stock, price)        # works fine
 ```
 
-However, with unbalanced data the result can be interpreted in different ways, so you'll have a choice to make.  
 
-```{r spread2compact}
-stocksm$price[sample(1:nrow(stocksm), 5)] = NA
-stocksm %>% 
-  spread2(stock, price)
-
-stocksm %>% 
-  spread2(stock, price, compact = FALSE)
-```
-
-I can speak from experience that having longitudinal data in the `compact = FALSE` format is about the worst way you could keep such data.
-
-Use <span class="func">gather_multi</span> to extend `tidyr::gather` to deal with multiple sets of variables.
-
-```{r gather_multi}
-demo_data_wide = data.frame(id = 1:10,
-                            X = matrix(rnorm(40), ncol = 4),
-                            Y = matrix(sample(0:1, 40, replace = T), ncol = 4),
-                            Z = matrix(rpois(40, 5), ncol = 4))
-head(demo_data_wide)
-
-gather_multi(demo_data_wide,
-             key = wave,
-             values  = vars(X, Y, Z),
-             varlist = vars(starts_with('X'),
-                            starts_with('Y'),
-                            starts_with('Z')),
-             -id)
-```
-
-Note that this only makes sense with balanced data, though it will work if NAs are present.  Also, you may want to change the key in some fashion.
 
 Oftentimes I need to create a column that represents the total scores or means of just a few columns.  This is a slight annoyance in the tidyverse, and there isn't much support behind the <span class="pack" style = "">dplyr</span>:<span class="func" style = "">rowwise</span> function.  As such, tidyext has a couple simple wrappers for row_sums, row_means, and row_apply.
 
-```{r}
+```{r rowapply}
 d = data.frame(x = 1:3,
                y = 4:6,
                z = 7:9,

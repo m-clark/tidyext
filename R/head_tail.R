@@ -11,8 +11,8 @@
 #' @examples
 #'
 #' library(tidyext)
-#' as.matrix(mtcars) %>%
-#' head_tail(6)
+#'
+#' head_tail(mtcars)
 #'
 head_tail = function(data, n_slice = 6) {
   # initial checks

@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -46,9 +50,9 @@
 
 <meta property="og:title" content="Extend tidyr gather to multiple sets of variables — gather_multi" />
 <meta property="og:description" content="This function extends gather to work on multiple sets of
-  columns." />
+  columns.  It is now deprecated and no longer needed due to advancements in
+  `tidyr`." />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -66,7 +70,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -80,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidyext!</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
       </span>
     </div>
 
@@ -138,7 +142,8 @@
 
     <div class="ref-description">
     <p>This function extends gather to work on multiple sets of
-  columns.</p>
+  columns.  It is now deprecated and no longer needed due to advancements in
+  `tidyr`.</p>
     </div>
 
     <pre class="usage"><span class='fu'>gather_multi</span>(
@@ -233,12 +238,13 @@ TRUE. A warning will be provided. See <code><a href='https://tidyr.tidyverse.org
   You can use the key_func argument to pretty it up.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyext</span>); <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyext</span>); <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 
 <span class='co'># example of longitudinal data with 4 waves</span>
 <span class='no'>demo_data_wide</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>,
                             <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>40</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>4</span>),
-                            <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://dplyr.tidyverse.org/reference/sample.html'>sample</a></span>(<span class='fl'>0</span>:<span class='fl'>1</span>, <span class='fl'>40</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+                            <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>0</span>:<span class='fl'>1</span>, <span class='fl'>40</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
                             <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>4</span>),
                             <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span>(<span class='fl'>40</span>, <span class='fl'>5</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>4</span>))
 
@@ -248,47 +254,8 @@ TRUE. A warning will be provided. See <code><a href='https://tidyr.tidyverse.org
                      <span class='kw'>varlist</span> <span class='kw'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>starts_with</a></span>(<span class='st'>'X'</span>),
                                     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>starts_with</a></span>(<span class='st'>'Y'</span>),
                                     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>starts_with</a></span>(<span class='st'>'Z'</span>)))
-<span class='no'>test</span></div><div class='output co'>#&gt;    id wave          X Y  Z
-#&gt; 1   1  X.1  0.1684728 1  1
-#&gt; 2   2  X.1  1.3970665 0  6
-#&gt; 3   3  X.1 -0.6790954 1  4
-#&gt; 4   4  X.1  0.7376294 1  8
-#&gt; 5   5  X.1 -0.8607243 0  6
-#&gt; 6   6  X.1  0.4212304 0  6
-#&gt; 7   7  X.1  1.4505432 0  6
-#&gt; 8   8  X.1  0.1943924 0  5
-#&gt; 9   9  X.1 -0.6912054 0  3
-#&gt; 10 10  X.1  1.3398599 1  5
-#&gt; 11  1  X.2  2.7361084 1  4
-#&gt; 12  2  X.2 -0.9441017 1  6
-#&gt; 13  3  X.2 -1.7810619 1  6
-#&gt; 14  4  X.2 -0.7160587 0  4
-#&gt; 15  5  X.2  0.9110785 0  9
-#&gt; 16  6  X.2 -0.7721921 1  4
-#&gt; 17  7  X.2 -0.7820777 0  2
-#&gt; 18  8  X.2 -0.4321952 1  5
-#&gt; 19  9  X.2 -0.6675648 0  3
-#&gt; 20 10  X.2  1.3895059 0  3
-#&gt; 21  1  X.3  0.9118739 0  9
-#&gt; 22  2  X.3  0.2053894 0  7
-#&gt; 23  3  X.3  2.5844322 0  6
-#&gt; 24  4  X.3 -0.7893881 0  5
-#&gt; 25  5  X.3  0.5880771 0  5
-#&gt; 26  6  X.3 -0.7112873 0  2
-#&gt; 27  7  X.3  1.5849968 0  4
-#&gt; 28  8  X.3  0.6763896 0  3
-#&gt; 29  9  X.3 -0.2327618 0  6
-#&gt; 30 10  X.3  0.6374729 0  6
-#&gt; 31  1  X.4 -1.3707612 1  9
-#&gt; 32  2  X.4 -1.4256595 0  3
-#&gt; 33  3  X.4 -1.2461920 0 10
-#&gt; 34  4  X.4 -0.6832669 0  4
-#&gt; 35  5  X.4 -0.9796754 0  6
-#&gt; 36  6  X.4 -0.4625191 1  7
-#&gt; 37  7  X.4  1.2145097 1  2
-#&gt; 38  8  X.4 -1.2778199 1  5
-#&gt; 39  9  X.4  0.7478688 0  7
-#&gt; 40 10  X.4  3.3915088 0  4</div><div class='input'>
+<span class='no'>test</span>
+
 <span class='no'>test</span> <span class='kw'>&lt;-</span> <span class='fu'>gather_multi</span>(<span class='no'>demo_data_wide</span>,
                      <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>wave</span>,
                      <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'X'</span>, <span class='st'>'Y'</span>, <span class='st'>'Z'</span>),
@@ -296,58 +263,13 @@ TRUE. A warning will be provided. See <code><a href='https://tidyr.tidyverse.org
                                     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>starts_with</a></span>(<span class='st'>'Y'</span>),
                                     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>starts_with</a></span>(<span class='st'>'Z'</span>)),
                      <span class='kw'>key_func</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substr</a></span>(<span class='no'>x</span>, <span class='kw'>start</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>stop</span><span class='kw'>=</span><span class='fl'>3</span>))
-<span class='no'>test</span></div><div class='output co'>#&gt;    id wave          X Y  Z
-#&gt; 1   1    1  0.1684728 1  1
-#&gt; 2   2    1  1.3970665 0  6
-#&gt; 3   3    1 -0.6790954 1  4
-#&gt; 4   4    1  0.7376294 1  8
-#&gt; 5   5    1 -0.8607243 0  6
-#&gt; 6   6    1  0.4212304 0  6
-#&gt; 7   7    1  1.4505432 0  6
-#&gt; 8   8    1  0.1943924 0  5
-#&gt; 9   9    1 -0.6912054 0  3
-#&gt; 10 10    1  1.3398599 1  5
-#&gt; 11  1    2  2.7361084 1  4
-#&gt; 12  2    2 -0.9441017 1  6
-#&gt; 13  3    2 -1.7810619 1  6
-#&gt; 14  4    2 -0.7160587 0  4
-#&gt; 15  5    2  0.9110785 0  9
-#&gt; 16  6    2 -0.7721921 1  4
-#&gt; 17  7    2 -0.7820777 0  2
-#&gt; 18  8    2 -0.4321952 1  5
-#&gt; 19  9    2 -0.6675648 0  3
-#&gt; 20 10    2  1.3895059 0  3
-#&gt; 21  1    3  0.9118739 0  9
-#&gt; 22  2    3  0.2053894 0  7
-#&gt; 23  3    3  2.5844322 0  6
-#&gt; 24  4    3 -0.7893881 0  5
-#&gt; 25  5    3  0.5880771 0  5
-#&gt; 26  6    3 -0.7112873 0  2
-#&gt; 27  7    3  1.5849968 0  4
-#&gt; 28  8    3  0.6763896 0  3
-#&gt; 29  9    3 -0.2327618 0  6
-#&gt; 30 10    3  0.6374729 0  6
-#&gt; 31  1    4 -1.3707612 1  9
-#&gt; 32  2    4 -1.4256595 0  3
-#&gt; 33  3    4 -1.2461920 0 10
-#&gt; 34  4    4 -0.6832669 0  4
-#&gt; 35  5    4 -0.9796754 0  6
-#&gt; 36  6    4 -0.4625191 1  7
-#&gt; 37  7    4  1.2145097 1  2
-#&gt; 38  8    4 -1.2778199 1  5
-#&gt; 39  9    4  0.7478688 0  7
-#&gt; 40 10    4  3.3915088 0  4</div></pre>
+<span class='no'>test</span>
+}</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -358,7 +280,7 @@ TRUE. A warning will be provided. See <code><a href='https://tidyr.tidyverse.org
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

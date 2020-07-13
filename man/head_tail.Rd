@@ -23,7 +23,7 @@ This will work on matrices and also not be limited to default tibble display.
 \examples{
 
 library(tidyext)
-as.matrix(mtcars) \%>\%
-head_tail(6)
+
+head_tail(mtcars)
 
 }

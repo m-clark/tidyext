@@ -1,6 +1,6 @@
 context('test sum_na')
 
-df1 <- tibble(
+df1 <- dplyr::tibble(
   g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')),
   g2 = sample(1:4, 50, replace = TRUE),
   a = rnorm(50),

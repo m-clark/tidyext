@@ -47,75 +47,38 @@
 #'   only the indicator columns.
 #' @examples
 #' library(tidyext)
-#' d = data.frame(id = 1:4,
-#'                labs = c('A/B', 'B/C/D/E', 'A/E', 'D/E'))
-#' test = combn_2_col(data=d, var='labs', max_m=3)
+#'
+#' d = data.frame(id = 1:4, labs = c('A/B', 'B/C/D/E', 'A/E', 'D/E'))
+#' test = combn_2_col(data = d, var = 'labs', max_m = 3)
 #' test
 #' str(test)
+#'
 #' d$labs =  c('A B', 'B C D E', 'A E', 'D E')
-#' combn_2_col(data=d, var='labs', max_m=1)
+#' combn_2_col(data = d, var = 'labs', max_m = 1)
+#'
 #' d$labs =  c('Tom, Dick & Harriet', "J'Sean", "OBG, Andreas", NA)
-#' combn_2_col(data=d, var='labs', sep=',', max_m=2, collapse='-')
 #'
-#' \dontrun{
-#' # requires at least tidytext
-#' tidy_dtm <- function(data, var, sep='-', max_m=3) {
-#'   init = stringr::str_split(data[[var]], pattern = sep) # creates a list of separated letters
+#' combn_2_col(
+#' data = d,
+#' var = 'labs',
+#' sep = ',',
+#' max_m = 2,
+#' collapse = '-'
+#' )
 #'
-#'   # the following gets the combos with a dot separating drugs in a given combo
-#'   # this first lapply could be parallelized if need be and is probably slowest
-#'   # probably want to change to m = min(c(4, m)) so as to only limit to 4
-#'   # see also, combinat::combn which is slightly faster than base R below
-#'   observation_combos = init %>%
-#'     lapply(function(x)
-#'       sapply(seq_along(x), function(m)
-#'         utils::combn(x,  min(max_m, m), FUN=paste, collapse = '_')))
-#'
-#'   # now we have a standard text analysis problem in need of a document term
-#'   matrix
-#'   documents = observation_combos %>% lapply(unlist)
-#'
-#'   # create a 'tidy' form of documents and terms; each term (i.e. combo) only
-#'   occurs once in a document
-#'   doc_df = data.frame(id=rep(data$id, sapply(documents, length)),
-#'                       combos=unlist(documents),
-#'                       count=1)  # each term only occurs once in the document
-#'   doc_df %>%
-#'     tidytext::cast_dfm(document=id, term=combos, value=count)
-#'   }
-#'
-#' # requires at least text2vec
-#' ttv <- function(data, var, sep='-', max_m=3) {
-#'   docs = sapply(stringr::str_split(data[[var]], pattern=sep),
-#'                 function(str_vec)
-#'                   sapply(seq_along(str_vec),
-#'                          function(m)
-#'                            combn(str_vec,
-#'                                  m = min(max_m, m),
-#'                                  FUN = paste,
-#'                                  collapse = '_')
-#'                   ) %>% unlist()
-#'   )
-#'
-#'   toks = itoken(docs, progressbar = FALSE)
-#'   vocab = create_vocabulary(toks)
-#'   create_dtm(toks, vectorizer = vocab_vectorizer(vocab), progressbar = FALSE) %>%
-#'     as.matrix() %>%
-#'     cbind(data,.)
-#' }
-#'
-#' }
 #'
 #'
 #'
 #' @export
-combn_2_col <- function(data,
-                        var,
-                        sep='[^[:alnum:]]+',
-                        max_m=1,
-                        collapse = '_',
-                        toInteger=FALSE,
-                        sparse=FALSE) {
+combn_2_col <- function(
+  data,
+  var,
+  sep = '[^[:alnum:]]+',
+  max_m = 1,
+  collapse = '_',
+  toInteger = FALSE,
+  sparse = FALSE
+) {
 
   if (is.null(data) | is.null(var))
     stop('Need data and variable name to continue.')
@@ -123,16 +86,18 @@ combn_2_col <- function(data,
   if (max_m < 1) stop('Need positive value for max_m.')
 
   data$combo <-
-    map(stringr::str_split(data[[var]], pattern=sep),
-           function(str_vec)
-             map(seq_along(str_vec),
-                    function(m)
-                      combn(str_vec,
-                            m = min(max_m, m),
-                            FUN = paste,
-                            collapse = collapse)
-             ) %>% unlist()
+    map(stringr::str_split(data[[var]], pattern = sep),
+        function(str_vec)
+          map(seq_along(str_vec),
+              function(m)
+                combn(str_vec,
+                      m = min(max_m, m),
+                      FUN = paste,
+                      collapse = collapse)
+          ) %>%
+          unlist()
     )
+
   combo_cols <- unique(unlist(data$combo))
 
   if (sparse) {
@@ -142,7 +107,7 @@ combn_2_col <- function(data,
         do.call(rbind,.) %>%
         Matrix::Matrix(sparse = TRUE,
                        dimnames = list(rownames(data), combo_cols))
-      )
+    )
   }
 
   if (toInteger) {
@@ -156,6 +121,7 @@ combn_2_col <- function(data,
       map(function(x) combo_cols %in% x) %>%
       do.call(rbind,.)
   }
+
   data
 }
 

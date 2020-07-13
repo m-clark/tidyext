@@ -29,7 +29,6 @@
 #'
 #' @return A data frame with 'wide' format.
 #' @seealso \code{\link[tidyr]{spread}}
-#' @importFrom tibble rowid_to_column
 #' @examples
 #' \dontrun{
 #' library(tidyext); library(tidyr)
@@ -90,7 +89,7 @@ spread2 <- function(data,
   } else {
     data <- data %>%
       bind_cols(data %>%
-                  tibble::rowid_to_column() %>%
+                  mutate(rowid = 1:nrow(.)) %>%  # changed to get rid of tibble requirement while deprecated
                   select(rowid)
                 )
   }

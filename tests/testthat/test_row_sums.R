@@ -52,25 +52,49 @@ test_that('row_means returns a data frame', {
 })
 
 test_that('row_means returns correct values', {
-  expect_equal(d %>% row_means(x:z) %>% pull(mean), c(4, 5, 6))
+  expect_equal(d %>% row_means(x:z) %>% pull(mean), 4:6)
 })
 
 test_that('row_means handles NA', {
-  expect_equal(d %>% row_means(x:z, na_rm = TRUE) %>% pull(mean), c(4, 5, 6))
+  expect_equal(d %>% row_means(x:q, na_rm = TRUE) %>% pull(mean), 4:6)
 })
 
 test_that('row_means takes varname', {
-  expect_equal(d %>% row_means(x:z, varname = 'blah') %>% pull(blah),
-               c(4, 5, 6))
+  expect_equal(d %>% row_means(x:z, varname = 'blah') %>% pull(blah), 4:6)
 })
 
 
 test_that('row_means handles select helpers', {
-  expect_equal(d %>% row_means(dplyr::matches('x|z')) %>% pull(mean),
-               c(4, 5, 6))
+  expect_equal(d %>% row_means(dplyr::matches('x|z')) %>% pull(mean), 4:6)
 })
 
 
+# row_min_max -------------------------------------------------------------
+
+test_that('row_max returns a data frame', {
+  expect_s3_class(d %>% row_max(x:z), 'data.frame')
+  expect_s3_class(d %>% row_min(x:z), 'data.frame')
+})
+
+test_that('row_max returns correct values', {
+  expect_equal(d %>% row_max(x:z) %>% pull(max), 7:9)
+  expect_equal(d %>% row_min(x:z) %>% pull(min), 1:3)
+})
+
+test_that('row_max handles NA', {
+  expect_equal(d %>% row_max(x:q, na_rm = TRUE) %>% pull(max), 7:9)
+  expect_equal(d %>% row_min(x:q, na_rm = TRUE) %>% pull(min), 1:3)
+})
+
+test_that('row_max takes varname', {
+  expect_equal(d %>% row_max(x:z, varname = 'blah') %>% pull(blah), 7:9)
+  expect_equal(d %>% row_min(x:z, varname = 'blah') %>% pull(blah), 1:3)
+})
+
+test_that('row_max handles select helpers', {
+  expect_equal(d %>% row_max(dplyr::matches('x|z')) %>% pull(max), 7:9)
+  expect_equal(d %>% row_min(dplyr::matches('x|z')) %>% pull(min), 1:3)
+})
 
 
 # row_apply ---------------------------------------------------------------
@@ -83,7 +107,7 @@ test_that('row_apply returns a data frame', {
 })
 
 test_that('row_apply returns correct values', {
-  expect_equal(d %>% row_apply(x:z, .fun = fun_med) %>% pull(var), c(4, 5, 6))
+  expect_equal(d %>% row_apply(x:z, .fun = fun_med) %>% pull(var), 4:6)
 })
 
 test_that('row_apply returns correct values', {
@@ -95,7 +119,7 @@ test_that('row_means takes varname', {
   expect_equal(d %>%
                  row_apply(x:z, .fun = fun_med, varname = 'blah') %>%
                  pull(blah),
-               c(4, 5, 6))
+               4:6)
 })
 
 
@@ -103,5 +127,5 @@ test_that('row_means handles select helpers', {
   expect_equal(d %>%
                  row_apply(dplyr::matches('x|z'), .fun = fun_med) %>%
                  pull(var),
-               c(4, 5, 6))
+               4:6)
 })

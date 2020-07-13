@@ -33,14 +33,17 @@
 #'   them.
 #' @importFrom scales rescale
 #' @return A data frame that has been processed
-#' @export
 #'
 #' @examples
 #' library(tidyext)
+#' library(dplyr)
+#'
 #' pre_process(mtcars)
-#' pre_process(mtcars, log_vars=vars(mpg, wt))
-#' pre_process(mtcars, zero_start=vars(cyl, gear))
-#' pre_process(mtcars, zero_one=vars(mpg))
+#' pre_process(mtcars, log_vars = vars(mpg, wt))
+#' pre_process(mtcars, zero_start = vars(cyl, gear))
+#' pre_process(mtcars, zero_one = vars(mpg))
+#'
+#' @export
 pre_process <- function(
   data,
   std = TRUE,

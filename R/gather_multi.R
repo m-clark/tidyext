@@ -132,7 +132,7 @@ gather_multi <- function(data,
                   na.rm = na.rm,
                   convert = convert,
                   factor_key = factor_key) %>%
-    rowid_to_column()
+    mutate(rowid = 1:nrow(.)) %>%  # changed to get rid of tibble requirement while deprecated
 
   for (i in 2:length(varlist)) {
     data_long <- data %>%
@@ -144,7 +144,7 @@ gather_multi <- function(data,
                     na.rm = na.rm,
                     convert = convert,
                     factor_key = factor_key) %>%
-      rowid_to_column()%>%
+      mutate(rowid = 1:nrow(.)) %>%  # changed to get rid of tibble requirement while deprecated
       select(rowid, !!values[[i]]) %>%
       left_join(data_long, ., by='rowid')
   }
